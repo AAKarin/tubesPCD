@@ -8,6 +8,11 @@ namespace MiniPhotoshop
         public Form1()
         {
             InitializeComponent();
+
+            // Tambahkan event handler untuk tombol Show Red, Green, Blue
+            button5.Click += (s, e) => ShowOnlyColorChannel(0); // Red
+            button6.Click += (s, e) => ShowOnlyColorChannel(1); // Green
+            button7.Click += (s, e) => ShowOnlyColorChannel(2); // Blue
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -148,5 +153,31 @@ namespace MiniPhotoshop
 
             return bmp;
         }
+
+        private void ShowOnlyColorChannel(int channel)
+        {
+            if (imageData3D == null)
+                return;
+
+            int width = imageData3D.GetLength(0);
+            int height = imageData3D.GetLength(1);
+
+            Bitmap bmp = new Bitmap(width, height);
+
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    int r = (channel == 0) ? imageData3D[x, y, 0] : 0;
+                    int g = (channel == 1) ? imageData3D[x, y, 1] : 0;
+                    int b = (channel == 2) ? imageData3D[x, y, 2] : 0;
+
+                    bmp.SetPixel(x, y, Color.FromArgb(r, g, b));
+                }
+            }
+
+            pictureBox1.Image = bmp;
+        }
+
     }
 }

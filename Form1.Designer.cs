@@ -39,6 +39,9 @@
             button2 = new Button();
             button1 = new Button();
             pictureBox1 = new PictureBox();
+            button5 = new Button();
+            button6 = new Button();
+            button7 = new Button();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
@@ -67,19 +70,19 @@
             // openToolStripMenuItem
             // 
             openToolStripMenuItem.Name = "openToolStripMenuItem";
-            openToolStripMenuItem.Size = new Size(224, 26);
+            openToolStripMenuItem.Size = new Size(128, 26);
             openToolStripMenuItem.Text = "Open";
             // 
             // saveToolStripMenuItem
             // 
             saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            saveToolStripMenuItem.Size = new Size(224, 26);
+            saveToolStripMenuItem.Size = new Size(128, 26);
             saveToolStripMenuItem.Text = "Save";
             // 
             // newToolStripMenuItem
             // 
             newToolStripMenuItem.Name = "newToolStripMenuItem";
-            newToolStripMenuItem.Size = new Size(224, 26);
+            newToolStripMenuItem.Size = new Size(128, 26);
             newToolStripMenuItem.Text = "New";
             // 
             // splitContainer1
@@ -90,6 +93,9 @@
             // 
             // splitContainer1.Panel1
             // 
+            splitContainer1.Panel1.Controls.Add(button7);
+            splitContainer1.Panel1.Controls.Add(button6);
+            splitContainer1.Panel1.Controls.Add(button5);
             splitContainer1.Panel1.Controls.Add(button4);
             splitContainer1.Panel1.Controls.Add(button3);
             splitContainer1.Panel1.Controls.Add(button2);
@@ -150,6 +156,33 @@
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
+            // button5
+            // 
+            button5.Location = new Point(22, 176);
+            button5.Name = "button5";
+            button5.Size = new Size(111, 29);
+            button5.TabIndex = 4;
+            button5.Text = "Show Red";
+            button5.UseVisualStyleBackColor = true;
+            // 
+            // button6
+            // 
+            button6.Location = new Point(22, 211);
+            button6.Name = "button6";
+            button6.Size = new Size(111, 29);
+            button6.TabIndex = 5;
+            button6.Text = "Show Green";
+            button6.UseVisualStyleBackColor = true;
+            // 
+            // button7
+            // 
+            button7.Location = new Point(22, 246);
+            button7.Name = "button7";
+            button7.Size = new Size(111, 29);
+            button7.TabIndex = 6;
+            button7.Text = "Show Blue";
+            button7.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -184,5 +217,8 @@
         private Button button2;
         private Button button4;
         private Button button3;
+        private Button button7;
+        private Button button6;
+        private Button button5;
     }
 }
