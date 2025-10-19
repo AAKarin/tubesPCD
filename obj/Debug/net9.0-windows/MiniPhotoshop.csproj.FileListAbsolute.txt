@@ -14,3 +14,4 @@ D:\PCD_TUBES\MiniPhotoshop\MiniPhotoshop\obj\Debug\net9.0-windows\refint\MiniPho
 D:\PCD_TUBES\MiniPhotoshop\MiniPhotoshop\obj\Debug\net9.0-windows\MiniPhotoshop.pdb
 D:\PCD_TUBES\MiniPhotoshop\MiniPhotoshop\obj\Debug\net9.0-windows\MiniPhotoshop.genruntimeconfig.cache
 D:\PCD_TUBES\MiniPhotoshop\MiniPhotoshop\obj\Debug\net9.0-windows\ref\MiniPhotoshop.dll
+D:\PCD_TUBES\MiniPhotoshop\MiniPhotoshop\obj\Debug\net9.0-windows\MiniPhotoshop.sourcelink.json
