@@ -38,6 +38,7 @@ namespace MiniPhotoshop
 
             // event handler tombol negasi citra
             this.button10.Click += new System.EventHandler(this.btnNegation_Click);
+            this.trackBarBlackWhite.Scroll += new System.EventHandler(this.trackBarBlackWhite_Scroll);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -93,7 +94,7 @@ namespace MiniPhotoshop
         }
         private void buttonRestore_Click(Object sender, EventArgs e)
         {
-            if(originalImage != null)
+            if (originalImage != null)
             {
                 pictureBox1.Image = (Bitmap)originalImage.Clone();
 
@@ -132,14 +133,14 @@ namespace MiniPhotoshop
         {
             if (originalImage == null)
             {
-                MessageBox.Show("Silakan muat gambar terlebih dahulu.", "Info",MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Silakan muat gambar terlebih dahulu.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
             isColorSelectionMode = true;
             pictureBox1.Cursor = Cursors.Cross;
 
-            MessageBox.Show("Mode Seleksi Warna Aktif. \nKlik pada warna di gambar untuk menyeleksinya.","Mode Aktif", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Mode Seleksi Warna Aktif. \nKlik pada warna di gambar untuk menyeleksinya.", "Mode Aktif", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void pictureBox1_MouseClick(object sender, MouseEventArgs e)
@@ -174,6 +175,33 @@ namespace MiniPhotoshop
             Bitmap currentImage = new Bitmap(pictureBox1.Image);
             Bitmap resultImage = ImageNegation.Apply(currentImage);
             pictureBox1.Image = resultImage;
+        }
+
+        private void trackBarBlackWhite_Scroll(object sender, EventArgs e)
+        {
+            if (originalImage == null) return;
+            // 1. Ambil nilai langkah (0-4)
+            int step = trackBarBlackWhite.Value;
+            // 2. Perbarui label
+            string labelText = "Threshold: ";
+            switch (step)
+            {
+                case 0: labelText += "Darkest (50)"; break;
+                case 1: labelText += "Dark (100)"; break;
+                case 2: labelText += "Normal (127)"; break;
+                case 3: labelText += "Light (150)"; break;
+                case 4: labelText += "Lightest (200)"; break;
+            }
+            trackBarBlackWhite.Text = labelText;
+            // 3. Panggil Logika (selalu gunakan gambar ASLI sebagai sumber)
+            Bitmap resultImage = BlackWhite.ApplyBinarization(originalImage, step);
+            // 4. Tampilkan hasilnya
+            pictureBox1.Image = resultImage;
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

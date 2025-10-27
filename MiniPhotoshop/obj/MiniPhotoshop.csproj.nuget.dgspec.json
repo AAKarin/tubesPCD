@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\PCD_TUBES\\MiniPhotoshop\\MiniPhotoshop\\MiniPhotoshop.csproj": {}
+    "C:\\Kuliah\\Semester5\\Pengolahan-Citra-Digital\\Tubes\\tubesPCD\\MiniPhotoshop\\MiniPhotoshop.csproj": {}
   },
   "projects": {
-    "D:\\PCD_TUBES\\MiniPhotoshop\\MiniPhotoshop\\MiniPhotoshop.csproj": {
+    "C:\\Kuliah\\Semester5\\Pengolahan-Citra-Digital\\Tubes\\tubesPCD\\MiniPhotoshop\\MiniPhotoshop.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\PCD_TUBES\\MiniPhotoshop\\MiniPhotoshop\\MiniPhotoshop.csproj",
+        "projectUniqueName": "C:\\Kuliah\\Semester5\\Pengolahan-Citra-Digital\\Tubes\\tubesPCD\\MiniPhotoshop\\MiniPhotoshop.csproj",
         "projectName": "MiniPhotoshop",
-        "projectPath": "D:\\PCD_TUBES\\MiniPhotoshop\\MiniPhotoshop\\MiniPhotoshop.csproj",
-        "packagesPath": "C:\\Users\\yusro\\.nuget\\packages\\",
-        "outputPath": "D:\\PCD_TUBES\\MiniPhotoshop\\MiniPhotoshop\\obj\\",
+        "projectPath": "C:\\Kuliah\\Semester5\\Pengolahan-Citra-Digital\\Tubes\\tubesPCD\\MiniPhotoshop\\MiniPhotoshop.csproj",
+        "packagesPath": "C:\\Users\\Arya Wijaya\\.nuget\\packages\\",
+        "outputPath": "C:\\Kuliah\\Semester5\\Pengolahan-Citra-Digital\\Tubes\\tubesPCD\\MiniPhotoshop\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "D:\\UniTY\\VS_Installer_ToolsSDK\\NuGetPackages"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\yusro\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Arya Wijaya\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -69,7 +69,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
