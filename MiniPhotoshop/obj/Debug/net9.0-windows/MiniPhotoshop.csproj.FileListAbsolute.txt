@@ -1,0 +1,17 @@
+D:\PCD_TUBES\MiniPhotoshop\MiniPhotoshop\bin\Debug\net9.0-windows\MiniPhotoshop.exe
+D:\PCD_TUBES\MiniPhotoshop\MiniPhotoshop\bin\Debug\net9.0-windows\MiniPhotoshop.deps.json
+D:\PCD_TUBES\MiniPhotoshop\MiniPhotoshop\bin\Debug\net9.0-windows\MiniPhotoshop.runtimeconfig.json
+D:\PCD_TUBES\MiniPhotoshop\MiniPhotoshop\bin\Debug\net9.0-windows\MiniPhotoshop.dll
+D:\PCD_TUBES\MiniPhotoshop\MiniPhotoshop\bin\Debug\net9.0-windows\MiniPhotoshop.pdb
+D:\PCD_TUBES\MiniPhotoshop\MiniPhotoshop\obj\Debug\net9.0-windows\MiniPhotoshop.Form1.resources
+D:\PCD_TUBES\MiniPhotoshop\MiniPhotoshop\obj\Debug\net9.0-windows\MiniPhotoshop.csproj.GenerateResource.cache
+D:\PCD_TUBES\MiniPhotoshop\MiniPhotoshop\obj\Debug\net9.0-windows\MiniPhotoshop.GeneratedMSBuildEditorConfig.editorconfig
+D:\PCD_TUBES\MiniPhotoshop\MiniPhotoshop\obj\Debug\net9.0-windows\MiniPhotoshop.AssemblyInfoInputs.cache
+D:\PCD_TUBES\MiniPhotoshop\MiniPhotoshop\obj\Debug\net9.0-windows\MiniPhotoshop.AssemblyInfo.cs
+D:\PCD_TUBES\MiniPhotoshop\MiniPhotoshop\obj\Debug\net9.0-windows\MiniPhotoshop.csproj.CoreCompileInputs.cache
+D:\PCD_TUBES\MiniPhotoshop\MiniPhotoshop\obj\Debug\net9.0-windows\MiniPhotoshop.dll
+D:\PCD_TUBES\MiniPhotoshop\MiniPhotoshop\obj\Debug\net9.0-windows\refint\MiniPhotoshop.dll
+D:\PCD_TUBES\MiniPhotoshop\MiniPhotoshop\obj\Debug\net9.0-windows\MiniPhotoshop.pdb
+D:\PCD_TUBES\MiniPhotoshop\MiniPhotoshop\obj\Debug\net9.0-windows\MiniPhotoshop.genruntimeconfig.cache
+D:\PCD_TUBES\MiniPhotoshop\MiniPhotoshop\obj\Debug\net9.0-windows\ref\MiniPhotoshop.dll
+D:\PCD_TUBES\MiniPhotoshop\MiniPhotoshop\obj\Debug\net9.0-windows\MiniPhotoshop.sourcelink.json
