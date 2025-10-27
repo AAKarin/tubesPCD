@@ -35,6 +35,7 @@
             histogramBToolStripMenuItem = new ToolStripMenuItem();
             histogramGrToolStripMenuItem = new ToolStripMenuItem();
             splitContainer1 = new SplitContainer();
+            trackBarBlackWhite = new TrackBar();
             button10 = new Button();
             button8 = new Button();
             button7 = new Button();
@@ -46,11 +47,13 @@
             button1 = new Button();
             pictureBoxHistogram = new PictureBox();
             pictureBox1 = new PictureBox();
+            label1 = new Label();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
             splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)trackBarBlackWhite).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxHistogram).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
@@ -104,6 +107,8 @@
             // 
             // splitContainer1.Panel1
             // 
+            splitContainer1.Panel1.Controls.Add(label1);
+            splitContainer1.Panel1.Controls.Add(trackBarBlackWhite);
             splitContainer1.Panel1.Controls.Add(button10);
             splitContainer1.Panel1.Controls.Add(button8);
             splitContainer1.Panel1.Controls.Add(button7);
@@ -121,6 +126,16 @@
             splitContainer1.Size = new Size(1280, 692);
             splitContainer1.SplitterDistance = 267;
             splitContainer1.TabIndex = 1;
+            // 
+            // trackBarBlackWhite
+            // 
+            trackBarBlackWhite.Location = new Point(22, 377);
+            trackBarBlackWhite.Maximum = 4;
+            trackBarBlackWhite.Name = "trackBarBlackWhite";
+            trackBarBlackWhite.Size = new Size(205, 56);
+            trackBarBlackWhite.TabIndex = 10;
+            trackBarBlackWhite.Value = 2;
+            trackBarBlackWhite.Scroll += trackBarBlackWhite_Scroll;
             // 
             // button10
             // 
@@ -188,7 +203,7 @@
             // 
             // button2
             // 
-            button2.Location = new Point(76, 366);
+            button2.Location = new Point(63, 560);
             button2.Name = "button2";
             button2.Size = new Size(111, 29);
             button2.TabIndex = 1;
@@ -222,6 +237,16 @@
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(83, 354);
+            label1.Name = "label1";
+            label1.Size = new Size(91, 20);
+            label1.TabIndex = 2;
+            label1.Text = "Black & White";
+            label1.Click += label1_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -235,9 +260,11 @@
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             splitContainer1.Panel1.ResumeLayout(false);
+            splitContainer1.Panel1.PerformLayout();
             splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
             splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)trackBarBlackWhite).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxHistogram).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
@@ -264,5 +291,7 @@
         private PictureBox pictureBoxHistogram;
         private Button button8;
         private Button button10;
+        private TrackBar trackBarBlackWhite;
+        private Label label1;
     }
 }
