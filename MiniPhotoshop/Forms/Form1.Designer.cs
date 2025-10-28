@@ -35,6 +35,8 @@
             histogramBToolStripMenuItem = new ToolStripMenuItem();
             histogramGrToolStripMenuItem = new ToolStripMenuItem();
             splitContainer1 = new SplitContainer();
+            lblBrightnessValue = new Label();
+            trackBarBrightness = new TrackBar();
             button10 = new Button();
             button8 = new Button();
             button7 = new Button();
@@ -51,6 +53,7 @@
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
             splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)trackBarBrightness).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxHistogram).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
@@ -104,6 +107,8 @@
             // 
             // splitContainer1.Panel1
             // 
+            splitContainer1.Panel1.Controls.Add(lblBrightnessValue);
+            splitContainer1.Panel1.Controls.Add(trackBarBrightness);
             splitContainer1.Panel1.Controls.Add(button10);
             splitContainer1.Panel1.Controls.Add(button8);
             splitContainer1.Panel1.Controls.Add(button7);
@@ -121,6 +126,25 @@
             splitContainer1.Size = new Size(1280, 692);
             splitContainer1.SplitterDistance = 267;
             splitContainer1.TabIndex = 1;
+            // 
+            // lblBrightnessValue
+            // 
+            lblBrightnessValue.AutoSize = true;
+            lblBrightnessValue.Location = new Point(86, 425);
+            lblBrightnessValue.Name = "lblBrightnessValue";
+            lblBrightnessValue.Size = new Size(92, 20);
+            lblBrightnessValue.TabIndex = 11;
+            lblBrightnessValue.Text = "Brightness: 0";
+            // 
+            // trackBarBrightness
+            // 
+            trackBarBrightness.Location = new Point(76, 448);
+            trackBarBrightness.Maximum = 255;
+            trackBarBrightness.Minimum = -255;
+            trackBarBrightness.Name = "trackBarBrightness";
+            trackBarBrightness.Size = new Size(111, 56);
+            trackBarBrightness.TabIndex = 10;
+            trackBarBrightness.TickFrequency = 25;
             // 
             // button10
             // 
@@ -235,9 +259,11 @@
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             splitContainer1.Panel1.ResumeLayout(false);
+            splitContainer1.Panel1.PerformLayout();
             splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
             splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)trackBarBrightness).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxHistogram).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
@@ -264,5 +290,7 @@
         private PictureBox pictureBoxHistogram;
         private Button button8;
         private Button button10;
+        private Label lblBrightnessValue;
+        private TrackBar trackBarBrightness;
     }
 }

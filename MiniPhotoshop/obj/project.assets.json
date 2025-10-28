@@ -8,23 +8,23 @@
     "net9.0-windows7.0": []
   },
   "packageFolders": {
-    "C:\\Users\\yusro\\.nuget\\packages\\": {},
-    "D:\\UniTY\\VS_Installer_ToolsSDK\\NuGetPackages": {}
+    "C:\\Users\\LENOVO\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\PCD_TUBES\\MiniPhotoshop\\MiniPhotoshop\\MiniPhotoshop.csproj",
+      "projectUniqueName": "C:\\Users\\LENOVO\\OneDrive\\Documents\\SEMESTER 5\\PENGOLAHAN CITRA DIGITAL\\tubesPCD\\MiniPhotoshop\\MiniPhotoshop.csproj",
       "projectName": "MiniPhotoshop",
-      "projectPath": "D:\\PCD_TUBES\\MiniPhotoshop\\MiniPhotoshop\\MiniPhotoshop.csproj",
-      "packagesPath": "C:\\Users\\yusro\\.nuget\\packages\\",
-      "outputPath": "D:\\PCD_TUBES\\MiniPhotoshop\\MiniPhotoshop\\obj\\",
+      "projectPath": "C:\\Users\\LENOVO\\OneDrive\\Documents\\SEMESTER 5\\PENGOLAHAN CITRA DIGITAL\\tubesPCD\\MiniPhotoshop\\MiniPhotoshop.csproj",
+      "packagesPath": "C:\\Users\\LENOVO\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\LENOVO\\OneDrive\\Documents\\SEMESTER 5\\PENGOLAHAN CITRA DIGITAL\\tubesPCD\\MiniPhotoshop\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "D:\\UniTY\\VS_Installer_ToolsSDK\\NuGetPackages"
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\yusro\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\LENOVO\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -76,7 +76,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
