@@ -12,8 +12,13 @@
       }
     ],
     "additionalProbingPaths": [
+<<<<<<< HEAD
       "C:\\Users\\LENOVO\\.dotnet\\store\\|arch|\\|tfm|",
       "C:\\Users\\LENOVO\\.nuget\\packages",
+=======
+      "C:\\Users\\Arya Wijaya\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\Arya Wijaya\\.nuget\\packages",
+>>>>>>> ab13c47b75d26be78a7e4cddac26ea37e757b133
       "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
     ],
     "configProperties": {

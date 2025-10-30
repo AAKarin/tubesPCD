@@ -8,23 +8,39 @@
     "net9.0-windows7.0": []
   },
   "packageFolders": {
+<<<<<<< HEAD
     "C:\\Users\\LENOVO\\.nuget\\packages\\": {},
+=======
+    "C:\\Users\\Arya Wijaya\\.nuget\\packages\\": {},
+>>>>>>> ab13c47b75d26be78a7e4cddac26ea37e757b133
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
       "projectUniqueName": "C:\\Users\\LENOVO\\OneDrive\\Documents\\SEMESTER 5\\PENGOLAHAN CITRA DIGITAL\\tubesPCD\\MiniPhotoshop\\MiniPhotoshop.csproj",
       "projectName": "MiniPhotoshop",
       "projectPath": "C:\\Users\\LENOVO\\OneDrive\\Documents\\SEMESTER 5\\PENGOLAHAN CITRA DIGITAL\\tubesPCD\\MiniPhotoshop\\MiniPhotoshop.csproj",
       "packagesPath": "C:\\Users\\LENOVO\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\LENOVO\\OneDrive\\Documents\\SEMESTER 5\\PENGOLAHAN CITRA DIGITAL\\tubesPCD\\MiniPhotoshop\\obj\\",
+=======
+      "projectUniqueName": "C:\\Kuliah\\Semester5\\Pengolahan-Citra-Digital\\Tubes\\tubesPCD\\MiniPhotoshop\\MiniPhotoshop.csproj",
+      "projectName": "MiniPhotoshop",
+      "projectPath": "C:\\Kuliah\\Semester5\\Pengolahan-Citra-Digital\\Tubes\\tubesPCD\\MiniPhotoshop\\MiniPhotoshop.csproj",
+      "packagesPath": "C:\\Users\\Arya Wijaya\\.nuget\\packages\\",
+      "outputPath": "C:\\Kuliah\\Semester5\\Pengolahan-Citra-Digital\\Tubes\\tubesPCD\\MiniPhotoshop\\obj\\",
+>>>>>>> ab13c47b75d26be78a7e4cddac26ea37e757b133
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
+<<<<<<< HEAD
         "C:\\Users\\LENOVO\\AppData\\Roaming\\NuGet\\NuGet.Config",
+=======
+        "C:\\Users\\Arya Wijaya\\AppData\\Roaming\\NuGet\\NuGet.Config",
+>>>>>>> ab13c47b75d26be78a7e4cddac26ea37e757b133
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
