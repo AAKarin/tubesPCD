@@ -35,6 +35,9 @@
             histogramBToolStripMenuItem = new ToolStripMenuItem();
             histogramGrToolStripMenuItem = new ToolStripMenuItem();
             splitContainer1 = new SplitContainer();
+            lblBrightnessValue = new Label();
+            trackBarBrightness = new TrackBar();
+            label1 = new Label();
             trackBarBlackWhite = new TrackBar();
             button10 = new Button();
             button8 = new Button();
@@ -47,12 +50,12 @@
             button1 = new Button();
             pictureBoxHistogram = new PictureBox();
             pictureBox1 = new PictureBox();
-            label1 = new Label();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
             splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)trackBarBrightness).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trackBarBlackWhite).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxHistogram).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -60,6 +63,7 @@
             // 
             // menuStrip1
             // 
+            menuStrip1.BackColor = SystemColors.ButtonHighlight;
             menuStrip1.ImageScalingSize = new Size(20, 20);
             menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
@@ -107,6 +111,8 @@
             // 
             // splitContainer1.Panel1
             // 
+            splitContainer1.Panel1.Controls.Add(lblBrightnessValue);
+            splitContainer1.Panel1.Controls.Add(trackBarBrightness);
             splitContainer1.Panel1.Controls.Add(label1);
             splitContainer1.Panel1.Controls.Add(trackBarBlackWhite);
             splitContainer1.Panel1.Controls.Add(button10);
@@ -126,6 +132,34 @@
             splitContainer1.Size = new Size(1280, 692);
             splitContainer1.SplitterDistance = 267;
             splitContainer1.TabIndex = 1;
+            // 
+            // lblBrightnessValue
+            // 
+            lblBrightnessValue.AutoSize = true;
+            lblBrightnessValue.Location = new Point(83, 436);
+            lblBrightnessValue.Name = "lblBrightnessValue";
+            lblBrightnessValue.Size = new Size(77, 20);
+            lblBrightnessValue.TabIndex = 12;
+            lblBrightnessValue.Text = "Brightness";
+            // 
+            // trackBarBrightness
+            // 
+            trackBarBrightness.Location = new Point(22, 460);
+            trackBarBrightness.Maximum = 255;
+            trackBarBrightness.Minimum = -255;
+            trackBarBrightness.Name = "trackBarBrightness";
+            trackBarBrightness.Size = new Size(205, 56);
+            trackBarBrightness.TabIndex = 11;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(83, 354);
+            label1.Name = "label1";
+            label1.Size = new Size(91, 20);
+            label1.TabIndex = 2;
+            label1.Text = "Black & White";
+            label1.Click += label1_Click;
             // 
             // trackBarBlackWhite
             // 
@@ -223,7 +257,8 @@
             // 
             // pictureBoxHistogram
             // 
-            pictureBoxHistogram.Location = new Point(520, 20);
+            pictureBoxHistogram.BorderStyle = BorderStyle.FixedSingle;
+            pictureBoxHistogram.Location = new Point(510, 20);
             pictureBoxHistogram.Name = "pictureBoxHistogram";
             pictureBoxHistogram.Size = new Size(477, 375);
             pictureBoxHistogram.TabIndex = 1;
@@ -231,21 +266,12 @@
             // 
             // pictureBox1
             // 
+            pictureBox1.BorderStyle = BorderStyle.FixedSingle;
             pictureBox1.Location = new Point(17, 20);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(477, 375);
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(83, 354);
-            label1.Name = "label1";
-            label1.Size = new Size(91, 20);
-            label1.TabIndex = 2;
-            label1.Text = "Black & White";
-            label1.Click += label1_Click;
             // 
             // Form1
             // 
@@ -264,6 +290,7 @@
             splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
             splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)trackBarBrightness).EndInit();
             ((System.ComponentModel.ISupportInitialize)trackBarBlackWhite).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxHistogram).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
@@ -293,5 +320,7 @@
         private Button button10;
         private TrackBar trackBarBlackWhite;
         private Label label1;
+        private TrackBar trackBarBrightness;
+        private Label lblBrightnessValue;
     }
 }

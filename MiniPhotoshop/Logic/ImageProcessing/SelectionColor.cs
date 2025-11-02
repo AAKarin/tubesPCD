@@ -8,17 +8,12 @@ namespace MiniPhotoshop.Logic.ImageProcessing
     {
         public static Bitmap ApplySelection(Bitmap originalImage, Color selectedColor)
         {
-            Bitmap resultImage = new Bitmap(originalImage.Width, originalImage.Height,
-                                            originalImage.PixelFormat);
+            Bitmap resultImage = new Bitmap(originalImage.Width, originalImage.Height,originalImage.PixelFormat);
             int targetArgb = selectedColor.ToArgb();
             Rectangle rect = new Rectangle(0, 0, originalImage.Width, originalImage.Height);
 
-            // Kunci gambar asli (ReadOnly)
-            BitmapData originalData = originalImage.LockBits(rect, ImageLockMode.ReadOnly,
-                                                            originalImage.PixelFormat);
-            // Kunci gambar hasil (WriteOnly)
-            BitmapData resultData = resultImage.LockBits(rect, ImageLockMode.WriteOnly,
-                                                        resultImage.PixelFormat);
+            BitmapData originalData = originalImage.LockBits(rect, ImageLockMode.ReadOnly,originalImage.PixelFormat);
+            BitmapData resultData = resultImage.LockBits(rect, ImageLockMode.WriteOnly,resultImage.PixelFormat);
 
             IntPtr ptrAsli = originalData.Scan0;
             IntPtr ptrHasil = resultData.Scan0;
@@ -27,7 +22,6 @@ namespace MiniPhotoshop.Logic.ImageProcessing
             byte[] rgbAsli = new byte[bytes];
             byte[] rgbHasil = new byte[bytes];
 
-            // Salin data asli ke array
             Marshal.Copy(ptrAsli, rgbAsli, 0, bytes);
 
             int bytesPerPixel = Image.GetPixelFormatSize(originalImage.PixelFormat) / 8;
@@ -49,7 +43,6 @@ namespace MiniPhotoshop.Logic.ImageProcessing
 
                     if (currentArgb == targetArgb)
                     {
-                        // Salin warna asli
                         rgbHasil[i] = b;
                         rgbHasil[i + 1] = g;
                         rgbHasil[i + 2] = r;
@@ -57,7 +50,6 @@ namespace MiniPhotoshop.Logic.ImageProcessing
                     }
                     else
                     {
-                        // Jadi putih
                         rgbHasil[i] = 255;
                         rgbHasil[i + 1] = 255;
                         rgbHasil[i + 2] = 255;
@@ -66,7 +58,6 @@ namespace MiniPhotoshop.Logic.ImageProcessing
                 }
             }
 
-            // Salin array hasil ke gambar hasil
             Marshal.Copy(rgbHasil, 0, ptrHasil, bytes);
 
             originalImage.UnlockBits(originalData);

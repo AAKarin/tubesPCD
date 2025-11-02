@@ -8,17 +8,15 @@ namespace MiniPhotoshop.Logic.ImageProcessing
     {
         public static Bitmap Apply(Bitmap currentImage)
         {
-            Bitmap resultImage = new Bitmap(currentImage); // Buat salinan
+            Bitmap resultImage = new Bitmap(currentImage); 
             Rectangle rect = new Rectangle(0, 0, resultImage.Width, resultImage.Height);
 
-            BitmapData bmpData = resultImage.LockBits(rect, ImageLockMode.ReadWrite,
-                                                    resultImage.PixelFormat);
+            BitmapData bmpData = resultImage.LockBits(rect, ImageLockMode.ReadWrite,resultImage.PixelFormat);
 
             IntPtr ptr = bmpData.Scan0;
             int bytes = Math.Abs(bmpData.Stride) * resultImage.Height;
             byte[] rgbValues = new byte[bytes];
 
-            // Salin data ke array
             Marshal.Copy(ptr, rgbValues, 0, bytes);
 
             int bytesPerPixel = Image.GetPixelFormatSize(resultImage.PixelFormat) / 8;
@@ -31,14 +29,12 @@ namespace MiniPhotoshop.Logic.ImageProcessing
                 {
                     int i = rowOffset + (x * bytesPerPixel);
 
-                    // Logika Negasi (jangan sentuh Alpha/kanal ke-4)
-                    rgbValues[i] = (byte)(255 - rgbValues[i]);     // Blue
-                    rgbValues[i + 1] = (byte)(255 - rgbValues[i + 1]); // Green
-                    rgbValues[i + 2] = (byte)(255 - rgbValues[i + 2]); // Red
+                    rgbValues[i] = (byte)(255 - rgbValues[i]);     
+                    rgbValues[i + 1] = (byte)(255 - rgbValues[i + 1]); 
+                    rgbValues[i + 2] = (byte)(255 - rgbValues[i + 2]); 
                 }
             }
 
-            // Kembalikan data ke gambar
             Marshal.Copy(rgbValues, 0, ptr, bytes);
             resultImage.UnlockBits(bmpData);
 

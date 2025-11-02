@@ -38,7 +38,13 @@ namespace MiniPhotoshop
 
             // event handler tombol negasi citra
             this.button10.Click += new System.EventHandler(this.btnNegation_Click);
+
+            // event handler trackbar black & white
             this.trackBarBlackWhite.Scroll += new System.EventHandler(this.trackBarBlackWhite_Scroll);
+
+            // event handler trackbar brightness
+            this.trackBarBrightness.Scroll += new
+            System.EventHandler(this.trackBarBrightness_Scroll);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -59,6 +65,9 @@ namespace MiniPhotoshop
 
                     isColorSelectionMode = false;
                     pictureBox1.Cursor = Cursors.Default;
+
+                    trackBarBrightness.Value = 0;
+                    lblBrightnessValue.Text = "Brightness: 0";
                 }
             }
         }
@@ -100,6 +109,11 @@ namespace MiniPhotoshop
 
                 isColorSelectionMode = false;
                 pictureBox1.Cursor = Cursors.Default;
+
+                trackBarBrightness.Value = 0;
+                lblBrightnessValue.Text = "Brightness: 0";
+
+                trackBarBlackWhite.Value = 2;
             }
         }
 
@@ -202,6 +216,19 @@ namespace MiniPhotoshop
         private void label1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void trackBarBrightness_Scroll(object sender, EventArgs e)
+        {
+            if (originalImage == null)
+            {
+                return;
+            }
+
+            int adjustment = trackBarBrightness.Value;
+            lblBrightnessValue.Text = "Brightness: " + adjustment.ToString();
+            Bitmap resultImage = Brightness.AdjustBrightness(originalImage, adjustment);
+            pictureBox1.Image = resultImage;
         }
     }
 }
