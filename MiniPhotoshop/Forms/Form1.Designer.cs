@@ -48,9 +48,9 @@
             button3 = new Button();
             button2 = new Button();
             button1 = new Button();
-            pictureBox5 = new PictureBox();
-            pictureBox4 = new PictureBox();
-            pictureBox3 = new PictureBox();
+            thumbPictureBox4 = new PictureBox();
+            thumbPictureBox3 = new PictureBox();
+            thumbPictureBox2 = new PictureBox();
             thumbPictureBox1 = new PictureBox();
             pictureBoxHistogram = new PictureBox();
             pictureBox1 = new PictureBox();
@@ -61,9 +61,9 @@
             splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)trackBarBrightness).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trackBarBlackWhite).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)thumbPictureBox4).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)thumbPictureBox3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)thumbPictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)thumbPictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxHistogram).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -135,9 +135,9 @@
             // 
             // splitContainer1.Panel2
             // 
-            splitContainer1.Panel2.Controls.Add(pictureBox5);
-            splitContainer1.Panel2.Controls.Add(pictureBox4);
-            splitContainer1.Panel2.Controls.Add(pictureBox3);
+            splitContainer1.Panel2.Controls.Add(thumbPictureBox4);
+            splitContainer1.Panel2.Controls.Add(thumbPictureBox3);
+            splitContainer1.Panel2.Controls.Add(thumbPictureBox2);
             splitContainer1.Panel2.Controls.Add(thumbPictureBox1);
             splitContainer1.Panel2.Controls.Add(pictureBoxHistogram);
             splitContainer1.Panel2.Controls.Add(pictureBox1);
@@ -266,46 +266,49 @@
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
-            // pictureBox5
+            // thumbPictureBox4
             // 
-            pictureBox5.BorderStyle = BorderStyle.FixedSingle;
-            pictureBox5.Location = new Point(761, 509);
-            pictureBox5.Name = "pictureBox5";
-            pictureBox5.Size = new Size(226, 145);
-            pictureBox5.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox5.TabIndex = 5;
-            pictureBox5.TabStop = false;
+            thumbPictureBox4.AllowDrop = true;
+            thumbPictureBox4.BorderStyle = BorderStyle.FixedSingle;
+            thumbPictureBox4.Location = new Point(761, 509);
+            thumbPictureBox4.Name = "thumbPictureBox4";
+            thumbPictureBox4.Size = new Size(226, 145);
+            thumbPictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            thumbPictureBox4.TabIndex = 5;
+            thumbPictureBox4.TabStop = false;
             // 
-            // pictureBox4
+            // thumbPictureBox3
             // 
-            pictureBox4.BorderStyle = BorderStyle.FixedSingle;
-            pictureBox4.Location = new Point(515, 509);
-            pictureBox4.Name = "pictureBox4";
-            pictureBox4.Size = new Size(226, 145);
-            pictureBox4.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox4.TabIndex = 4;
-            pictureBox4.TabStop = false;
+            thumbPictureBox3.AllowDrop = true;
+            thumbPictureBox3.BorderStyle = BorderStyle.FixedSingle;
+            thumbPictureBox3.Location = new Point(515, 509);
+            thumbPictureBox3.Name = "thumbPictureBox3";
+            thumbPictureBox3.Size = new Size(226, 145);
+            thumbPictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            thumbPictureBox3.TabIndex = 4;
+            thumbPictureBox3.TabStop = false;
             // 
-            // pictureBox3
-            // 
-            pictureBox3.BorderStyle = BorderStyle.FixedSingle;
-            pictureBox3.Location = new Point(268, 509);
-            pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(226, 145);
-            pictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox3.TabIndex = 3;
-            pictureBox3.TabStop = false;
+            // thumbPictureBox2
+            //
+            thumbPictureBox2.AllowDrop = true;
+            thumbPictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            thumbPictureBox2.BorderStyle = BorderStyle.FixedSingle;
+            thumbPictureBox2.Location = new Point(268, 509);
+            thumbPictureBox2.Name = "thumbPictureBox2";
+            thumbPictureBox2.Size = new Size(226, 145);
+            thumbPictureBox2.TabIndex = 3;
+            thumbPictureBox2.TabStop = false;
             // 
             // thumbPictureBox1
             // 
-            this.thumbPictureBox1.AllowDrop = true; // <-- TAMBAHKAN INI (WAJIB UNTUK DROP)
-            this.thumbPictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.thumbPictureBox1.Location = new System.Drawing.Point(17, 509);
-            this.thumbPictureBox1.Name = "thumbPictureBox1"; // (Pastikan nama ini konsisten dengan Form1.cs)
-            this.thumbPictureBox1.Size = new System.Drawing.Size(226, 145);
-            this.thumbPictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom; // <-- TAMBAHKAN INI (Untuk ukuran)
-            this.thumbPictureBox1.TabIndex = 2;
-            this.thumbPictureBox1.TabStop = false;
+            thumbPictureBox1.AllowDrop = true;
+            thumbPictureBox1.BorderStyle = BorderStyle.FixedSingle;
+            thumbPictureBox1.Location = new Point(17, 509);
+            thumbPictureBox1.Name = "thumbPictureBox1";
+            thumbPictureBox1.Size = new Size(226, 145);
+            thumbPictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            thumbPictureBox1.TabIndex = 2;
+            thumbPictureBox1.TabStop = false;
             // 
             // pictureBoxHistogram
             // 
@@ -318,14 +321,14 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.AllowDrop = true;
-            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox1.Location = new System.Drawing.Point(17, 20);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(477, 375);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
+            pictureBox1.AllowDrop = true;
+            pictureBox1.BorderStyle = BorderStyle.FixedSingle;
+            pictureBox1.Location = new Point(17, 20);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(477, 375);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox1.TabIndex = 0;
+            pictureBox1.TabStop = false;
             // 
             // Form1
             // 
@@ -346,9 +349,9 @@
             splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)trackBarBrightness).EndInit();
             ((System.ComponentModel.ISupportInitialize)trackBarBlackWhite).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)thumbPictureBox4).EndInit();
+            ((System.ComponentModel.ISupportInitialize)thumbPictureBox3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)thumbPictureBox2).EndInit();
             ((System.ComponentModel.ISupportInitialize)thumbPictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxHistogram).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
@@ -380,9 +383,9 @@
         private Label label1;
         private TrackBar trackBarBrightness;
         private Label lblBrightnessValue;
-        private PictureBox pictureBox5;
-        private PictureBox pictureBox4;
-        private PictureBox pictureBox3;
+        private PictureBox thumbPictureBox4;
+        private PictureBox thumbPictureBox3;
+        private PictureBox thumbPictureBox2;
         private PictureBox thumbPictureBox1;
     }
 }

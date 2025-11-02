@@ -52,10 +52,19 @@ namespace MiniPhotoshop
             _toolManager.DisableTools();
             fileToolStripMenuItem.Enabled = false;
 
-            // 2. Buat DragDropManager BARU
+            // 2. Buat daftar semua thumbnail DENGAN NAMA YANG BENAR
+            var thumbnails = new List<PictureBox>
+            {
+                thumbPictureBox1,
+                thumbPictureBox2, // <-- Nama dari file Designer Anda
+                thumbPictureBox3, // <-- Nama dari file Designer Anda
+                thumbPictureBox4  // <-- Nama dari file Designer Anda
+            };
+
+            // 3. Buat DragDropManager BARU dengan DAFTAR thumbnail
             _dragDropManager = new DragDropManager(
                 pictureBox1,
-                thumbPictureBox1, // Pastikan nama ini sesuai
+                thumbnails, // <-- Berikan daftarnya
                 pictureBoxHistogram,
                 _editorService,
                 _toolManager,
