@@ -7,24 +7,69 @@ using System.Drawing;
 using System.Windows.Forms;
 using MiniPhotoshop.Logic.ImageProcessing;
 using MiniPhotoshop.Logic.Helpers;
+using MiniPhotoshop.Logic;
+using MiniPhotoshop.Helpers;
+using System.Collections.Generic;
 
 namespace MiniPhotoshop
 {
     public partial class Form1 : Form
     {
-        private Bitmap originalImage = null;
-        private int[,,] imageData3D = null;
+        private readonly ImageEditorService _editorService;
+        private readonly UIManager _toolManager;
+        private readonly DragDropManager _dragDropManager;
         private bool isColorSelectionMode = false;
 
         public Form1()
         {
             InitializeComponent();
 
+            // Inisialisasi Service dan Manager
+            _editorService = new ImageEditorService();
+
+            // daftar semua kontrol yang akan dikelola
+            var toolsToManage = new List<Control>
+            {
+                button2, // Save Gambar
+                button3, // Restore Color
+                button4, // Grayscale
+                button5, // Show Red
+                button6, // Show Green
+                button7, // Show Blue
+                button8, // Selection Tool
+                button10, // Negation
+                trackBarBlackWhite,
+                trackBarBrightness,
+            };
+            _toolManager = new UIManager(
+                toolsToManage,
+                trackBarBrightness,
+                lblBrightnessValue,
+                trackBarBlackWhite
+            );
+
+            // Matikan semua alat saat start
+            _toolManager.DisableTools();
+            fileToolStripMenuItem.Enabled = false;
+
+            // 2. Buat DragDropManager BARU
+            _dragDropManager = new DragDropManager(
+                pictureBox1,
+                thumbPictureBox1, // Pastikan nama ini sesuai
+                pictureBoxHistogram,
+                _editorService,
+                _toolManager,
+                fileToolStripMenuItem
+            );
+
+            // 3. Daftarkan event
+            _dragDropManager.RegisterDragDropEvents();
+
             // event handler untuk tombol Show Red, Green, Blue
-            button5.Click += (s, e) => pictureBox1.Image = ImageDataProcessor.CreateBitmapFrom3DArray(imageData3D, 0); // Red
-            button6.Click += (s, e) => pictureBox1.Image = ImageDataProcessor.CreateBitmapFrom3DArray(imageData3D, 1); // Green
-            button7.Click += (s, e) => pictureBox1.Image = ImageDataProcessor.CreateBitmapFrom3DArray(imageData3D, 2); // Blue
-            button4.Click += (s, e) => pictureBox1.Image = ImageDataProcessor.CreateBitmapFrom3DArray(imageData3D, 3); // Grayscale
+            button5.Click += (s, e) => { if (_editorService.IsImageLoaded) pictureBox1.Image = _editorService.GetChannel(0); }; // Red
+            button6.Click += (s, e) => { if (_editorService.IsImageLoaded) pictureBox1.Image = _editorService.GetChannel(1); }; // Green
+            button7.Click += (s, e) => { if (_editorService.IsImageLoaded) pictureBox1.Image = _editorService.GetChannel(2); }; // Blue
+            button4.Click += (s, e) => { if (_editorService.IsImageLoaded) pictureBox1.Image = _editorService.ApplyGrayscale(); }; // Grayscale
 
             // event handler menu histogram
             histogramRToolStripMenuItem.Click += (s, e) => TampilkanHistogramChannel(0); // Histogram R
@@ -47,6 +92,17 @@ namespace MiniPhotoshop
             System.EventHandler(this.trackBarBrightness_Scroll);
         }
 
+        // Fungsi helper untuk mereset UI
+        private void ResetUIState()
+        {
+            // Form1 HANYA mengelola state-nya sendiri
+            isColorSelectionMode = false;
+            pictureBox1.Cursor = Cursors.Default;
+
+            // Delegasikan reset kontrol ke UIManager
+            _toolManager.ResetControls();
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -54,21 +110,8 @@ namespace MiniPhotoshop
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                originalImage = new Bitmap(openFileDialog.FileName);
-                imageData3D = ImageDataProcessor.LoadTo3DArray(originalImage);
-
-                Bitmap bmpFromArray = ImageDataProcessor.CreateBitmapFrom3DArray(imageData3D);
-                if (bmpFromArray != null)
-                {
-                    pictureBox1.Image = bmpFromArray;
-                    pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-
-                    isColorSelectionMode = false;
-                    pictureBox1.Cursor = Cursors.Default;
-
-                    trackBarBrightness.Value = 0;
-                    lblBrightnessValue.Text = "Brightness: 0";
-                }
+                var loadedImage = new Bitmap(openFileDialog.FileName);
+                _dragDropManager.LoadImageToThumbnail(loadedImage);
             }
         }
 
@@ -103,49 +146,30 @@ namespace MiniPhotoshop
         }
         private void buttonRestore_Click(Object sender, EventArgs e)
         {
-            if (originalImage != null)
-            {
-                pictureBox1.Image = (Bitmap)originalImage.Clone();
-
-                isColorSelectionMode = false;
-                pictureBox1.Cursor = Cursors.Default;
-
-                trackBarBrightness.Value = 0;
-                lblBrightnessValue.Text = "Brightness: 0";
-
-                trackBarBlackWhite.Value = 2;
-            }
-        }
-
-        private void buttonGrayscale_Click(Object sender, EventArgs e)
-        {
-            if (imageData3D == null)
-            {
-                return;
-            }
+            if (!_editorService.IsImageLoaded) return;
+            pictureBox1.Image = _editorService.GetRestoredImage();
+            ResetUIState();
         }
 
         private void TampilkanHistogramChannel(int channel)
         {
-            if (pictureBox1.Image == null)
+            if (!_editorService.IsImageLoaded)
             {
-                MessageBox.Show("Tidak ada gambar yang dimuat di PictureBox.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Silakan muat gambar terlebih dahulu.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
-            Bitmap bmp = new Bitmap(pictureBox1.Image);
-            int width = pictureBoxHistogram.Width;
-            int height = pictureBoxHistogram.Height;
-
-            int[] hist = HistogramCalculator.Calculate(bmp, channel);
-            Bitmap histBmp = HistogramDrawer.Draw(hist, channel, width, height);
+            // Dapatkan gambar histogram dari service
+            Bitmap histBmp = _editorService.GetHistogram(channel,
+                pictureBoxHistogram.Width,
+                pictureBoxHistogram.Height);
 
             pictureBoxHistogram.Image = histBmp;
         }
 
         private void button8_Click(object sender, EventArgs e)
         {
-            if (originalImage == null)
+            if (!_editorService.IsImageLoaded)
             {
                 MessageBox.Show("Silakan muat gambar terlebih dahulu.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
@@ -159,19 +183,10 @@ namespace MiniPhotoshop
 
         private void pictureBox1_MouseClick(object sender, MouseEventArgs e)
         {
-            if (!isColorSelectionMode)
-            {
-                return;
-            }
+            if (!isColorSelectionMode || !_editorService.IsImageLoaded) return;
 
-            if (originalImage != null)
-            {
-                Point imagePoint = CoordinateHelper.TranslateMouseClickToImagePoint(pictureBox1, e.Location);
-                Color clickedColor = originalImage.GetPixel(imagePoint.X, imagePoint.Y);
-
-                Bitmap processedImage = SelectionColor.ApplySelection(originalImage, clickedColor);
-                pictureBox1.Image = processedImage;
-            }
+            Point imagePoint = CoordinateHelper.TranslateMouseClickToImagePoint(pictureBox1, e.Location);
+            pictureBox1.Image = _editorService.ApplyColorSelection(imagePoint);
 
             isColorSelectionMode = false;
             pictureBox1.Cursor = Cursors.Default;
@@ -179,22 +194,16 @@ namespace MiniPhotoshop
 
         private void btnNegation_Click(object sender, EventArgs e)
         {
-            if (pictureBox1.Image == null)
-            {
-                MessageBox.Show("Tidak ada gambar untuk dinegasi.", "Info",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
+            if (pictureBox1.Image == null) return; // Cek gambar di picturebox
 
             Bitmap currentImage = new Bitmap(pictureBox1.Image);
-            Bitmap resultImage = ImageNegation.Apply(currentImage);
-            pictureBox1.Image = resultImage;
+            pictureBox1.Image = _editorService.ApplyNegation(currentImage);
         }
 
         private void trackBarBlackWhite_Scroll(object sender, EventArgs e)
         {
-            if (originalImage == null) return;
-            // 1. Ambil nilai langkah (0-4)
+            if (!_editorService.IsImageLoaded) return;
+
             int step = trackBarBlackWhite.Value;
             // 2. Perbarui label
             string labelText = "Threshold: ";
@@ -207,28 +216,16 @@ namespace MiniPhotoshop
                 case 4: labelText += "Lightest (200)"; break;
             }
             trackBarBlackWhite.Text = labelText;
-            // 3. Panggil Logika (selalu gunakan gambar ASLI sebagai sumber)
-            Bitmap resultImage = BlackWhite.ApplyBinarization(originalImage, step);
-            // 4. Tampilkan hasilnya
-            pictureBox1.Image = resultImage;
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
+            pictureBox1.Image = _editorService.ApplyBinarization(step);
         }
 
         private void trackBarBrightness_Scroll(object sender, EventArgs e)
         {
-            if (originalImage == null)
-            {
-                return;
-            }
+            if (!_editorService.IsImageLoaded) return;
 
             int adjustment = trackBarBrightness.Value;
             lblBrightnessValue.Text = "Brightness: " + adjustment.ToString();
-            Bitmap resultImage = Brightness.AdjustBrightness(originalImage, adjustment);
-            pictureBox1.Image = resultImage;
+            pictureBox1.Image = _editorService.ApplyBrightness(adjustment);
         }
     }
 }
