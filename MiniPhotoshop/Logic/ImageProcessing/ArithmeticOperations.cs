@@ -49,7 +49,7 @@ namespace MiniPhotoshop.Logic.ImageProcessing
                     else
                     {
                         // KASUS 4: Area kosong (jika ada)
-                        resultBmp.SetPixel(x, y, Color.Transparent);
+                        resultBmp.SetPixel(x, y, Color.Black);
                     }
                 }
             }

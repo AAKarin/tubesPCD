@@ -56,7 +56,7 @@ namespace MiniPhotoshop.Logic.ImageProcessing
                     }
                     else
                     {
-                        resultBmp.SetPixel(x, y, Color.Transparent);
+                        resultBmp.SetPixel(x, y, Color.Black);
                     }
                 }
             }
