@@ -44,7 +44,12 @@
             oRToolStripMenuItem = new ToolStripMenuItem();
             nEGATIONToolStripMenuItem = new ToolStripMenuItem();
             xORToolStripMenuItem = new ToolStripMenuItem();
+            konstantaToolStripMenuItem = new ToolStripMenuItem();
+            constKaliToolStripMenuItem = new ToolStripMenuItem();
+            constBagiToolStripMenuItem = new ToolStripMenuItem();
             splitContainer1 = new SplitContainer();
+            txtConstantValue = new TextBox();
+            labelConstant = new Label();
             lblBrightnessValue = new Label();
             trackBarBrightness = new TrackBar();
             label1 = new Label();
@@ -58,16 +63,16 @@
             button3 = new Button();
             button2 = new Button();
             button1 = new Button();
+            radioButtonThum4 = new RadioButton();
+            radioButtonThum3 = new RadioButton();
+            radioButtonThum2 = new RadioButton();
+            radioButtonThum1 = new RadioButton();
             thumbPictureBox4 = new PictureBox();
             thumbPictureBox3 = new PictureBox();
             thumbPictureBox2 = new PictureBox();
             thumbPictureBox1 = new PictureBox();
             pictureBoxHistogram = new PictureBox();
             pictureBox1 = new PictureBox();
-            radioButtonThum1 = new RadioButton();
-            radioButtonThum2 = new RadioButton();
-            radioButtonThum3 = new RadioButton();
-            radioButtonThum4 = new RadioButton();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
@@ -87,7 +92,7 @@
             // 
             menuStrip1.BackColor = SystemColors.ButtonHighlight;
             menuStrip1.ImageScalingSize = new Size(20, 20);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, aritmatikaToolStripMenuItem, binerToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, aritmatikaToolStripMenuItem, binerToolStripMenuItem, konstantaToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(1280, 28);
@@ -170,30 +175,51 @@
             // aNDToolStripMenuItem
             // 
             aNDToolStripMenuItem.Name = "aNDToolStripMenuItem";
-            aNDToolStripMenuItem.Size = new Size(224, 26);
+            aNDToolStripMenuItem.Size = new Size(164, 26);
             aNDToolStripMenuItem.Text = "AND";
             aNDToolStripMenuItem.Click += aNDToolStripMenuItem_Click;
             // 
             // oRToolStripMenuItem
             // 
             oRToolStripMenuItem.Name = "oRToolStripMenuItem";
-            oRToolStripMenuItem.Size = new Size(224, 26);
+            oRToolStripMenuItem.Size = new Size(164, 26);
             oRToolStripMenuItem.Text = "OR";
             oRToolStripMenuItem.Click += oRToolStripMenuItem_Click;
             // 
             // nEGATIONToolStripMenuItem
             // 
             nEGATIONToolStripMenuItem.Name = "nEGATIONToolStripMenuItem";
-            nEGATIONToolStripMenuItem.Size = new Size(224, 26);
+            nEGATIONToolStripMenuItem.Size = new Size(164, 26);
             nEGATIONToolStripMenuItem.Text = "NEGATION";
             nEGATIONToolStripMenuItem.Click += nEGATIONToolStripMenuItem_Click;
             // 
             // xORToolStripMenuItem
             // 
             xORToolStripMenuItem.Name = "xORToolStripMenuItem";
-            xORToolStripMenuItem.Size = new Size(224, 26);
+            xORToolStripMenuItem.Size = new Size(164, 26);
             xORToolStripMenuItem.Text = "XOR";
             xORToolStripMenuItem.Click += xORToolStripMenuItem_Click;
+            // 
+            // konstantaToolStripMenuItem
+            // 
+            konstantaToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { constKaliToolStripMenuItem, constBagiToolStripMenuItem });
+            konstantaToolStripMenuItem.Name = "konstantaToolStripMenuItem";
+            konstantaToolStripMenuItem.Size = new Size(89, 24);
+            konstantaToolStripMenuItem.Text = "Konstanta";
+            // 
+            // constKaliToolStripMenuItem
+            // 
+            constKaliToolStripMenuItem.Name = "constKaliToolStripMenuItem";
+            constKaliToolStripMenuItem.Size = new Size(224, 26);
+            constKaliToolStripMenuItem.Text = "Const_Kali";
+            constKaliToolStripMenuItem.Click += kaliKonstantaToolStripMenuItem_Click;
+            // 
+            // constBagiToolStripMenuItem
+            // 
+            constBagiToolStripMenuItem.Name = "constBagiToolStripMenuItem";
+            constBagiToolStripMenuItem.Size = new Size(224, 26);
+            constBagiToolStripMenuItem.Text = "Const_Bagi";
+            constBagiToolStripMenuItem.Click += bagiKonstantaToolStripMenuItem_Click;
             // 
             // splitContainer1
             // 
@@ -203,6 +229,8 @@
             // 
             // splitContainer1.Panel1
             // 
+            splitContainer1.Panel1.Controls.Add(txtConstantValue);
+            splitContainer1.Panel1.Controls.Add(labelConstant);
             splitContainer1.Panel1.Controls.Add(lblBrightnessValue);
             splitContainer1.Panel1.Controls.Add(trackBarBrightness);
             splitContainer1.Panel1.Controls.Add(label1);
@@ -232,6 +260,24 @@
             splitContainer1.Size = new Size(1280, 692);
             splitContainer1.SplitterDistance = 267;
             splitContainer1.TabIndex = 1;
+            // 
+            // txtConstantValue
+            // 
+            txtConstantValue.Location = new Point(64, 564);
+            txtConstantValue.Name = "txtConstantValue";
+            txtConstantValue.Size = new Size(125, 27);
+            txtConstantValue.TabIndex = 14;
+            txtConstantValue.Text = "1.5";
+            txtConstantValue.TextAlign = HorizontalAlignment.Center;
+            // 
+            // labelConstant
+            // 
+            labelConstant.AutoSize = true;
+            labelConstant.Location = new Point(72, 541);
+            labelConstant.Name = "labelConstant";
+            labelConstant.Size = new Size(110, 20);
+            labelConstant.TabIndex = 13;
+            labelConstant.Text = "Nilai Konstanta";
             // 
             // lblBrightnessValue
             // 
@@ -336,7 +382,7 @@
             // 
             // button2
             // 
-            button2.Location = new Point(63, 560);
+            button2.Location = new Point(139, 91);
             button2.Name = "button2";
             button2.Size = new Size(111, 29);
             button2.TabIndex = 1;
@@ -353,6 +399,50 @@
             button1.Text = "Tambah Gambar";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
+            // 
+            // radioButtonThum4
+            // 
+            radioButtonThum4.AutoSize = true;
+            radioButtonThum4.Location = new Point(761, 479);
+            radioButtonThum4.Name = "radioButtonThum4";
+            radioButtonThum4.Size = new Size(95, 24);
+            radioButtonThum4.TabIndex = 12;
+            radioButtonThum4.TabStop = true;
+            radioButtonThum4.Text = "Gambar 4";
+            radioButtonThum4.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonThum3
+            // 
+            radioButtonThum3.AutoSize = true;
+            radioButtonThum3.Location = new Point(515, 479);
+            radioButtonThum3.Name = "radioButtonThum3";
+            radioButtonThum3.Size = new Size(95, 24);
+            radioButtonThum3.TabIndex = 11;
+            radioButtonThum3.TabStop = true;
+            radioButtonThum3.Text = "Gambar 3";
+            radioButtonThum3.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonThum2
+            // 
+            radioButtonThum2.AutoSize = true;
+            radioButtonThum2.Location = new Point(268, 479);
+            radioButtonThum2.Name = "radioButtonThum2";
+            radioButtonThum2.Size = new Size(95, 24);
+            radioButtonThum2.TabIndex = 10;
+            radioButtonThum2.TabStop = true;
+            radioButtonThum2.Text = "Gambar 2";
+            radioButtonThum2.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonThum1
+            // 
+            radioButtonThum1.AutoSize = true;
+            radioButtonThum1.Location = new Point(17, 479);
+            radioButtonThum1.Name = "radioButtonThum1";
+            radioButtonThum1.Size = new Size(95, 24);
+            radioButtonThum1.TabIndex = 9;
+            radioButtonThum1.TabStop = true;
+            radioButtonThum1.Text = "Gambar 1";
+            radioButtonThum1.UseVisualStyleBackColor = true;
             // 
             // thumbPictureBox4
             // 
@@ -417,50 +507,6 @@
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
-            // 
-            // radioButtonThum1
-            // 
-            radioButtonThum1.AutoSize = true;
-            radioButtonThum1.Location = new Point(17, 479);
-            radioButtonThum1.Name = "radioButtonThum1";
-            radioButtonThum1.Size = new Size(95, 24);
-            radioButtonThum1.TabIndex = 9;
-            radioButtonThum1.TabStop = true;
-            radioButtonThum1.Text = "Gambar 1";
-            radioButtonThum1.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonThum2
-            // 
-            radioButtonThum2.AutoSize = true;
-            radioButtonThum2.Location = new Point(268, 479);
-            radioButtonThum2.Name = "radioButtonThum2";
-            radioButtonThum2.Size = new Size(95, 24);
-            radioButtonThum2.TabIndex = 10;
-            radioButtonThum2.TabStop = true;
-            radioButtonThum2.Text = "Gambar 2";
-            radioButtonThum2.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonThum3
-            // 
-            radioButtonThum3.AutoSize = true;
-            radioButtonThum3.Location = new Point(515, 479);
-            radioButtonThum3.Name = "radioButtonThum3";
-            radioButtonThum3.Size = new Size(95, 24);
-            radioButtonThum3.TabIndex = 11;
-            radioButtonThum3.TabStop = true;
-            radioButtonThum3.Text = "Gambar 3";
-            radioButtonThum3.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonThum4
-            // 
-            radioButtonThum4.AutoSize = true;
-            radioButtonThum4.Location = new Point(761, 479);
-            radioButtonThum4.Name = "radioButtonThum4";
-            radioButtonThum4.Size = new Size(95, 24);
-            radioButtonThum4.TabIndex = 12;
-            radioButtonThum4.TabStop = true;
-            radioButtonThum4.Text = "Gambar 4";
-            radioButtonThum4.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -534,5 +580,10 @@
         private RadioButton radioButtonThum4;
         private RadioButton radioButtonThum3;
         private RadioButton radioButtonThum2;
+        private ToolStripMenuItem konstantaToolStripMenuItem;
+        private ToolStripMenuItem constKaliToolStripMenuItem;
+        private ToolStripMenuItem constBagiToolStripMenuItem;
+        private Label labelConstant;
+        private TextBox txtConstantValue;
     }
 }

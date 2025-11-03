@@ -87,7 +87,7 @@ namespace MiniPhotoshop
             _dragDropManager.RegisterDragDropEvents();
 
             // operasi manager
-            _operationManager = new OperationManager(_editorService, _thumbnailMap);
+            _operationManager = new OperationManager(_editorService, _thumbnailMap, txtConstantValue);
 
             // event handler untuk tombol Show Red, Green, Blue
             button5.Click += (s, e) => { if (_editorService.IsImageLoaded) pictureBox1.Image = _editorService.GetChannel(0); }; // Red
@@ -292,6 +292,20 @@ namespace MiniPhotoshop
         {
             pictureBox1.Image = _operationManager.PerformNot();
         }
+        #endregion
+
+        #region Operasi Konstanta
+
+        private void kaliKonstantaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            pictureBox1.Image = _operationManager.PerformConstantMultiply();
+        }
+
+        private void bagiKonstantaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            pictureBox1.Image = _operationManager.PerformConstantDivide();
+        }
+
         #endregion
     }
 }

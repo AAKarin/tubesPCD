@@ -2,6 +2,7 @@
 using MiniPhotoshop.Logic.ImageProcessing;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.Windows.Forms;
 
 namespace MiniPhotoshop.Helpers
@@ -13,12 +14,17 @@ namespace MiniPhotoshop.Helpers
         // --- PERUBAHAN ---
         // Kita tidak perlu DragDropManager lagi, kita hanya perlu "peta"
         private readonly Dictionary<RadioButton, PictureBox> _thumbnailMap;
+        // --- TAMBAHAN BARU ---
+        private readonly TextBox _constantTextBox;
 
-        // --- PERUBAHAN: Constructor Baru ---
-        public OperationManager(ImageEditorService editorService, Dictionary<RadioButton, PictureBox> thumbnailMap)
+        // Ganti constructor lama Anda dengan ini
+        public OperationManager(ImageEditorService editorService,
+                                Dictionary<RadioButton, PictureBox> thumbnailMap,
+                                TextBox constantTextBox)
         {
             _editorService = editorService;
-            _thumbnailMap = thumbnailMap; // Simpan peta
+            _thumbnailMap = thumbnailMap;
+            _constantTextBox = constantTextBox; // <-- Simpan TextBox
         }
 
         // --- FUNGSI HELPER BARU ---
@@ -158,6 +164,57 @@ namespace MiniPhotoshop.Helpers
             using (Bitmap imgA = GetOriginalImage())
             {
                 return LogicalOperations.Not(imgA);
+            }
+        }
+
+        // Helper baru untuk membaca dan memvalidasi TextBox
+        private bool TryGetConstant(out double valueK)
+        {
+            // (Kita perlu 'using System.Globalization;' di atas file ini)
+            if (double.TryParse(_constantTextBox.Text, NumberStyles.Any,
+                                 CultureInfo.InvariantCulture, out valueK))
+            {
+                return true;
+            }
+
+            MessageBox.Show("Nilai Konstanta (K) tidak valid.\n" +
+                            "Gunakan format angka seperti '1.5' atau '2'.",
+                            "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            valueK = 1.0;
+            return false;
+        }
+
+        // Helper untuk mengambil Gambar A (sudah ada)
+        private Bitmap GetImageA()
+        {
+            if (!_editorService.IsImageLoaded)
+            {
+                MessageBox.Show("Gambar A (di kanvas utama) masih kosong.", "Error");
+                return null;
+            }
+            return _editorService.GetRestoredImage();
+        }
+
+        // --- FUNGSI PUBLIK BARU ---
+        public Bitmap PerformConstantMultiply()
+        {
+            if (!TryGetConstant(out double k)) return GetOriginalImage();
+
+            using (Bitmap imgA = GetImageA())
+            {
+                if (imgA == null) return null;
+                return ConstantOperations.Multiply(imgA, k);
+            }
+        }
+
+        public Bitmap PerformConstantDivide()
+        {
+            if (!TryGetConstant(out double k)) return GetOriginalImage();
+
+            using (Bitmap imgA = GetImageA())
+            {
+                if (imgA == null) return null;
+                return ConstantOperations.Divide(imgA, k);
             }
         }
     }
