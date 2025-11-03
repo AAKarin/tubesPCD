@@ -12,51 +12,47 @@ namespace MiniPhotoshop.Logic.ImageProcessing
             return (gray < 128) ? 0 : 255;
         }
 
-        // Helper untuk mengubah 1 nilai biner (0/255) ke Warna
+        // Helper untuk mengubah 1 nilai biner (0/255) ke Warna (Hitam/Putih)
         private static Color ToBinaryColor(int val)
         {
             return Color.FromArgb(val, val, val);
         }
 
-        // --- FUNGSI HELPER UNIVERSAL (BARU) ---
+        // --- FUNGSI HELPER UNIVERSAL (INI YANG DIPERBAIKI) ---
         private static Bitmap PerformOperation(Bitmap imgA, Bitmap imgB, Func<int, int, int> operation)
         {
-            // 1. Tentukan ukuran kanvas baru (terbesar)
             int newWidth = Math.Max(imgA.Width, imgB.Width);
             int newHeight = Math.Max(imgA.Height, imgB.Height);
             Bitmap resultBmp = new Bitmap(newWidth, newHeight);
 
-            // 2. Loop melalui SETIAP piksel di kanvas baru
             for (int y = 0; y < newHeight; y++)
             {
                 for (int x = 0; x < newWidth; x++)
                 {
-                    // 3. Cek lokasi piksel (x, y)
                     bool inA = (x < imgA.Width && y < imgA.Height);
                     bool inB = (x < imgB.Width && y < imgB.Height);
 
                     if (inA && inB)
                     {
-                        // KASUS 1: Piksel saling bertemu. Lakukan operasi.
+                        // KASUS 1: Piksel saling bertemu. Lakukan operasi BINER.
                         int valA = ToBinary(imgA.GetPixel(x, y));
                         int valB = ToBinary(imgB.GetPixel(x, y));
                         resultBmp.SetPixel(x, y, ToBinaryColor(operation(valA, valB)));
                     }
                     else if (inA)
                     {
-                        // KASUS 2: Piksel hanya ada di A. Salin A (dijadikan biner).
-                        int valA = ToBinary(imgA.GetPixel(x, y));
-                        resultBmp.SetPixel(x, y, ToBinaryColor(valA));
+                        // KASUS 2: Piksel hanya ada di A. Salin WARNA ASLI A.
+                        resultBmp.SetPixel(x, y, imgA.GetPixel(x, y));
                     }
                     else if (inB)
                     {
-                        // KASUS 3: Piksel hanya ada di B. Salin B (dijadikan biner).
-                        int valB = ToBinary(imgB.GetPixel(x, y));
-                        resultBmp.SetPixel(x, y, ToBinaryColor(valB));
+                        // KASUS 3: Piksel hanya ada di B. Salin WARNA ASLI B.
+                        resultBmp.SetPixel(x, y, imgB.GetPixel(x, y));
                     }
                     else
                     {
-                        resultBmp.SetPixel(x, y, Color.Black);
+                        // KASUS 4: Area kosong (di luar A dan B)
+                        resultBmp.SetPixel(x, y, Color.Black); // Diisi hitam
                     }
                 }
             }
@@ -68,7 +64,6 @@ namespace MiniPhotoshop.Logic.ImageProcessing
 
         public static Bitmap And(Bitmap imgA, Bitmap imgB)
         {
-            // Logika AND: 255 HANYA jika A=255 DAN B=255
             return PerformOperation(imgA, imgB, (valA, valB) => {
                 return (valA == 255 && valB == 255) ? 255 : 0;
             });
@@ -76,7 +71,6 @@ namespace MiniPhotoshop.Logic.ImageProcessing
 
         public static Bitmap Or(Bitmap imgA, Bitmap imgB)
         {
-            // Logika OR: 255 jika A=255 ATAU B=255
             return PerformOperation(imgA, imgB, (valA, valB) => {
                 return (valA == 255 || valB == 255) ? 255 : 0;
             });
@@ -84,13 +78,15 @@ namespace MiniPhotoshop.Logic.ImageProcessing
 
         public static Bitmap Xor(Bitmap imgA, Bitmap imgB)
         {
-            // Logika XOR: 255 jika A != B
             return PerformOperation(imgA, imgB, (valA, valB) => {
                 return (valA != valB) ? 255 : 0;
             });
         }
 
-        // FUNGSI NOT (Negasi) - Ini hanya berlaku untuk Gambar A
+        // FUNGSI NOT (TIDAK BERUBAH)
+        // NOT adalah operasi 1 gambar. Sesuai screenshot Anda sebelumnya 
+        // (image_da5a28.png), operasi ini mengubah SELURUH Gambar A
+        // menjadi biner dan meng-inversinya.
         public static Bitmap Not(Bitmap imgA)
         {
             Bitmap resultBmp = new Bitmap(imgA.Width, imgA.Height);
