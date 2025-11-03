@@ -1,15 +1,16 @@
-using System.Drawing.Drawing2D;
-using MiniPhotoshop.Logic.Helpers;
-using MiniPhotoshop.Logic.IO;
-using MiniPhotoshop.Logic.Histogram;
-using System.Linq;
-using System.Drawing;
-using System.Windows.Forms;
-using MiniPhotoshop.Logic.ImageProcessing;
-using MiniPhotoshop.Logic.Helpers;
-using MiniPhotoshop.Logic;
+using MiniPhotoshop.Forms;
 using MiniPhotoshop.Helpers;
+using MiniPhotoshop.Logic;
+using MiniPhotoshop.Logic.Helpers;
+using MiniPhotoshop.Logic.Helpers;
+using MiniPhotoshop.Logic.Histogram;
+using MiniPhotoshop.Logic.ImageProcessing;
+using MiniPhotoshop.Logic.IO;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace MiniPhotoshop
 {
@@ -236,5 +237,145 @@ namespace MiniPhotoshop
             lblBrightnessValue.Text = "Brightness: " + adjustment.ToString();
             pictureBox1.Image = _editorService.ApplyBrightness(adjustment);
         }
+
+        #region Operasi Aritmatika & Logika
+
+        // --- FUNGSI HELPER UTAMA ---
+        // Fungsi ini mengambil Gambar A (dari kanvas) dan Gambar B (dari thumbnail yang DIKLIK)
+        private bool GetImageOperands(out Bitmap imgA, out Bitmap imgB)
+        {
+            imgA = null;
+            imgB = null;
+
+            // 1. Cek Gambar A (Kanvas Utama)
+            if (pictureBox1.Image == null)
+            {
+                MessageBox.Show("Gambar A (di kanvas utama) masih kosong.\n\n" +
+                                "Silakan DRAG gambar dari thumbnail ke kanvas utama dulu.",
+                                "Gambar A Kosong", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            // 2. Cek Gambar B (Thumbnail yang Dipilih)
+            //    Kita panggil fungsi 'GetSelectedImage' dari DragDropManager
+            imgB = _dragDropManager.GetSelectedImage();
+            if (imgB == null)
+            {
+                MessageBox.Show("Gambar B belum dipilih.\n\n" +
+                                "Silakan KLIK salah satu gambar di thumbnail.",
+                                "Gambar B Kosong", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            // 3. Jika keduanya ada, buat salinannya
+            imgA = new Bitmap(pictureBox1.Image);
+            // imgB sudah didapat dari manager
+            return true;
+        }
+
+        // --- ISI SEMUA FUNGSI DARI LANGKAH 2 DENGAN KODE INI ---
+        // (Salin-tempel kode ini ke fungsi-fungsi yang baru Anda buat)
+
+        private void tambahToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (GetImageOperands(out Bitmap imgA, out Bitmap imgB))
+            {
+                using (imgA) // 'using' untuk auto-dispose memori
+                using (imgB)
+                {
+                    pictureBox1.Image = ArithmeticOperations.Add(imgA, imgB);
+                }
+            }
+        }
+
+        private void kurangToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (GetImageOperands(out Bitmap imgA, out Bitmap imgB))
+            {
+                using (imgA)
+                using (imgB)
+                {
+                    pictureBox1.Image = ArithmeticOperations.Subtract(imgA, imgB);
+                }
+            }
+        }
+
+        private void kaliToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (GetImageOperands(out Bitmap imgA, out Bitmap imgB))
+            {
+                using (imgA)
+                using (imgB)
+                {
+                    pictureBox1.Image = ArithmeticOperations.Multiply(imgA, imgB);
+                }
+            }
+        }
+
+        private void bagiToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (GetImageOperands(out Bitmap imgA, out Bitmap imgB))
+            {
+                using (imgA)
+                using (imgB)
+                {
+                    pictureBox1.Image = ArithmeticOperations.Divide(imgA, imgB);
+                }
+            }
+        }
+
+
+        private void aNDToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (GetImageOperands(out Bitmap imgA, out Bitmap imgB))
+            {
+                using (imgA)
+                using (imgB)
+                {
+                    pictureBox1.Image = LogicalOperations.And(imgA, imgB);
+                }
+            }
+        }
+
+        private void oRToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (GetImageOperands(out Bitmap imgA, out Bitmap imgB))
+            {
+                using (imgA)
+                using (imgB)
+                {
+                    pictureBox1.Image = LogicalOperations.Or(imgA, imgB);
+                }
+            }
+        }
+
+        private void xORToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (GetImageOperands(out Bitmap imgA, out Bitmap imgB))
+            {
+                using (imgA)
+                using (imgB)
+                {
+                    pictureBox1.Image = LogicalOperations.Xor(imgA, imgB);
+                }
+            }
+        }
+
+        private void nEGATIONToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Operasi NOT hanya butuh Gambar A
+            if (pictureBox1.Image == null)
+            {
+                MessageBox.Show("Gambar A (di kanvas utama) masih kosong.", "Error");
+                return;
+            }
+
+            using (Bitmap imgA = new Bitmap(pictureBox1.Image))
+            {
+                pictureBox1.Image = LogicalOperations.Not(imgA);
+            }
+        }
+
+        #endregion
     }
 }

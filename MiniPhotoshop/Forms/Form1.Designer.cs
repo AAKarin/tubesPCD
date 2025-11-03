@@ -34,6 +34,16 @@
             histogramGToolStripMenuItem = new ToolStripMenuItem();
             histogramBToolStripMenuItem = new ToolStripMenuItem();
             histogramGrToolStripMenuItem = new ToolStripMenuItem();
+            aritmatikaToolStripMenuItem = new ToolStripMenuItem();
+            tambahToolStripMenuItem = new ToolStripMenuItem();
+            kurangToolStripMenuItem = new ToolStripMenuItem();
+            kaliToolStripMenuItem = new ToolStripMenuItem();
+            bagiToolStripMenuItem = new ToolStripMenuItem();
+            binerToolStripMenuItem = new ToolStripMenuItem();
+            aNDToolStripMenuItem = new ToolStripMenuItem();
+            oRToolStripMenuItem = new ToolStripMenuItem();
+            nEGATIONToolStripMenuItem = new ToolStripMenuItem();
+            xORToolStripMenuItem = new ToolStripMenuItem();
             splitContainer1 = new SplitContainer();
             lblBrightnessValue = new Label();
             trackBarBrightness = new TrackBar();
@@ -73,7 +83,7 @@
             // 
             menuStrip1.BackColor = SystemColors.ButtonHighlight;
             menuStrip1.ImageScalingSize = new Size(20, 20);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, aritmatikaToolStripMenuItem, binerToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(1280, 28);
@@ -110,6 +120,76 @@
             histogramGrToolStripMenuItem.Name = "histogramGrToolStripMenuItem";
             histogramGrToolStripMenuItem.Size = new Size(181, 26);
             histogramGrToolStripMenuItem.Text = "Histogram Gr";
+            // 
+            // aritmatikaToolStripMenuItem
+            // 
+            aritmatikaToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { tambahToolStripMenuItem, kurangToolStripMenuItem, kaliToolStripMenuItem, bagiToolStripMenuItem });
+            aritmatikaToolStripMenuItem.Name = "aritmatikaToolStripMenuItem";
+            aritmatikaToolStripMenuItem.Size = new Size(92, 24);
+            aritmatikaToolStripMenuItem.Text = "Aritmatika";
+            // 
+            // tambahToolStripMenuItem
+            // 
+            tambahToolStripMenuItem.Name = "tambahToolStripMenuItem";
+            tambahToolStripMenuItem.Size = new Size(224, 26);
+            tambahToolStripMenuItem.Text = "Tambah";
+            tambahToolStripMenuItem.Click += tambahToolStripMenuItem_Click;
+            // 
+            // kurangToolStripMenuItem
+            // 
+            kurangToolStripMenuItem.Name = "kurangToolStripMenuItem";
+            kurangToolStripMenuItem.Size = new Size(224, 26);
+            kurangToolStripMenuItem.Text = "Kurang";
+            kurangToolStripMenuItem.Click += kurangToolStripMenuItem_Click;
+            // 
+            // kaliToolStripMenuItem
+            // 
+            kaliToolStripMenuItem.Name = "kaliToolStripMenuItem";
+            kaliToolStripMenuItem.Size = new Size(144, 26);
+            kaliToolStripMenuItem.Text = "Kali";
+            kaliToolStripMenuItem.Click += kaliToolStripMenuItem_Click;
+            // 
+            // bagiToolStripMenuItem
+            // 
+            bagiToolStripMenuItem.Name = "bagiToolStripMenuItem";
+            bagiToolStripMenuItem.Size = new Size(144, 26);
+            bagiToolStripMenuItem.Text = "Bagi";
+            bagiToolStripMenuItem.Click += bagiToolStripMenuItem_Click;
+            // 
+            // binerToolStripMenuItem
+            // 
+            binerToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { aNDToolStripMenuItem, oRToolStripMenuItem, nEGATIONToolStripMenuItem, xORToolStripMenuItem });
+            binerToolStripMenuItem.Name = "binerToolStripMenuItem";
+            binerToolStripMenuItem.Size = new Size(57, 24);
+            binerToolStripMenuItem.Text = "Biner";
+            // 
+            // aNDToolStripMenuItem
+            // 
+            aNDToolStripMenuItem.Name = "aNDToolStripMenuItem";
+            aNDToolStripMenuItem.Size = new Size(224, 26);
+            aNDToolStripMenuItem.Text = "AND";
+            aNDToolStripMenuItem.Click += aNDToolStripMenuItem_Click;
+            // 
+            // oRToolStripMenuItem
+            // 
+            oRToolStripMenuItem.Name = "oRToolStripMenuItem";
+            oRToolStripMenuItem.Size = new Size(224, 26);
+            oRToolStripMenuItem.Text = "OR";
+            oRToolStripMenuItem.Click += oRToolStripMenuItem_Click;
+            // 
+            // nEGATIONToolStripMenuItem
+            // 
+            nEGATIONToolStripMenuItem.Name = "nEGATIONToolStripMenuItem";
+            nEGATIONToolStripMenuItem.Size = new Size(224, 26);
+            nEGATIONToolStripMenuItem.Text = "NEGATION";
+            nEGATIONToolStripMenuItem.Click += nEGATIONToolStripMenuItem_Click;
+            // 
+            // xORToolStripMenuItem
+            // 
+            xORToolStripMenuItem.Name = "xORToolStripMenuItem";
+            xORToolStripMenuItem.Size = new Size(224, 26);
+            xORToolStripMenuItem.Text = "XOR";
+            xORToolStripMenuItem.Click += xORToolStripMenuItem_Click;
             // 
             // splitContainer1
             // 
@@ -273,7 +353,7 @@
             thumbPictureBox4.Location = new Point(761, 509);
             thumbPictureBox4.Name = "thumbPictureBox4";
             thumbPictureBox4.Size = new Size(226, 145);
-            thumbPictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            thumbPictureBox4.SizeMode = PictureBoxSizeMode.Zoom;
             thumbPictureBox4.TabIndex = 5;
             thumbPictureBox4.TabStop = false;
             // 
@@ -284,18 +364,18 @@
             thumbPictureBox3.Location = new Point(515, 509);
             thumbPictureBox3.Name = "thumbPictureBox3";
             thumbPictureBox3.Size = new Size(226, 145);
-            thumbPictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            thumbPictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
             thumbPictureBox3.TabIndex = 4;
             thumbPictureBox3.TabStop = false;
             // 
             // thumbPictureBox2
-            //
+            // 
             thumbPictureBox2.AllowDrop = true;
-            thumbPictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             thumbPictureBox2.BorderStyle = BorderStyle.FixedSingle;
             thumbPictureBox2.Location = new Point(268, 509);
             thumbPictureBox2.Name = "thumbPictureBox2";
             thumbPictureBox2.Size = new Size(226, 145);
+            thumbPictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
             thumbPictureBox2.TabIndex = 3;
             thumbPictureBox2.TabStop = false;
             // 
@@ -387,5 +467,15 @@
         private PictureBox thumbPictureBox3;
         private PictureBox thumbPictureBox2;
         private PictureBox thumbPictureBox1;
+        private ToolStripMenuItem aritmatikaToolStripMenuItem;
+        private ToolStripMenuItem tambahToolStripMenuItem;
+        private ToolStripMenuItem kurangToolStripMenuItem;
+        private ToolStripMenuItem kaliToolStripMenuItem;
+        private ToolStripMenuItem bagiToolStripMenuItem;
+        private ToolStripMenuItem binerToolStripMenuItem;
+        private ToolStripMenuItem aNDToolStripMenuItem;
+        private ToolStripMenuItem oRToolStripMenuItem;
+        private ToolStripMenuItem nEGATIONToolStripMenuItem;
+        private ToolStripMenuItem xORToolStripMenuItem;
     }
 }
