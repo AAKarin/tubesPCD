@@ -12,87 +12,94 @@ namespace MiniPhotoshop.Logic.ImageProcessing
             return value;
         }
 
-        public static Bitmap Add(Bitmap imgA, Bitmap imgB)
+        // --- FUNGSI HELPER UNIVERSAL (BARU) ---
+        private static Bitmap PerformOperation(Bitmap imgA, Bitmap imgB, Func<Color, Color, Color> operation)
         {
-            Bitmap bmpB = new Bitmap(imgB, imgA.Size);
-            Bitmap resultBmp = new Bitmap(imgA.Width, imgA.Height);
-            for (int y = 0; y < imgA.Height; y++)
+            // 1. Tentukan ukuran kanvas baru (terbesar)
+            int newWidth = Math.Max(imgA.Width, imgB.Width);
+            int newHeight = Math.Max(imgA.Height, imgB.Height);
+            Bitmap resultBmp = new Bitmap(newWidth, newHeight);
+
+            // 2. Loop melalui SETIAP piksel di kanvas baru
+            for (int y = 0; y < newHeight; y++)
             {
-                for (int x = 0; x < imgA.Width; x++)
+                for (int x = 0; x < newWidth; x++)
                 {
-                    Color cA = imgA.GetPixel(x, y);
-                    Color cB = bmpB.GetPixel(x, y);
-                    int newR = Clamp(cA.R + cB.R);
-                    int newG = Clamp(cA.G + cB.G);
-                    int newB = Clamp(cA.B + cB.B);
-                    resultBmp.SetPixel(x, y, Color.FromArgb(newR, newG, newB));
+                    // 3. Cek lokasi piksel (x, y)
+                    bool inA = (x < imgA.Width && y < imgA.Height);
+                    bool inB = (x < imgB.Width && y < imgB.Height);
+
+                    if (inA && inB)
+                    {
+                        // KASUS 1: Piksel saling bertemu. Lakukan operasi.
+                        Color cA = imgA.GetPixel(x, y);
+                        Color cB = imgB.GetPixel(x, y);
+                        resultBmp.SetPixel(x, y, operation(cA, cB));
+                    }
+                    else if (inA)
+                    {
+                        // KASUS 2: Piksel hanya ada di A. Salin A.
+                        resultBmp.SetPixel(x, y, imgA.GetPixel(x, y));
+                    }
+                    else if (inB)
+                    {
+                        // KASUS 3: Piksel hanya ada di B. Salin B.
+                        resultBmp.SetPixel(x, y, imgB.GetPixel(x, y));
+                    }
+                    else
+                    {
+                        // KASUS 4: Area kosong (jika ada)
+                        resultBmp.SetPixel(x, y, Color.Transparent);
+                    }
                 }
             }
-            bmpB.Dispose();
             return resultBmp;
+        }
+
+        // --- FUNGSI PUBLIK (dipanggil oleh OperationManager) ---
+
+        public static Bitmap Add(Bitmap imgA, Bitmap imgB)
+        {
+            return PerformOperation(imgA, imgB, (cA, cB) => {
+                int r = Clamp(cA.R + cB.R);
+                int g = Clamp(cA.G + cB.G);
+                int b = Clamp(cA.B + cB.B);
+                return Color.FromArgb(r, g, b);
+            });
         }
 
         public static Bitmap Subtract(Bitmap imgA, Bitmap imgB)
         {
-            Bitmap bmpB = new Bitmap(imgB, imgA.Size);
-            Bitmap resultBmp = new Bitmap(imgA.Width, imgA.Height);
-            for (int y = 0; y < imgA.Height; y++)
-            {
-                for (int x = 0; x < imgA.Width; x++)
-                {
-                    Color cA = imgA.GetPixel(x, y);
-                    Color cB = bmpB.GetPixel(x, y);
-                    int newR = Clamp(cA.R - cB.R);
-                    int newG = Clamp(cA.G - cB.G);
-                    int newB = Clamp(cA.B - cB.B);
-                    resultBmp.SetPixel(x, y, Color.FromArgb(newR, newG, newB));
-                }
-            }
-            bmpB.Dispose();
-            return resultBmp;
+            return PerformOperation(imgA, imgB, (cA, cB) => {
+                int r = Clamp(cA.R - cB.R);
+                int g = Clamp(cA.G - cB.G);
+                int b = Clamp(cA.B - cB.B);
+                return Color.FromArgb(r, g, b);
+            });
         }
 
         public static Bitmap Multiply(Bitmap imgA, Bitmap imgB)
         {
-            Bitmap bmpB = new Bitmap(imgB, imgA.Size);
-            Bitmap resultBmp = new Bitmap(imgA.Width, imgA.Height);
-            for (int y = 0; y < imgA.Height; y++)
-            {
-                for (int x = 0; x < imgA.Width; x++)
-                {
-                    Color cA = imgA.GetPixel(x, y);
-                    Color cB = bmpB.GetPixel(x, y);
-                    int newR = Clamp((int)((cA.R / 255.0) * (cB.R / 255.0) * 255.0));
-                    int newG = Clamp((int)((cA.G / 255.0) * (cB.G / 255.0) * 255.0));
-                    int newB = Clamp((int)((cA.B / 255.0) * (cB.B / 255.0) * 255.0));
-                    resultBmp.SetPixel(x, y, Color.FromArgb(newR, newG, newB));
-                }
-            }
-            bmpB.Dispose();
-            return resultBmp;
+            return PerformOperation(imgA, imgB, (cA, cB) => {
+                int r = Clamp((int)((cA.R / 255.0) * (cB.R / 255.0) * 255.0));
+                int g = Clamp((int)((cA.G / 255.0) * (cB.G / 255.0) * 255.0));
+                int b = Clamp((int)((cA.B / 255.0) * (cB.B / 255.0) * 255.0));
+                return Color.FromArgb(r, g, b);
+            });
         }
 
         public static Bitmap Divide(Bitmap imgA, Bitmap imgB)
         {
-            Bitmap bmpB = new Bitmap(imgB, imgA.Size);
-            Bitmap resultBmp = new Bitmap(imgA.Width, imgA.Height);
-            for (int y = 0; y < imgA.Height; y++)
-            {
-                for (int x = 0; x < imgA.Width; x++)
-                {
-                    Color cA = imgA.GetPixel(x, y);
-                    Color cB = bmpB.GetPixel(x, y);
-                    double divR = (cB.R == 0) ? 1 : (cB.R / 255.0);
-                    double divG = (cB.G == 0) ? 1 : (cB.G / 255.0);
-                    double divB = (cB.B == 0) ? 1 : (cB.B / 255.0);
-                    int newR = Clamp((int)((cA.R / 255.0) / divR * 255.0));
-                    int newG = Clamp((int)((cA.G / 255.0) / divG * 255.0));
-                    int newB = Clamp((int)((cA.B / 255.0) / divB * 255.0));
-                    resultBmp.SetPixel(x, y, Color.FromArgb(newR, newG, newB));
-                }
-            }
-            bmpB.Dispose();
-            return resultBmp;
+            return PerformOperation(imgA, imgB, (cA, cB) => {
+                double divR = (cB.R == 0) ? 1 : (cB.R / 255.0);
+                double divG = (cB.G == 0) ? 1 : (cB.G / 255.0);
+                double divB = (cB.B == 0) ? 1 : (cB.B / 255.0);
+
+                int r = Clamp((int)((cA.R / 255.0) / divR * 255.0));
+                int g = Clamp((int)((cA.G / 255.0) / divG * 255.0));
+                int b = Clamp((int)((cA.B / 255.0) / divB * 255.0));
+                return Color.FromArgb(r, g, b);
+            });
         }
     }
 }
