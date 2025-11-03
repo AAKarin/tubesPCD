@@ -16,9 +16,6 @@ namespace MiniPhotoshop.Helpers
         private readonly ImageEditorService _editorService;
         private readonly UIManager _toolManager;
 
-        // --- PERBAIKAN 2: Menambahkan field/variabel yang hilang ---
-        private PictureBox _selectedThumbnail;
-
         // Constructor
         public DragDropManager(
             PictureBox mainCanvas, List<PictureBox> thumbnails, PictureBox histogram,
@@ -44,28 +41,7 @@ namespace MiniPhotoshop.Helpers
                 thumbnail.MouseDown += OnThumbnail_MouseDown;
                 thumbnail.DragEnter += OnThumbnail_DragEnter;
                 thumbnail.DragDrop += OnThumbnail_DragDrop;
-
-                // --- PERBAIKAN 3: Menghubungkan event klik ---
-                // (Ini penting agar _selectedThumbnail punya nilai)
-                thumbnail.Click += OnThumbnail_Click;
             }
-        }
-
-        // --- PERBAIKAN 4: Menambahkan FUNGSI YANG HILANG ---
-        // (Ini memberi nilai pada _selectedThumbnail)
-        private void OnThumbnail_Click(object sender, EventArgs e)
-        {
-            var clickedThumbnail = (PictureBox)sender;
-
-            // 1. Reset warna semua thumbnail ke normal
-            foreach (var tb in _thumbnails)
-            {
-                tb.BackColor = SystemColors.Control; // Warna default
-            }
-
-            // 2. Tandai thumbnail yang baru diklik sebagai "terpilih"
-            _selectedThumbnail = clickedThumbnail;
-            _selectedThumbnail.BackColor = Color.DodgerBlue; // Beri warna highlight
         }
 
         // FUNGSI Logika Geser (Shift Logic)
@@ -171,23 +147,6 @@ namespace MiniPhotoshop.Helpers
                 }
             }
             return count;
-        }
-
-        // Fungsi ini sekarang sudah benar
-        public Bitmap GetSelectedImage()
-        {
-            if (_selectedThumbnail != null && _selectedThumbnail.Image != null)
-            {
-                return new Bitmap(_selectedThumbnail.Image);
-            }
-
-            var firstThumbnail = _thumbnails.FirstOrDefault(tb => tb.Image != null);
-            if (firstThumbnail != null)
-            {
-                return new Bitmap(firstThumbnail.Image);
-            }
-
-            return null;
         }
 
         #endregion

@@ -64,6 +64,10 @@
             thumbPictureBox1 = new PictureBox();
             pictureBoxHistogram = new PictureBox();
             pictureBox1 = new PictureBox();
+            radioButtonThum1 = new RadioButton();
+            radioButtonThum2 = new RadioButton();
+            radioButtonThum3 = new RadioButton();
+            radioButtonThum4 = new RadioButton();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
@@ -131,14 +135,14 @@
             // tambahToolStripMenuItem
             // 
             tambahToolStripMenuItem.Name = "tambahToolStripMenuItem";
-            tambahToolStripMenuItem.Size = new Size(224, 26);
+            tambahToolStripMenuItem.Size = new Size(144, 26);
             tambahToolStripMenuItem.Text = "Tambah";
             tambahToolStripMenuItem.Click += tambahToolStripMenuItem_Click;
             // 
             // kurangToolStripMenuItem
             // 
             kurangToolStripMenuItem.Name = "kurangToolStripMenuItem";
-            kurangToolStripMenuItem.Size = new Size(224, 26);
+            kurangToolStripMenuItem.Size = new Size(144, 26);
             kurangToolStripMenuItem.Text = "Kurang";
             kurangToolStripMenuItem.Click += kurangToolStripMenuItem_Click;
             // 
@@ -215,6 +219,10 @@
             // 
             // splitContainer1.Panel2
             // 
+            splitContainer1.Panel2.Controls.Add(radioButtonThum4);
+            splitContainer1.Panel2.Controls.Add(radioButtonThum3);
+            splitContainer1.Panel2.Controls.Add(radioButtonThum2);
+            splitContainer1.Panel2.Controls.Add(radioButtonThum1);
             splitContainer1.Panel2.Controls.Add(thumbPictureBox4);
             splitContainer1.Panel2.Controls.Add(thumbPictureBox3);
             splitContainer1.Panel2.Controls.Add(thumbPictureBox2);
@@ -410,6 +418,50 @@
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
+            // radioButtonThum1
+            // 
+            radioButtonThum1.AutoSize = true;
+            radioButtonThum1.Location = new Point(17, 479);
+            radioButtonThum1.Name = "radioButtonThum1";
+            radioButtonThum1.Size = new Size(95, 24);
+            radioButtonThum1.TabIndex = 9;
+            radioButtonThum1.TabStop = true;
+            radioButtonThum1.Text = "Gambar 1";
+            radioButtonThum1.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonThum2
+            // 
+            radioButtonThum2.AutoSize = true;
+            radioButtonThum2.Location = new Point(268, 479);
+            radioButtonThum2.Name = "radioButtonThum2";
+            radioButtonThum2.Size = new Size(95, 24);
+            radioButtonThum2.TabIndex = 10;
+            radioButtonThum2.TabStop = true;
+            radioButtonThum2.Text = "Gambar 2";
+            radioButtonThum2.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonThum3
+            // 
+            radioButtonThum3.AutoSize = true;
+            radioButtonThum3.Location = new Point(515, 479);
+            radioButtonThum3.Name = "radioButtonThum3";
+            radioButtonThum3.Size = new Size(95, 24);
+            radioButtonThum3.TabIndex = 11;
+            radioButtonThum3.TabStop = true;
+            radioButtonThum3.Text = "Gambar 3";
+            radioButtonThum3.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonThum4
+            // 
+            radioButtonThum4.AutoSize = true;
+            radioButtonThum4.Location = new Point(761, 479);
+            radioButtonThum4.Name = "radioButtonThum4";
+            radioButtonThum4.Size = new Size(95, 24);
+            radioButtonThum4.TabIndex = 12;
+            radioButtonThum4.TabStop = true;
+            radioButtonThum4.Text = "Gambar 4";
+            radioButtonThum4.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -425,6 +477,7 @@
             splitContainer1.Panel1.ResumeLayout(false);
             splitContainer1.Panel1.PerformLayout();
             splitContainer1.Panel2.ResumeLayout(false);
+            splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
             splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)trackBarBrightness).EndInit();
@@ -477,5 +530,9 @@
         private ToolStripMenuItem oRToolStripMenuItem;
         private ToolStripMenuItem nEGATIONToolStripMenuItem;
         private ToolStripMenuItem xORToolStripMenuItem;
+        private RadioButton radioButtonThum1;
+        private RadioButton radioButtonThum4;
+        private RadioButton radioButtonThum3;
+        private RadioButton radioButtonThum2;
     }
 }

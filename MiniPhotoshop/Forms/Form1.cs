@@ -2,7 +2,6 @@ using MiniPhotoshop.Forms;
 using MiniPhotoshop.Helpers;
 using MiniPhotoshop.Logic;
 using MiniPhotoshop.Logic.Helpers;
-using MiniPhotoshop.Logic.Helpers;
 using MiniPhotoshop.Logic.Histogram;
 using MiniPhotoshop.Logic.ImageProcessing;
 using MiniPhotoshop.Logic.IO;
@@ -19,11 +18,23 @@ namespace MiniPhotoshop
         private readonly ImageEditorService _editorService;
         private readonly UIManager _toolManager;
         private readonly DragDropManager _dragDropManager;
+        private readonly OperationManager _operationManager;
+        private Dictionary<RadioButton, PictureBox> _thumbnailMap;
         private bool isColorSelectionMode = false;
+
 
         public Form1()
         {
             InitializeComponent();
+
+            _thumbnailMap = new Dictionary<RadioButton, PictureBox>
+            {
+                // (Pastikan nama ini sama persis dengan file Designer Anda)
+                { radioButtonThum1, thumbPictureBox1 },
+                { radioButtonThum2, thumbPictureBox2 },
+                { radioButtonThum3, thumbPictureBox3 },
+                { radioButtonThum4, thumbPictureBox4 }
+            };
 
             // Inisialisasi Service dan Manager
             _editorService = new ImageEditorService();
@@ -53,7 +64,7 @@ namespace MiniPhotoshop
             _toolManager.DisableTools();
             fileToolStripMenuItem.Enabled = false;
 
-            // 2. Buat daftar semua thumbnail DENGAN NAMA YANG BENAR
+            // daftar semua thumbnail DENGAN NAMA YANG BENAR
             var thumbnails = new List<PictureBox>
             {
                 thumbPictureBox1,
@@ -62,7 +73,7 @@ namespace MiniPhotoshop
                 thumbPictureBox4  // <-- Nama dari file Designer Anda
             };
 
-            // 3. Buat DragDropManager BARU dengan DAFTAR thumbnail
+            // DragDropManager BARU dengan DAFTAR thumbnail
             _dragDropManager = new DragDropManager(
                 pictureBox1,
                 thumbnails, // <-- Berikan daftarnya
@@ -72,8 +83,11 @@ namespace MiniPhotoshop
                 fileToolStripMenuItem
             );
 
-            // 3. Daftarkan event
+            // Daftarkan event
             _dragDropManager.RegisterDragDropEvents();
+
+            // operasi manager
+            _operationManager = new OperationManager(_editorService, _thumbnailMap);
 
             // event handler untuk tombol Show Red, Green, Blue
             button5.Click += (s, e) => { if (_editorService.IsImageLoaded) pictureBox1.Image = _editorService.GetChannel(0); }; // Red
@@ -239,143 +253,45 @@ namespace MiniPhotoshop
         }
 
         #region Operasi Aritmatika & Logika
-
-        // --- FUNGSI HELPER UTAMA ---
-        // Fungsi ini mengambil Gambar A (dari kanvas) dan Gambar B (dari thumbnail yang DIKLIK)
-        private bool GetImageOperands(out Bitmap imgA, out Bitmap imgB)
-        {
-            imgA = null;
-            imgB = null;
-
-            // 1. Cek Gambar A (Kanvas Utama)
-            if (pictureBox1.Image == null)
-            {
-                MessageBox.Show("Gambar A (di kanvas utama) masih kosong.\n\n" +
-                                "Silakan DRAG gambar dari thumbnail ke kanvas utama dulu.",
-                                "Gambar A Kosong", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return false;
-            }
-
-            // 2. Cek Gambar B (Thumbnail yang Dipilih)
-            //    Kita panggil fungsi 'GetSelectedImage' dari DragDropManager
-            imgB = _dragDropManager.GetSelectedImage();
-            if (imgB == null)
-            {
-                MessageBox.Show("Gambar B belum dipilih.\n\n" +
-                                "Silakan KLIK salah satu gambar di thumbnail.",
-                                "Gambar B Kosong", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return false;
-            }
-
-            // 3. Jika keduanya ada, buat salinannya
-            imgA = new Bitmap(pictureBox1.Image);
-            // imgB sudah didapat dari manager
-            return true;
-        }
-
-        // --- ISI SEMUA FUNGSI DARI LANGKAH 2 DENGAN KODE INI ---
-        // (Salin-tempel kode ini ke fungsi-fungsi yang baru Anda buat)
-
         private void tambahToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (GetImageOperands(out Bitmap imgA, out Bitmap imgB))
-            {
-                using (imgA) // 'using' untuk auto-dispose memori
-                using (imgB)
-                {
-                    pictureBox1.Image = ArithmeticOperations.Add(imgA, imgB);
-                }
-            }
+            pictureBox1.Image = _operationManager.PerformAdd();
         }
 
         private void kurangToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (GetImageOperands(out Bitmap imgA, out Bitmap imgB))
-            {
-                using (imgA)
-                using (imgB)
-                {
-                    pictureBox1.Image = ArithmeticOperations.Subtract(imgA, imgB);
-                }
-            }
+            pictureBox1.Image = _operationManager.PerformSubtract();
         }
 
         private void kaliToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (GetImageOperands(out Bitmap imgA, out Bitmap imgB))
-            {
-                using (imgA)
-                using (imgB)
-                {
-                    pictureBox1.Image = ArithmeticOperations.Multiply(imgA, imgB);
-                }
-            }
+            pictureBox1.Image = _operationManager.PerformMultiply();
         }
 
         private void bagiToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (GetImageOperands(out Bitmap imgA, out Bitmap imgB))
-            {
-                using (imgA)
-                using (imgB)
-                {
-                    pictureBox1.Image = ArithmeticOperations.Divide(imgA, imgB);
-                }
-            }
+            pictureBox1.Image = _operationManager.PerformDivide();
         }
-
 
         private void aNDToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (GetImageOperands(out Bitmap imgA, out Bitmap imgB))
-            {
-                using (imgA)
-                using (imgB)
-                {
-                    pictureBox1.Image = LogicalOperations.And(imgA, imgB);
-                }
-            }
+            pictureBox1.Image = _operationManager.PerformAnd();
         }
 
         private void oRToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (GetImageOperands(out Bitmap imgA, out Bitmap imgB))
-            {
-                using (imgA)
-                using (imgB)
-                {
-                    pictureBox1.Image = LogicalOperations.Or(imgA, imgB);
-                }
-            }
+            pictureBox1.Image = _operationManager.PerformOr();
         }
 
         private void xORToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (GetImageOperands(out Bitmap imgA, out Bitmap imgB))
-            {
-                using (imgA)
-                using (imgB)
-                {
-                    pictureBox1.Image = LogicalOperations.Xor(imgA, imgB);
-                }
-            }
+            pictureBox1.Image = _operationManager.PerformXor();
         }
 
         private void nEGATIONToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // Operasi NOT hanya butuh Gambar A
-            if (pictureBox1.Image == null)
-            {
-                MessageBox.Show("Gambar A (di kanvas utama) masih kosong.", "Error");
-                return;
-            }
-
-            using (Bitmap imgA = new Bitmap(pictureBox1.Image))
-            {
-                pictureBox1.Image = LogicalOperations.Not(imgA);
-            }
+            pictureBox1.Image = _operationManager.PerformNot();
         }
-
         #endregion
     }
 }
