@@ -78,7 +78,9 @@ StyleCopReport.xml
 *_h.h
 *.ilk
 *.meta
-*.obj
+# perbaiki bin dan obj
+**/bin/
+**/obj/
 *.iobj
 *.pch
 *.pdb
