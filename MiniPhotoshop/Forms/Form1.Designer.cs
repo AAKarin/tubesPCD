@@ -35,7 +35,12 @@
             histogramBToolStripMenuItem = new ToolStripMenuItem();
             histogramGrToolStripMenuItem = new ToolStripMenuItem();
             splitContainer1 = new SplitContainer();
+<<<<<<< HEAD
+            lblBrightnessValue = new Label();
+            trackBarBrightness = new TrackBar();
+=======
             trackBarBlackWhite = new TrackBar();
+>>>>>>> ab13c47b75d26be78a7e4cddac26ea37e757b133
             button10 = new Button();
             button8 = new Button();
             button7 = new Button();
@@ -53,7 +58,11 @@
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
             splitContainer1.SuspendLayout();
+<<<<<<< HEAD
+            ((System.ComponentModel.ISupportInitialize)trackBarBrightness).BeginInit();
+=======
             ((System.ComponentModel.ISupportInitialize)trackBarBlackWhite).BeginInit();
+>>>>>>> ab13c47b75d26be78a7e4cddac26ea37e757b133
             ((System.ComponentModel.ISupportInitialize)pictureBoxHistogram).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
@@ -107,8 +116,13 @@
             // 
             // splitContainer1.Panel1
             // 
+<<<<<<< HEAD
+            splitContainer1.Panel1.Controls.Add(lblBrightnessValue);
+            splitContainer1.Panel1.Controls.Add(trackBarBrightness);
+=======
             splitContainer1.Panel1.Controls.Add(label1);
             splitContainer1.Panel1.Controls.Add(trackBarBlackWhite);
+>>>>>>> ab13c47b75d26be78a7e4cddac26ea37e757b133
             splitContainer1.Panel1.Controls.Add(button10);
             splitContainer1.Panel1.Controls.Add(button8);
             splitContainer1.Panel1.Controls.Add(button7);
@@ -127,6 +141,26 @@
             splitContainer1.SplitterDistance = 267;
             splitContainer1.TabIndex = 1;
             // 
+<<<<<<< HEAD
+            // lblBrightnessValue
+            // 
+            lblBrightnessValue.AutoSize = true;
+            lblBrightnessValue.Location = new Point(86, 425);
+            lblBrightnessValue.Name = "lblBrightnessValue";
+            lblBrightnessValue.Size = new Size(92, 20);
+            lblBrightnessValue.TabIndex = 11;
+            lblBrightnessValue.Text = "Brightness: 0";
+            // 
+            // trackBarBrightness
+            // 
+            trackBarBrightness.Location = new Point(76, 448);
+            trackBarBrightness.Maximum = 255;
+            trackBarBrightness.Minimum = -255;
+            trackBarBrightness.Name = "trackBarBrightness";
+            trackBarBrightness.Size = new Size(111, 56);
+            trackBarBrightness.TabIndex = 10;
+            trackBarBrightness.TickFrequency = 25;
+=======
             // trackBarBlackWhite
             // 
             trackBarBlackWhite.Location = new Point(22, 377);
@@ -136,6 +170,7 @@
             trackBarBlackWhite.TabIndex = 10;
             trackBarBlackWhite.Value = 2;
             trackBarBlackWhite.Scroll += trackBarBlackWhite_Scroll;
+>>>>>>> ab13c47b75d26be78a7e4cddac26ea37e757b133
             // 
             // button10
             // 
@@ -264,7 +299,11 @@
             splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
             splitContainer1.ResumeLayout(false);
+<<<<<<< HEAD
+            ((System.ComponentModel.ISupportInitialize)trackBarBrightness).EndInit();
+=======
             ((System.ComponentModel.ISupportInitialize)trackBarBlackWhite).EndInit();
+>>>>>>> ab13c47b75d26be78a7e4cddac26ea37e757b133
             ((System.ComponentModel.ISupportInitialize)pictureBoxHistogram).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
@@ -291,7 +330,12 @@
         private PictureBox pictureBoxHistogram;
         private Button button8;
         private Button button10;
+<<<<<<< HEAD
+        private Label lblBrightnessValue;
+        private TrackBar trackBarBrightness;
+=======
         private TrackBar trackBarBlackWhite;
         private Label label1;
+>>>>>>> ab13c47b75d26be78a7e4cddac26ea37e757b133
     }
 }

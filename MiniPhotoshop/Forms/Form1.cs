@@ -1,12 +1,10 @@
-using System.Drawing.Drawing2D;
+using System;
+using System.Drawing;
+using System.Windows.Forms;
 using MiniPhotoshop.Logic.Helpers;
 using MiniPhotoshop.Logic.IO;
 using MiniPhotoshop.Logic.Histogram;
-using System.Linq;
-using System.Drawing;
-using System.Windows.Forms;
 using MiniPhotoshop.Logic.ImageProcessing;
-using MiniPhotoshop.Logic.Helpers;
 
 namespace MiniPhotoshop
 {
@@ -20,25 +18,30 @@ namespace MiniPhotoshop
         {
             InitializeComponent();
 
-            // event handler untuk tombol Show Red, Green, Blue
-            button5.Click += (s, e) => pictureBox1.Image = ImageDataProcessor.CreateBitmapFrom3DArray(imageData3D, 0); // Red
-            button6.Click += (s, e) => pictureBox1.Image = ImageDataProcessor.CreateBitmapFrom3DArray(imageData3D, 1); // Green
-            button7.Click += (s, e) => pictureBox1.Image = ImageDataProcessor.CreateBitmapFrom3DArray(imageData3D, 2); // Blue
-            button4.Click += (s, e) => pictureBox1.Image = ImageDataProcessor.CreateBitmapFrom3DArray(imageData3D, 3); // Grayscale
+            // Event handler tombol Show Red, Green, Blue
+            button5.Click += (s, e) => pictureBox1.Image = ImageDataProcessor.CreateBitmapFrom3DArray(imageData3D, 0);
+            button6.Click += (s, e) => pictureBox1.Image = ImageDataProcessor.CreateBitmapFrom3DArray(imageData3D, 1);
+            button7.Click += (s, e) => pictureBox1.Image = ImageDataProcessor.CreateBitmapFrom3DArray(imageData3D, 2);
+            button4.Click += (s, e) => pictureBox1.Image = ImageDataProcessor.CreateBitmapFrom3DArray(imageData3D, 3);
 
-            // event handler menu histogram
-            histogramRToolStripMenuItem.Click += (s, e) => TampilkanHistogramChannel(0); // Histogram R
-            histogramGToolStripMenuItem.Click += (s, e) => TampilkanHistogramChannel(1); // Histogram G
-            histogramBToolStripMenuItem.Click += (s, e) => TampilkanHistogramChannel(2); // Histogram B
-            histogramGrToolStripMenuItem.Click += (s, e) => TampilkanHistogramChannel(3); // Histogram Grayscale
+            // Event handler menu histogram
+            histogramRToolStripMenuItem.Click += (s, e) => TampilkanHistogramChannel(0);
+            histogramGToolStripMenuItem.Click += (s, e) => TampilkanHistogramChannel(1);
+            histogramBToolStripMenuItem.Click += (s, e) => TampilkanHistogramChannel(2);
+            histogramGrToolStripMenuItem.Click += (s, e) => TampilkanHistogramChannel(3);
 
-            // event handler tombol color selection
+            // Event handler mode seleksi warna
             this.button8.Click += new System.EventHandler(this.button8_Click);
             this.pictureBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseClick);
 
+<<<<<<< HEAD
+            // --- TAMBAHAN: Event handler untuk TrackBar Brightness ---
+            this.trackBarBrightness.Scroll += new System.EventHandler(this.trackBarBrightness_Scroll);
+=======
             // event handler tombol negasi citra
             this.button10.Click += new System.EventHandler(this.btnNegation_Click);
             this.trackBarBlackWhite.Scroll += new System.EventHandler(this.trackBarBlackWhite_Scroll);
+>>>>>>> ab13c47b75d26be78a7e4cddac26ea37e757b133
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -59,6 +62,10 @@ namespace MiniPhotoshop
 
                     isColorSelectionMode = false;
                     pictureBox1.Cursor = Cursors.Default;
+
+                    // --- Reset nilai Brightness saat load gambar baru ---
+                    trackBarBrightness.Value = 0;
+                    lblBrightnessValue.Text = "Brightness: 0";
                 }
             }
         }
@@ -92,6 +99,7 @@ namespace MiniPhotoshop
                 }
             }
         }
+
         private void buttonRestore_Click(Object sender, EventArgs e)
         {
             if (originalImage != null)
@@ -100,15 +108,17 @@ namespace MiniPhotoshop
 
                 isColorSelectionMode = false;
                 pictureBox1.Cursor = Cursors.Default;
+
+                // --- Reset nilai Brightness saat restore gambar ---
+                trackBarBrightness.Value = 0;
+                lblBrightnessValue.Text = "Brightness: 0";
             }
         }
 
         private void buttonGrayscale_Click(Object sender, EventArgs e)
         {
             if (imageData3D == null)
-            {
                 return;
-            }
         }
 
         private void TampilkanHistogramChannel(int channel)
@@ -140,15 +150,18 @@ namespace MiniPhotoshop
             isColorSelectionMode = true;
             pictureBox1.Cursor = Cursors.Cross;
 
+<<<<<<< HEAD
+            MessageBox.Show("Mode Seleksi Warna Aktif.\nKlik pada warna di gambar untuk menyeleksinya.",
+                            "Mode Aktif", MessageBoxButtons.OK, MessageBoxIcon.Information);
+=======
             MessageBox.Show("Mode Seleksi Warna Aktif. \nKlik pada warna di gambar untuk menyeleksinya.", "Mode Aktif", MessageBoxButtons.OK, MessageBoxIcon.Information);
+>>>>>>> ab13c47b75d26be78a7e4cddac26ea37e757b133
         }
 
         private void pictureBox1_MouseClick(object sender, MouseEventArgs e)
         {
             if (!isColorSelectionMode)
-            {
                 return;
-            }
 
             if (originalImage != null)
             {
@@ -163,17 +176,18 @@ namespace MiniPhotoshop
             pictureBox1.Cursor = Cursors.Default;
         }
 
-        private void btnNegation_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Event handler yang dijalankan setiap kali slider brightness digeser.
+        /// </summary>
+        private void trackBarBrightness_Scroll(object sender, EventArgs e)
         {
-            if (pictureBox1.Image == null)
-            {
-                MessageBox.Show("Tidak ada gambar untuk dinegasi.", "Info",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            if (originalImage == null)
                 return;
-            }
 
-            Bitmap currentImage = new Bitmap(pictureBox1.Image);
-            Bitmap resultImage = ImageNegation.Apply(currentImage);
+            int adjustment = trackBarBrightness.Value;
+            lblBrightnessValue.Text = "Brightness: " + adjustment.ToString();
+
+            Bitmap resultImage = Brightness.AdjustBrightness(originalImage, adjustment);
             pictureBox1.Image = resultImage;
         }
 

@@ -15,6 +15,25 @@ D:\PCD_TUBES\MiniPhotoshop\MiniPhotoshop\obj\Debug\net9.0-windows\MiniPhotoshop.
 D:\PCD_TUBES\MiniPhotoshop\MiniPhotoshop\obj\Debug\net9.0-windows\MiniPhotoshop.genruntimeconfig.cache
 D:\PCD_TUBES\MiniPhotoshop\MiniPhotoshop\obj\Debug\net9.0-windows\ref\MiniPhotoshop.dll
 D:\PCD_TUBES\MiniPhotoshop\MiniPhotoshop\obj\Debug\net9.0-windows\MiniPhotoshop.sourcelink.json
+<<<<<<< HEAD
+C:\Users\LENOVO\OneDrive\Documents\SEMESTER 5\PENGOLAHAN CITRA DIGITAL\tubesPCD\MiniPhotoshop\obj\Debug\net9.0-windows\MiniPhotoshop.Form1.resources
+C:\Users\LENOVO\OneDrive\Documents\SEMESTER 5\PENGOLAHAN CITRA DIGITAL\tubesPCD\MiniPhotoshop\obj\Debug\net9.0-windows\MiniPhotoshop.csproj.GenerateResource.cache
+C:\Users\LENOVO\OneDrive\Documents\SEMESTER 5\PENGOLAHAN CITRA DIGITAL\tubesPCD\MiniPhotoshop\obj\Debug\net9.0-windows\MiniPhotoshop.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\LENOVO\OneDrive\Documents\SEMESTER 5\PENGOLAHAN CITRA DIGITAL\tubesPCD\MiniPhotoshop\obj\Debug\net9.0-windows\MiniPhotoshop.AssemblyInfoInputs.cache
+C:\Users\LENOVO\OneDrive\Documents\SEMESTER 5\PENGOLAHAN CITRA DIGITAL\tubesPCD\MiniPhotoshop\obj\Debug\net9.0-windows\MiniPhotoshop.AssemblyInfo.cs
+C:\Users\LENOVO\OneDrive\Documents\SEMESTER 5\PENGOLAHAN CITRA DIGITAL\tubesPCD\MiniPhotoshop\obj\Debug\net9.0-windows\MiniPhotoshop.csproj.CoreCompileInputs.cache
+C:\Users\LENOVO\OneDrive\Documents\SEMESTER 5\PENGOLAHAN CITRA DIGITAL\tubesPCD\MiniPhotoshop\obj\Debug\net9.0-windows\MiniPhotoshop.sourcelink.json
+C:\Users\LENOVO\OneDrive\Documents\SEMESTER 5\PENGOLAHAN CITRA DIGITAL\tubesPCD\MiniPhotoshop\obj\Debug\net9.0-windows\MiniPhotoshop.dll
+C:\Users\LENOVO\OneDrive\Documents\SEMESTER 5\PENGOLAHAN CITRA DIGITAL\tubesPCD\MiniPhotoshop\obj\Debug\net9.0-windows\refint\MiniPhotoshop.dll
+C:\Users\LENOVO\OneDrive\Documents\SEMESTER 5\PENGOLAHAN CITRA DIGITAL\tubesPCD\MiniPhotoshop\obj\Debug\net9.0-windows\MiniPhotoshop.pdb
+C:\Users\LENOVO\OneDrive\Documents\SEMESTER 5\PENGOLAHAN CITRA DIGITAL\tubesPCD\MiniPhotoshop\bin\Debug\net9.0-windows\MiniPhotoshop.exe
+C:\Users\LENOVO\OneDrive\Documents\SEMESTER 5\PENGOLAHAN CITRA DIGITAL\tubesPCD\MiniPhotoshop\bin\Debug\net9.0-windows\MiniPhotoshop.deps.json
+C:\Users\LENOVO\OneDrive\Documents\SEMESTER 5\PENGOLAHAN CITRA DIGITAL\tubesPCD\MiniPhotoshop\bin\Debug\net9.0-windows\MiniPhotoshop.runtimeconfig.json
+C:\Users\LENOVO\OneDrive\Documents\SEMESTER 5\PENGOLAHAN CITRA DIGITAL\tubesPCD\MiniPhotoshop\bin\Debug\net9.0-windows\MiniPhotoshop.dll
+C:\Users\LENOVO\OneDrive\Documents\SEMESTER 5\PENGOLAHAN CITRA DIGITAL\tubesPCD\MiniPhotoshop\bin\Debug\net9.0-windows\MiniPhotoshop.pdb
+C:\Users\LENOVO\OneDrive\Documents\SEMESTER 5\PENGOLAHAN CITRA DIGITAL\tubesPCD\MiniPhotoshop\obj\Debug\net9.0-windows\MiniPhotoshop.genruntimeconfig.cache
+C:\Users\LENOVO\OneDrive\Documents\SEMESTER 5\PENGOLAHAN CITRA DIGITAL\tubesPCD\MiniPhotoshop\obj\Debug\net9.0-windows\ref\MiniPhotoshop.dll
+=======
 C:\Kuliah\Semester5\Pengolahan-Citra-Digital\Tubes\tubesPCD\MiniPhotoshop\bin\Debug\net9.0-windows\MiniPhotoshop.exe
 C:\Kuliah\Semester5\Pengolahan-Citra-Digital\Tubes\tubesPCD\MiniPhotoshop\bin\Debug\net9.0-windows\MiniPhotoshop.deps.json
 C:\Kuliah\Semester5\Pengolahan-Citra-Digital\Tubes\tubesPCD\MiniPhotoshop\bin\Debug\net9.0-windows\MiniPhotoshop.runtimeconfig.json
@@ -32,3 +51,4 @@ C:\Kuliah\Semester5\Pengolahan-Citra-Digital\Tubes\tubesPCD\MiniPhotoshop\obj\De
 C:\Kuliah\Semester5\Pengolahan-Citra-Digital\Tubes\tubesPCD\MiniPhotoshop\obj\Debug\net9.0-windows\MiniPhotoshop.pdb
 C:\Kuliah\Semester5\Pengolahan-Citra-Digital\Tubes\tubesPCD\MiniPhotoshop\obj\Debug\net9.0-windows\MiniPhotoshop.genruntimeconfig.cache
 C:\Kuliah\Semester5\Pengolahan-Citra-Digital\Tubes\tubesPCD\MiniPhotoshop\obj\Debug\net9.0-windows\ref\MiniPhotoshop.dll
+>>>>>>> ab13c47b75d26be78a7e4cddac26ea37e757b133
