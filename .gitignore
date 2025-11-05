@@ -613,3 +613,6 @@ $RECYCLE.BIN/
 # End of https://www.toptal.com/developers/gitignore/api/visualstudio,windows,csharp,dotnetcore
 
 Explain
+
+# Ignore Debug to be pushed to remote repository
+MiniPhotoshop/obj/Debug
