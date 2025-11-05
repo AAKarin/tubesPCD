@@ -615,4 +615,4 @@ $RECYCLE.BIN/
 Explain
 
 # Ignore Debug to be pushed to remote repository
-MiniPhotoshop/obj
+MiniPhotoshop/obj/
