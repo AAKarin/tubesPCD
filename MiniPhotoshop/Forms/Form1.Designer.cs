@@ -47,6 +47,18 @@
             konstantaToolStripMenuItem = new ToolStripMenuItem();
             constKaliToolStripMenuItem = new ToolStripMenuItem();
             constBagiToolStripMenuItem = new ToolStripMenuItem();
+            manipulasiToolStripMenuItem = new ToolStripMenuItem();
+            rotasiToolStripMenuItem = new ToolStripMenuItem();
+            toolStripMenuItem2 = new ToolStripMenuItem();
+            toolStripMenuItem3 = new ToolStripMenuItem();
+            toolStripMenuItem4 = new ToolStripMenuItem();
+            toolStripMenuItem5 = new ToolStripMenuItem();
+            freeToolStripMenuItem = new ToolStripMenuItem();
+            dilatasiToolStripMenuItem = new ToolStripMenuItem();
+            zoomInToolStripMenuItem = new ToolStripMenuItem();
+            zoomOutToolStripMenuItem = new ToolStripMenuItem();
+            translasiToolStripMenuItem = new ToolStripMenuItem();
+            distorsiToolStripMenuItem = new ToolStripMenuItem();
             splitContainer1 = new SplitContainer();
             txtConstantValue = new TextBox();
             labelConstant = new Label();
@@ -92,7 +104,7 @@
             // 
             menuStrip1.BackColor = SystemColors.ButtonHighlight;
             menuStrip1.ImageScalingSize = new Size(20, 20);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, aritmatikaToolStripMenuItem, binerToolStripMenuItem, konstantaToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, aritmatikaToolStripMenuItem, binerToolStripMenuItem, konstantaToolStripMenuItem, manipulasiToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(1280, 28);
@@ -210,16 +222,92 @@
             // constKaliToolStripMenuItem
             // 
             constKaliToolStripMenuItem.Name = "constKaliToolStripMenuItem";
-            constKaliToolStripMenuItem.Size = new Size(224, 26);
+            constKaliToolStripMenuItem.Size = new Size(165, 26);
             constKaliToolStripMenuItem.Text = "Const_Kali";
             constKaliToolStripMenuItem.Click += kaliKonstantaToolStripMenuItem_Click;
             // 
             // constBagiToolStripMenuItem
             // 
             constBagiToolStripMenuItem.Name = "constBagiToolStripMenuItem";
-            constBagiToolStripMenuItem.Size = new Size(224, 26);
+            constBagiToolStripMenuItem.Size = new Size(165, 26);
             constBagiToolStripMenuItem.Text = "Const_Bagi";
             constBagiToolStripMenuItem.Click += bagiKonstantaToolStripMenuItem_Click;
+            // 
+            // manipulasiToolStripMenuItem
+            // 
+            manipulasiToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { rotasiToolStripMenuItem, dilatasiToolStripMenuItem, translasiToolStripMenuItem, distorsiToolStripMenuItem });
+            manipulasiToolStripMenuItem.Name = "manipulasiToolStripMenuItem";
+            manipulasiToolStripMenuItem.Size = new Size(95, 24);
+            manipulasiToolStripMenuItem.Text = "Manipulasi";
+            // 
+            // rotasiToolStripMenuItem
+            // 
+            rotasiToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItem2, toolStripMenuItem3, toolStripMenuItem4, toolStripMenuItem5, freeToolStripMenuItem });
+            rotasiToolStripMenuItem.Name = "rotasiToolStripMenuItem";
+            rotasiToolStripMenuItem.Size = new Size(224, 26);
+            rotasiToolStripMenuItem.Text = "Rotasi";
+            // 
+            // toolStripMenuItem2
+            // 
+            toolStripMenuItem2.Name = "toolStripMenuItem2";
+            toolStripMenuItem2.Size = new Size(122, 26);
+            toolStripMenuItem2.Text = "45°";
+            // 
+            // toolStripMenuItem3
+            // 
+            toolStripMenuItem3.Name = "toolStripMenuItem3";
+            toolStripMenuItem3.Size = new Size(122, 26);
+            toolStripMenuItem3.Text = "90°";
+            // 
+            // toolStripMenuItem4
+            // 
+            toolStripMenuItem4.Name = "toolStripMenuItem4";
+            toolStripMenuItem4.Size = new Size(122, 26);
+            toolStripMenuItem4.Text = "180°";
+            // 
+            // toolStripMenuItem5
+            // 
+            toolStripMenuItem5.Name = "toolStripMenuItem5";
+            toolStripMenuItem5.Size = new Size(122, 26);
+            toolStripMenuItem5.Text = "270°";
+            // 
+            // freeToolStripMenuItem
+            // 
+            freeToolStripMenuItem.Name = "freeToolStripMenuItem";
+            freeToolStripMenuItem.Size = new Size(122, 26);
+            freeToolStripMenuItem.Text = "Free";
+            // 
+            // dilatasiToolStripMenuItem
+            // 
+            dilatasiToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { zoomInToolStripMenuItem, zoomOutToolStripMenuItem });
+            dilatasiToolStripMenuItem.Name = "dilatasiToolStripMenuItem";
+            dilatasiToolStripMenuItem.Size = new Size(224, 26);
+            dilatasiToolStripMenuItem.Text = "Dilatasi";
+            // 
+            // zoomInToolStripMenuItem
+            // 
+            zoomInToolStripMenuItem.Name = "zoomInToolStripMenuItem";
+            zoomInToolStripMenuItem.Size = new Size(160, 26);
+            zoomInToolStripMenuItem.Text = "Zoom In";
+            // 
+            // zoomOutToolStripMenuItem
+            // 
+            zoomOutToolStripMenuItem.Name = "zoomOutToolStripMenuItem";
+            zoomOutToolStripMenuItem.Size = new Size(160, 26);
+            zoomOutToolStripMenuItem.Text = "Zoom Out";
+            // 
+            // translasiToolStripMenuItem
+            // 
+            translasiToolStripMenuItem.Name = "translasiToolStripMenuItem";
+            translasiToolStripMenuItem.Size = new Size(224, 26);
+            translasiToolStripMenuItem.Text = "Translasi";
+            translasiToolStripMenuItem.Click += translasiToolStripMenuItem_Click;
+            // 
+            // distorsiToolStripMenuItem
+            // 
+            distorsiToolStripMenuItem.Name = "distorsiToolStripMenuItem";
+            distorsiToolStripMenuItem.Size = new Size(224, 26);
+            distorsiToolStripMenuItem.Text = "Distorsi";
             // 
             // splitContainer1
             // 
@@ -585,5 +673,17 @@
         private ToolStripMenuItem constBagiToolStripMenuItem;
         private Label labelConstant;
         private TextBox txtConstantValue;
+        private ToolStripMenuItem manipulasiToolStripMenuItem;
+        private ToolStripMenuItem rotasiToolStripMenuItem;
+        private ToolStripMenuItem dilatasiToolStripMenuItem;
+        private ToolStripMenuItem translasiToolStripMenuItem;
+        private ToolStripMenuItem distorsiToolStripMenuItem;
+        private ToolStripMenuItem toolStripMenuItem2;
+        private ToolStripMenuItem toolStripMenuItem3;
+        private ToolStripMenuItem toolStripMenuItem4;
+        private ToolStripMenuItem toolStripMenuItem5;
+        private ToolStripMenuItem freeToolStripMenuItem;
+        private ToolStripMenuItem zoomInToolStripMenuItem;
+        private ToolStripMenuItem zoomOutToolStripMenuItem;
     }
 }

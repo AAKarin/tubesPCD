@@ -10,6 +10,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Windows.Forms;
+using MiniPhotoshop.Logic.Geometry;
 
 namespace MiniPhotoshop
 {
@@ -127,6 +128,56 @@ namespace MiniPhotoshop
             _toolManager.ResetControls();
         }
 
+        private void pictureBox1_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (!isColorSelectionMode || !_editorService.IsImageLoaded) return;
+
+            Point imagePoint = CoordinateHelper.TranslateMouseClickToImagePoint(pictureBox1, e.Location);
+            pictureBox1.Image = _editorService.ApplyColorSelection(imagePoint);
+
+            isColorSelectionMode = false;
+            pictureBox1.Cursor = Cursors.Default;
+        }
+
+        private void TampilkanHistogramChannel(int channel)
+        {
+            if (!_editorService.IsImageLoaded)
+            {
+                MessageBox.Show("Silakan muat gambar terlebih dahulu.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            // Dapatkan gambar histogram dari service
+            Bitmap histBmp = _editorService.GetHistogram(channel,
+                pictureBoxHistogram.Width,
+                pictureBoxHistogram.Height);
+
+            pictureBoxHistogram.Image = histBmp;
+        }
+
+        private void translasiToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // 1. Validasi gambar
+            if (!_editorService.IsImageLoaded)
+            {
+                MessageBox.Show("Silakan load gambar terlebih dahulu!");
+                return;
+            }
+
+            // 2. Panggil Class Translation
+            Translation transLogic = new Translation();
+
+            // Form1 sekarang hanya memberi perintah: "Saya mau translasi, tolong urus inputnya sekalian"
+            Bitmap result = transLogic.RequestTranslation((Bitmap)pictureBox1.Image);
+
+            // 3. Jika hasil ada (user menekan OK dan input benar), update tampilan
+            if (result != null)
+            {
+                pictureBox1.Image = result;
+            }
+        }
+
+        #region Button Events
         private void button1_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -175,22 +226,6 @@ namespace MiniPhotoshop
             ResetUIState();
         }
 
-        private void TampilkanHistogramChannel(int channel)
-        {
-            if (!_editorService.IsImageLoaded)
-            {
-                MessageBox.Show("Silakan muat gambar terlebih dahulu.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-
-            // Dapatkan gambar histogram dari service
-            Bitmap histBmp = _editorService.GetHistogram(channel,
-                pictureBoxHistogram.Width,
-                pictureBoxHistogram.Height);
-
-            pictureBoxHistogram.Image = histBmp;
-        }
-
         private void button8_Click(object sender, EventArgs e)
         {
             if (!_editorService.IsImageLoaded)
@@ -205,17 +240,6 @@ namespace MiniPhotoshop
             MessageBox.Show("Mode Seleksi Warna Aktif. \nKlik pada warna di gambar untuk menyeleksinya.", "Mode Aktif", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private void pictureBox1_MouseClick(object sender, MouseEventArgs e)
-        {
-            if (!isColorSelectionMode || !_editorService.IsImageLoaded) return;
-
-            Point imagePoint = CoordinateHelper.TranslateMouseClickToImagePoint(pictureBox1, e.Location);
-            pictureBox1.Image = _editorService.ApplyColorSelection(imagePoint);
-
-            isColorSelectionMode = false;
-            pictureBox1.Cursor = Cursors.Default;
-        }
-
         private void btnNegation_Click(object sender, EventArgs e)
         {
             if (pictureBox1.Image == null) return; // Cek gambar di picturebox
@@ -223,6 +247,10 @@ namespace MiniPhotoshop
             Bitmap currentImage = new Bitmap(pictureBox1.Image);
             pictureBox1.Image = _editorService.ApplyNegation(currentImage);
         }
+
+        #endregion
+
+        #region TrackBar Events
 
         private void trackBarBlackWhite_Scroll(object sender, EventArgs e)
         {
@@ -251,6 +279,8 @@ namespace MiniPhotoshop
             lblBrightnessValue.Text = "Brightness: " + adjustment.ToString();
             pictureBox1.Image = _editorService.ApplyBrightness(adjustment);
         }
+
+        #endregion
 
         #region Operasi Aritmatika & Logika
         private void tambahToolStripMenuItem_Click(object sender, EventArgs e)
