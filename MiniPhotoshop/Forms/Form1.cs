@@ -155,6 +155,7 @@ namespace MiniPhotoshop
             pictureBoxHistogram.Image = histBmp;
         }
 
+        #region Manipulation Menu Events
         private void translasiToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // 1. Validasi gambar
@@ -196,6 +197,7 @@ namespace MiniPhotoshop
                 pictureBox1.Image = result;
             }
         }
+        #endregion
 
         #region Button Events
         private void button1_Click(object sender, EventArgs e)
