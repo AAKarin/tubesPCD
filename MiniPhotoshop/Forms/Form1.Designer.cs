@@ -308,6 +308,7 @@
             distorsiToolStripMenuItem.Name = "distorsiToolStripMenuItem";
             distorsiToolStripMenuItem.Size = new Size(224, 26);
             distorsiToolStripMenuItem.Text = "Distorsi";
+            distorsiToolStripMenuItem.Click += distorsiToolStripMenuItem_Click;
             // 
             // splitContainer1
             // 
@@ -464,7 +465,7 @@
             button3.Name = "button3";
             button3.Size = new Size(111, 29);
             button3.TabIndex = 2;
-            button3.Text = "Restore Color";
+            button3.Text = "Restore";
             button3.UseVisualStyleBackColor = true;
             button3.Click += buttonRestore_Click;
             // 

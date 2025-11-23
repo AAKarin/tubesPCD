@@ -177,6 +177,26 @@ namespace MiniPhotoshop
             }
         }
 
+        private void distorsiToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // 1. Validasi
+            if (!_editorService.IsImageLoaded)
+            {
+                MessageBox.Show("Silakan load gambar terlebih dahulu!");
+                return;
+            }
+
+            // 2. Panggil Logic Distorsi
+            Distortion distLogic = new Distortion();
+            Bitmap result = distLogic.RequestDistortion((Bitmap)pictureBox1.Image);
+
+            // 3. Tampilkan Hasil
+            if (result != null)
+            {
+                pictureBox1.Image = result;
+            }
+        }
+
         #region Button Events
         private void button1_Click(object sender, EventArgs e)
         {
