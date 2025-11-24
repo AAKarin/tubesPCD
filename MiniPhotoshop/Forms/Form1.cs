@@ -392,5 +392,70 @@ namespace MiniPhotoshop
         }
 
         #endregion
+
+
+        #region Operasi Rotation
+
+        private void rotasiToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void rotasi45ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!_editorService.IsImageLoaded) return;
+            Rotation rotLogic = new Rotation();
+            // Putar 45 Derajat
+            Bitmap result = rotLogic.ProcessRotation((Bitmap)pictureBox1.Image, 45);
+            pictureBox1.Image = result;
+        }
+
+        private void rotasi90ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!_editorService.IsImageLoaded) return;
+            Rotation rotLogic = new Rotation();
+            // Putar 90 Derajat
+            Bitmap result = rotLogic.ProcessRotation((Bitmap)pictureBox1.Image, 90);
+            pictureBox1.Image = result;
+        }
+
+        private void rotasi180ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!_editorService.IsImageLoaded) return;
+            Rotation rotLogic = new Rotation();
+            // Putar 180 Derajat
+            Bitmap result = rotLogic.ProcessRotation((Bitmap)pictureBox1.Image, 180);
+            pictureBox1.Image = result;
+        }
+
+        private void rotasi270ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!_editorService.IsImageLoaded) return;
+            Rotation rotLogic = new Rotation();
+            // Putar 270 Derajat
+            Bitmap result = rotLogic.ProcessRotation((Bitmap)pictureBox1.Image, 270);
+            pictureBox1.Image = result;
+        }
+
+        private void freeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!_editorService.IsImageLoaded)
+            {
+                MessageBox.Show("Silakan load gambar terlebih dahulu!");
+                return;
+            }
+            Rotation rotLogic = new Rotation();
+            // Panggil RequestRotation (Muncul Dialog Input)
+            Bitmap result = rotLogic.RequestRotation((Bitmap)pictureBox1.Image);
+            if (result != null)
+            {
+                pictureBox1.Image = result;
+            }
+        }
+
+        #endregion
+
+
+
     }
 }

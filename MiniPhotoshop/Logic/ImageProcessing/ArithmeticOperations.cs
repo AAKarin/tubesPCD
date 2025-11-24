@@ -109,3 +109,4 @@ namespace MiniPhotoshop.Logic.ImageProcessing
         }
     }
 }
+ 
