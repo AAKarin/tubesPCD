@@ -244,7 +244,7 @@
             // 
             rotasiToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItem2, toolStripMenuItem3, toolStripMenuItem4, toolStripMenuItem5, freeToolStripMenuItem });
             rotasiToolStripMenuItem.Name = "rotasiToolStripMenuItem";
-            rotasiToolStripMenuItem.Size = new Size(224, 26);
+            rotasiToolStripMenuItem.Size = new Size(148, 26);
             rotasiToolStripMenuItem.Text = "Rotasi";
             // 
             // toolStripMenuItem2
@@ -281,7 +281,7 @@
             // 
             dilatasiToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { zoomInToolStripMenuItem, zoomOutToolStripMenuItem });
             dilatasiToolStripMenuItem.Name = "dilatasiToolStripMenuItem";
-            dilatasiToolStripMenuItem.Size = new Size(224, 26);
+            dilatasiToolStripMenuItem.Size = new Size(148, 26);
             dilatasiToolStripMenuItem.Text = "Dilatasi";
             // 
             // zoomInToolStripMenuItem
@@ -289,24 +289,26 @@
             zoomInToolStripMenuItem.Name = "zoomInToolStripMenuItem";
             zoomInToolStripMenuItem.Size = new Size(160, 26);
             zoomInToolStripMenuItem.Text = "Zoom In";
+            zoomInToolStripMenuItem.Click += zoomInToolStripMenuItem_Click;
             // 
             // zoomOutToolStripMenuItem
             // 
             zoomOutToolStripMenuItem.Name = "zoomOutToolStripMenuItem";
             zoomOutToolStripMenuItem.Size = new Size(160, 26);
             zoomOutToolStripMenuItem.Text = "Zoom Out";
+            zoomOutToolStripMenuItem.Click += zoomOutToolStripMenuItem_Click;
             // 
             // translasiToolStripMenuItem
             // 
             translasiToolStripMenuItem.Name = "translasiToolStripMenuItem";
-            translasiToolStripMenuItem.Size = new Size(224, 26);
+            translasiToolStripMenuItem.Size = new Size(148, 26);
             translasiToolStripMenuItem.Text = "Translasi";
             translasiToolStripMenuItem.Click += translasiToolStripMenuItem_Click;
             // 
             // distorsiToolStripMenuItem
             // 
             distorsiToolStripMenuItem.Name = "distorsiToolStripMenuItem";
-            distorsiToolStripMenuItem.Size = new Size(224, 26);
+            distorsiToolStripMenuItem.Size = new Size(148, 26);
             distorsiToolStripMenuItem.Text = "Distorsi";
             distorsiToolStripMenuItem.Click += distorsiToolStripMenuItem_Click;
             // 

@@ -197,6 +197,39 @@ namespace MiniPhotoshop
                 pictureBox1.Image = result;
             }
         }
+
+        private void zoomInToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!_editorService.IsImageLoaded)
+            {
+                MessageBox.Show("Silakan load gambar terlebih dahulu!");
+                return;
+            }
+
+            Scaling scaleLogic = new Scaling();
+
+            // Skala 2.0 artinya ukuran menjadi 200% (2x lipat)
+            Bitmap result = scaleLogic.ProcessScaling((Bitmap)pictureBox1.Image, 2.0f);
+
+            pictureBox1.Image = result;
+        }
+
+        // Menu: Zoom Out (Perkecil)
+        private void zoomOutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!_editorService.IsImageLoaded)
+            {
+                MessageBox.Show("Silakan load gambar terlebih dahulu!");
+                return;
+            }
+
+            Scaling scaleLogic = new Scaling();
+
+            // Skala 0.5 artinya ukuran menjadi 50% (setengahnya)
+            Bitmap result = scaleLogic.ProcessScaling((Bitmap)pictureBox1.Image, 0.5f);
+
+            pictureBox1.Image = result;
+        }
         #endregion
 
         #region Button Events
