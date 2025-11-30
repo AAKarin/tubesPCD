@@ -393,7 +393,6 @@ namespace MiniPhotoshop
 
         #endregion
 
-
         #region Operasi Rotation
 
         private void rotasiToolStripMenuItem_Click(object sender, EventArgs e)
@@ -455,7 +454,30 @@ namespace MiniPhotoshop
 
         #endregion
 
+        #region Konvolusi
+        private void button9_Click(object sender, EventArgs e)
+        {
+            // 1. Cek gambar
+            if (!_editorService.IsImageLoaded)
+            {
+                MessageBox.Show("Silakan load gambar terlebih dahulu!");
+                return;
+            }
 
+            // 2. Panggil Logic
+            Convolution convLogic = new Convolution();
+            Bitmap result = convLogic.RequestConvolution((Bitmap)pictureBox1.Image);
+
+            // 3. Jika user menekan OK dan hasil ada
+            if (result != null)
+            {
+                pictureBox1.Image = result;
+
+                // --- TAMBAHKAN BARIS INI ---
+                MessageBox.Show("Proses Konvolusi selesai!", "Berhasil", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+        #endregion
 
     }
 }
