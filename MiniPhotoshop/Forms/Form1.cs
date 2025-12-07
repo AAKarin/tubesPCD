@@ -479,5 +479,48 @@ namespace MiniPhotoshop
         }
         #endregion
 
+        #region Konvolusi Lanjutan
+        private void robertToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!_editorService.IsImageLoaded) return;
+
+            // Panggil Manager yang ada di folder Helpers
+            EdgeDetectionManager manager = new EdgeDetectionManager();
+
+            this.Cursor = Cursors.WaitCursor; // Ubah kursor jadi loading
+
+            Bitmap result = manager.ProcessRobert((Bitmap)pictureBox1.Image);
+            pictureBox1.Image = result;
+
+            this.Cursor = Cursors.Default;
+        }
+
+        private void cannyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!_editorService.IsImageLoaded)
+            {
+                MessageBox.Show("Silakan load gambar terlebih dahulu!");
+                return;
+            }
+
+            EdgeDetectionManager manager = new EdgeDetectionManager();
+            this.Cursor = Cursors.WaitCursor;
+
+            try
+            {
+                // Canny biasanya agak lama (sekitar 0.5 - 1 detik untuk gambar besar)
+                Bitmap result = manager.ProcessCanny((Bitmap)pictureBox1.Image);
+                pictureBox1.Image = result;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Terjadi kesalahan pada Canny: " + ex.Message);
+            }
+            finally
+            {
+                this.Cursor = Cursors.Default;
+            }
+        }
+        #endregion
     }
 }

@@ -59,6 +59,11 @@
             zoomOutToolStripMenuItem = new ToolStripMenuItem();
             translasiToolStripMenuItem = new ToolStripMenuItem();
             distorsiToolStripMenuItem = new ToolStripMenuItem();
+            konvolusiLanjutanToolStripMenuItem = new ToolStripMenuItem();
+            sobelToolStripMenuItem = new ToolStripMenuItem();
+            prewitToolStripMenuItem = new ToolStripMenuItem();
+            robertToolStripMenuItem = new ToolStripMenuItem();
+            cannyToolStripMenuItem = new ToolStripMenuItem();
             splitContainer1 = new SplitContainer();
             button9 = new Button();
             txtConstantValue = new TextBox();
@@ -105,7 +110,7 @@
             // 
             menuStrip1.BackColor = SystemColors.ButtonHighlight;
             menuStrip1.ImageScalingSize = new Size(20, 20);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, aritmatikaToolStripMenuItem, binerToolStripMenuItem, konstantaToolStripMenuItem, manipulasiToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, aritmatikaToolStripMenuItem, binerToolStripMenuItem, konstantaToolStripMenuItem, manipulasiToolStripMenuItem, konvolusiLanjutanToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Padding = new Padding(6, 3, 0, 3);
@@ -319,6 +324,39 @@
             distorsiToolStripMenuItem.Size = new Size(148, 26);
             distorsiToolStripMenuItem.Text = "Distorsi";
             distorsiToolStripMenuItem.Click += distorsiToolStripMenuItem_Click;
+            // 
+            // konvolusiLanjutanToolStripMenuItem
+            // 
+            konvolusiLanjutanToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { sobelToolStripMenuItem, prewitToolStripMenuItem, robertToolStripMenuItem, cannyToolStripMenuItem });
+            konvolusiLanjutanToolStripMenuItem.Name = "konvolusiLanjutanToolStripMenuItem";
+            konvolusiLanjutanToolStripMenuItem.Size = new Size(147, 24);
+            konvolusiLanjutanToolStripMenuItem.Text = "Konvolusi Lanjutan";
+            // 
+            // sobelToolStripMenuItem
+            // 
+            sobelToolStripMenuItem.Name = "sobelToolStripMenuItem";
+            sobelToolStripMenuItem.Size = new Size(224, 26);
+            sobelToolStripMenuItem.Text = "Sobel";
+            // 
+            // prewitToolStripMenuItem
+            // 
+            prewitToolStripMenuItem.Name = "prewitToolStripMenuItem";
+            prewitToolStripMenuItem.Size = new Size(224, 26);
+            prewitToolStripMenuItem.Text = "Prewitt";
+            // 
+            // robertToolStripMenuItem
+            // 
+            robertToolStripMenuItem.Name = "robertToolStripMenuItem";
+            robertToolStripMenuItem.Size = new Size(224, 26);
+            robertToolStripMenuItem.Text = "Robert";
+            robertToolStripMenuItem.Click += robertToolStripMenuItem_Click;
+            // 
+            // cannyToolStripMenuItem
+            // 
+            cannyToolStripMenuItem.Name = "cannyToolStripMenuItem";
+            cannyToolStripMenuItem.Size = new Size(224, 26);
+            cannyToolStripMenuItem.Text = "Canny";
+            cannyToolStripMenuItem.Click += cannyToolStripMenuItem_Click;
             // 
             // splitContainer1
             // 
@@ -709,5 +747,10 @@
         private ToolStripMenuItem zoomInToolStripMenuItem;
         private ToolStripMenuItem zoomOutToolStripMenuItem;
         private Button button9;
+        private ToolStripMenuItem konvolusiLanjutanToolStripMenuItem;
+        private ToolStripMenuItem sobelToolStripMenuItem;
+        private ToolStripMenuItem prewitToolStripMenuItem;
+        private ToolStripMenuItem robertToolStripMenuItem;
+        private ToolStripMenuItem cannyToolStripMenuItem;
     }
 }
