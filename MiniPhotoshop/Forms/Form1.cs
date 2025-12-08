@@ -11,6 +11,7 @@ using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Windows.Forms;
 using MiniPhotoshop.Logic.Geometry;
+using MiniPhotoshop.Logic.EdgeDetection;
 
 namespace MiniPhotoshop
 {
@@ -521,6 +522,29 @@ namespace MiniPhotoshop
                 this.Cursor = Cursors.Default;
             }
         }
+
+        private void sobelToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!_editorService.IsImageLoaded)
+            {
+                MessageBox.Show("Silakan load gambar terlebih dahulu!");
+                return;
+            }
+            EdgeDetectionManager manager = new EdgeDetectionManager();
+            this.Cursor = Cursors.WaitCursor; // Tampilkan loading
+            try
+            {
+                // Proses Sobel
+                Bitmap result = manager.ProcessSobel((Bitmap)pictureBox1.Image);
+                pictureBox1.Image = result;
+            }
+            finally
+            {
+                this.Cursor = Cursors.Default;
+            }
+        }
+
+
         #endregion
     }
 }

@@ -41,6 +41,19 @@ namespace MiniPhotoshop.Logic.Helpers
         }
 
         // -------------------------------------------------------------
+        // 3. SOBEL (UPDATED: SEKARANG SUDAH AKTIF)
+        // -------------------------------------------------------------
+        public Bitmap ProcessSobel(Bitmap source)
+        {
+            if (source == null) return null;
+            // 1. Ubah ke Grayscale (Sobel bekerja di 1 channel warna)
+            Bitmap gray = MakeGrayscale(source);
+            // 2. Panggil Worker Sobel
+            Sobel worker = new Sobel();
+            return worker.Apply(gray);
+        }
+
+        // -------------------------------------------------------------
         // HELPER: GRAYSCALE CONVERTER (Standard Rec. 601)
         // -------------------------------------------------------------
         private Bitmap MakeGrayscale(Bitmap original)

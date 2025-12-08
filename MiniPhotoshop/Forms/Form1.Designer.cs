@@ -337,6 +337,7 @@
             sobelToolStripMenuItem.Name = "sobelToolStripMenuItem";
             sobelToolStripMenuItem.Size = new Size(224, 26);
             sobelToolStripMenuItem.Text = "Sobel";
+            sobelToolStripMenuItem.Click += sobelToolStripMenuItem_Click;
             // 
             // prewitToolStripMenuItem
             // 
