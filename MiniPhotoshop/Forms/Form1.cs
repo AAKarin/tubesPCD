@@ -522,5 +522,31 @@ namespace MiniPhotoshop
             }
         }
         #endregion
+
+        // Menu PREWITT
+        private void prewitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!_editorService.IsImageLoaded)
+            {
+                MessageBox.Show("Silakan load gambar terlebih dahulu!");
+                return;
+            }
+
+            EdgeDetectionManager manager = new EdgeDetectionManager();
+
+            this.Cursor = Cursors.WaitCursor; // Tampilkan loading
+
+            try
+            {
+                // Proses Prewitt
+                Bitmap result = manager.ProcessPrewitt((Bitmap)pictureBox1.Image);
+                pictureBox1.Image = result;
+            }
+            finally
+            {
+                this.Cursor = Cursors.Default;
+            }
+        }
+
     }
 }

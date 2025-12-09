@@ -41,6 +41,21 @@ namespace MiniPhotoshop.Logic.Helpers
         }
 
         // -------------------------------------------------------------
+        // 4. PREWITT (UPDATED: SEKARANG SUDAH AKTIF)
+        // -------------------------------------------------------------
+        public Bitmap ProcessPrewitt(Bitmap source)
+        {
+            if (source == null) return null;
+
+            // 1. Ubah ke Grayscale (wajib untuk Prewitt)
+            Bitmap gray = MakeGrayscale(source);
+
+            // 2. Panggil worker Prewitt
+            MiniPhotoshop.Logic.EdgeDetection.Prewitt worker = new MiniPhotoshop.Logic.EdgeDetection.Prewitt();
+            return worker.Apply(gray);
+        }
+
+        // -------------------------------------------------------------
         // HELPER: GRAYSCALE CONVERTER (Standard Rec. 601)
         // -------------------------------------------------------------
         private Bitmap MakeGrayscale(Bitmap original)
