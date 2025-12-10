@@ -251,7 +251,7 @@
             // 
             rotasiToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItem2, toolStripMenuItem3, toolStripMenuItem4, toolStripMenuItem5, freeToolStripMenuItem });
             rotasiToolStripMenuItem.Name = "rotasiToolStripMenuItem";
-            rotasiToolStripMenuItem.Size = new Size(148, 26);
+            rotasiToolStripMenuItem.Size = new Size(224, 26);
             rotasiToolStripMenuItem.Text = "Rotasi";
             rotasiToolStripMenuItem.Click += rotasiToolStripMenuItem_Click;
             // 
@@ -294,7 +294,7 @@
             // 
             dilatasiToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { zoomInToolStripMenuItem, zoomOutToolStripMenuItem });
             dilatasiToolStripMenuItem.Name = "dilatasiToolStripMenuItem";
-            dilatasiToolStripMenuItem.Size = new Size(148, 26);
+            dilatasiToolStripMenuItem.Size = new Size(224, 26);
             dilatasiToolStripMenuItem.Text = "Dilatasi";
             // 
             // zoomInToolStripMenuItem
@@ -314,14 +314,14 @@
             // translasiToolStripMenuItem
             // 
             translasiToolStripMenuItem.Name = "translasiToolStripMenuItem";
-            translasiToolStripMenuItem.Size = new Size(148, 26);
+            translasiToolStripMenuItem.Size = new Size(224, 26);
             translasiToolStripMenuItem.Text = "Translasi";
             translasiToolStripMenuItem.Click += translasiToolStripMenuItem_Click;
             // 
             // distorsiToolStripMenuItem
             // 
             distorsiToolStripMenuItem.Name = "distorsiToolStripMenuItem";
-            distorsiToolStripMenuItem.Size = new Size(148, 26);
+            distorsiToolStripMenuItem.Size = new Size(224, 26);
             distorsiToolStripMenuItem.Text = "Distorsi";
             distorsiToolStripMenuItem.Click += distorsiToolStripMenuItem_Click;
             // 
@@ -344,6 +344,7 @@
             prewitToolStripMenuItem.Name = "prewitToolStripMenuItem";
             prewitToolStripMenuItem.Size = new Size(224, 26);
             prewitToolStripMenuItem.Text = "Prewitt";
+            prewitToolStripMenuItem.Click += prewitToolStripMenuItem_Click;
             // 
             // robertToolStripMenuItem
             // 
