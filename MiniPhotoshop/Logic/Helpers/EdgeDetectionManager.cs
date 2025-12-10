@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Drawing.Imaging;
-// PENTING: Panggil namespace folder EdgeDetection agar file Robert.cs dikenali
+// PENTING: Panggil namespace folder EdgeDetection agar file Robert.cs, Sobel.cs, dll dikenali
 using MiniPhotoshop.Logic.EdgeDetection;
 
 namespace MiniPhotoshop.Logic.Helpers
@@ -22,17 +22,14 @@ namespace MiniPhotoshop.Logic.Helpers
         }
 
         // -------------------------------------------------------------
-        // 2. CANNY (TUGAS ANDA - AKAN DATANG)
+        // 2. CANNY (TUGAS ANDA - SUDAH JADI)
         // -------------------------------------------------------------
-
         public Bitmap ProcessCanny(Bitmap source)
         {
             if (source == null) return null;
 
             Bitmap gray = MakeGrayscale(source);
 
-            // SEBELUMNYA: 20f, 100f (Terlalu Tinggi!)
-            // SEKARANG: Turunkan drastis agar garis halus pun terdeteksi
             // Low: 5f (Sangat sensitif)
             // High: 20f (Cukup longgar)
             Canny worker = new Canny(5f, 20f);
@@ -41,7 +38,22 @@ namespace MiniPhotoshop.Logic.Helpers
         }
 
         // -------------------------------------------------------------
-        // 4. PREWITT (UPDATED: SEKARANG SUDAH AKTIF)
+        // 3. SOBEL (DARI SERVER/REMOTE)
+        // -------------------------------------------------------------
+        public Bitmap ProcessSobel(Bitmap source)
+        {
+            if (source == null) return null;
+
+            // 1. Ubah ke Grayscale (Sobel bekerja di 1 channel warna)
+            Bitmap gray = MakeGrayscale(source);
+
+            // 2. Panggil Worker Sobel
+            Sobel worker = new Sobel();
+            return worker.Apply(gray);
+        }
+
+        // -------------------------------------------------------------
+        // 4. PREWITT (DARI LOCAL/HEAD)
         // -------------------------------------------------------------
         public Bitmap ProcessPrewitt(Bitmap source)
         {
@@ -51,6 +63,7 @@ namespace MiniPhotoshop.Logic.Helpers
             Bitmap gray = MakeGrayscale(source);
 
             // 2. Panggil worker Prewitt
+            // Menggunakan full namespace untuk memastikan tidak ambigu, atau cukup 'Prewitt' jika using sudah benar
             MiniPhotoshop.Logic.EdgeDetection.Prewitt worker = new MiniPhotoshop.Logic.EdgeDetection.Prewitt();
             return worker.Apply(gray);
         }
@@ -75,7 +88,7 @@ namespace MiniPhotoshop.Logic.Helpers
                 ImageAttributes attributes = new ImageAttributes();
                 attributes.SetColorMatrix(colorMatrix);
                 g.DrawImage(original, new Rectangle(0, 0, original.Width, original.Height),
-                   0, 0, original.Width, original.Height, GraphicsUnit.Pixel, attributes);
+                    0, 0, original.Width, original.Height, GraphicsUnit.Pixel, attributes);
             }
             return newBmp;
         }
