@@ -140,6 +140,7 @@ namespace MiniPhotoshop
             pictureBox1.Cursor = Cursors.Default;
         }
 
+        #region Histogram
         private void TampilkanHistogramChannel(int channel)
         {
             if (!_editorService.IsImageLoaded)
@@ -155,6 +156,41 @@ namespace MiniPhotoshop
 
             pictureBoxHistogram.Image = histBmp;
         }
+
+        private void adaptiveEqualizationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // 1. Cek apakah gambar sudah ada
+            if (!_editorService.IsImageLoaded)
+            {
+                MessageBox.Show("Silakan load gambar terlebih dahulu!");
+                return;
+            }
+
+            // 2. Siapkan Manager
+            HistogramManager manager = new HistogramManager();
+
+            // 3. Ubah kursor jadi loading (WaitCursor)
+            this.Cursor = Cursors.WaitCursor;
+
+            try
+            {
+                // 4. Proses Gambar
+                Bitmap result = manager.ProcessAdaptiveEqualization((Bitmap)pictureBox1.Image);
+
+                // 5. Tampilkan Hasil
+                pictureBox1.Image = result;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+            finally
+            {
+                // 6. Kembalikan kursor normal
+                this.Cursor = Cursors.Default;
+            }
+        }
+        #endregion
 
         #region Manipulation Menu Events
         private void translasiToolStripMenuItem_Click(object sender, EventArgs e)
@@ -544,9 +580,6 @@ namespace MiniPhotoshop
             }
         }
 
-
-        #endregion
-
         // Menu PREWITT
         private void prewitToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -571,6 +604,9 @@ namespace MiniPhotoshop
                 this.Cursor = Cursors.Default;
             }
         }
+
+
+        #endregion
 
     }
 }
