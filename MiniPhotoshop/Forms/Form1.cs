@@ -190,6 +190,24 @@ namespace MiniPhotoshop
                 this.Cursor = Cursors.Default;
             }
         }
+
+
+
+        // Menu: Global Equalization 
+        private void histogramEqualizationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!_editorService.IsImageLoaded) return;
+            HistogramManager manager = new HistogramManager();
+            this.Cursor = Cursors.WaitCursor;
+            try
+            {
+                Bitmap result = manager.ProcessGlobalEqualization((Bitmap)pictureBox1.Image);
+                pictureBox1.Image = result;
+            }
+            finally { this.Cursor = Cursors.Default; }
+        }
+
+
         #endregion
 
         #region Manipulation Menu Events

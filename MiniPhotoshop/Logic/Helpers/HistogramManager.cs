@@ -23,5 +23,14 @@ namespace MiniPhotoshop.Logic.Helpers
         }
 
         // Nanti method teman-teman Anda ditaruh di bawah sini...
+
+
+        // Global Equalization
+        public Bitmap ProcessGlobalEqualization(Bitmap source)
+        {
+            if (source == null) return null;
+            GlobalHistogram algo = new GlobalHistogram();
+            return algo.Apply(source);
+        }
     }
 }
