@@ -32,5 +32,12 @@ namespace MiniPhotoshop.Logic.Helpers
             GlobalHistogram algo = new GlobalHistogram();
             return algo.Apply(source);
         }
+
+        public Bitmap ProcessLinearStretch(Bitmap source)
+        {
+            if (source == null) return null;
+            LinearStretch algo = new LinearStretch();
+            return algo.Apply(source);
+        }
     }
 }

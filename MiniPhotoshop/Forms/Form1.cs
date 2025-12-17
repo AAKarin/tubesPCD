@@ -191,6 +191,20 @@ namespace MiniPhotoshop
             }
         }
 
+        private void linearStretchEqualizationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!_editorService.IsImageLoaded) return;
+
+            HistogramManager manager = new HistogramManager();
+            this.Cursor = Cursors.WaitCursor;
+            try
+            {
+                Bitmap result = manager.ProcessLinearStretch((Bitmap)pictureBox1.Image);
+                pictureBox1.Image = result;
+            }
+            finally { this.Cursor = Cursors.Default; }
+        }
+
 
 
         // Menu: Global Equalization 
