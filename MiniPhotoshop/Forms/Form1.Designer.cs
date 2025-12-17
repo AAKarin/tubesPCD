@@ -157,6 +157,7 @@
             histogramEqualizationToolStripMenuItem.Name = "histogramEqualizationToolStripMenuItem";
             histogramEqualizationToolStripMenuItem.Size = new Size(268, 26);
             histogramEqualizationToolStripMenuItem.Text = "Equalization";
+            histogramEqualizationToolStripMenuItem.Click += histogramEqualizationToolStripMenuItem_Click;
             // 
             // linearStretchEqualizationToolStripMenuItem
             // 
