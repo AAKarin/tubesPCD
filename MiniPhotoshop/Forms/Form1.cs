@@ -640,5 +640,49 @@ namespace MiniPhotoshop
 
         #endregion
 
+        #region Contrast
+
+        // --- FITUR 1: POINT CONTRAST ---
+        private void pointContrastToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (pictureBox1.Image == null) return; // Cek null sederhana
+
+            MiniPhotoshop.Logic.Helpers.ContrastHelper helper = new MiniPhotoshop.Logic.Helpers.ContrastHelper();
+
+            // Proses
+            Bitmap result = helper.ApplyPointContrast((Bitmap)pictureBox1.Image, 1.5);
+
+            // Tampilkan hasil
+            pictureBox1.Image = result;
+
+            // HAPUS BARIS _editorService.UpdateCurrentImage(result); KARENA BIKIN ERROR
+        }
+
+        // --- FITUR 2: LOCAL CONTRAST ---
+        private void localContrastToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (pictureBox1.Image == null) return;
+
+            MiniPhotoshop.Logic.Helpers.ContrastHelper helper = new MiniPhotoshop.Logic.Helpers.ContrastHelper();
+
+            this.Cursor = Cursors.WaitCursor;
+            try
+            {
+                // Proses
+                Bitmap result = helper.ApplyLocalContrast((Bitmap)pictureBox1.Image, 15);
+
+                // Tampilkan hasil
+                pictureBox1.Image = result;
+
+                // HAPUS BARIS _editorService.UpdateCurrentImage(result); JUGA DI SINI
+            }
+            finally
+            {
+                this.Cursor = Cursors.Default;
+            }
+        }
+
+        #endregion
+
     }
 }

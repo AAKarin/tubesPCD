@@ -67,6 +67,9 @@
             prewitToolStripMenuItem = new ToolStripMenuItem();
             robertToolStripMenuItem = new ToolStripMenuItem();
             cannyToolStripMenuItem = new ToolStripMenuItem();
+            kontrasToolStripMenuItem = new ToolStripMenuItem();
+            localContrastToolStripMenuItem = new ToolStripMenuItem();
+            pointContrastToolStripMenuItem = new ToolStripMenuItem();
             splitContainer1 = new SplitContainer();
             button9 = new Button();
             txtConstantValue = new TextBox();
@@ -113,7 +116,7 @@
             // 
             menuStrip1.BackColor = SystemColors.ButtonHighlight;
             menuStrip1.ImageScalingSize = new Size(20, 20);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, aritmatikaToolStripMenuItem, binerToolStripMenuItem, konstantaToolStripMenuItem, manipulasiToolStripMenuItem, konvolusiLanjutanToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, aritmatikaToolStripMenuItem, binerToolStripMenuItem, konstantaToolStripMenuItem, manipulasiToolStripMenuItem, konvolusiLanjutanToolStripMenuItem, kontrasToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Padding = new Padding(6, 3, 0, 3);
@@ -382,6 +385,27 @@
             cannyToolStripMenuItem.Size = new Size(138, 26);
             cannyToolStripMenuItem.Text = "Canny";
             cannyToolStripMenuItem.Click += cannyToolStripMenuItem_Click;
+            // 
+            // kontrasToolStripMenuItem
+            // 
+            kontrasToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { localContrastToolStripMenuItem, pointContrastToolStripMenuItem });
+            kontrasToolStripMenuItem.Name = "kontrasToolStripMenuItem";
+            kontrasToolStripMenuItem.Size = new Size(73, 24);
+            kontrasToolStripMenuItem.Text = "Kontras";
+            // 
+            // localContrastToolStripMenuItem
+            // 
+            localContrastToolStripMenuItem.Name = "localContrastToolStripMenuItem";
+            localContrastToolStripMenuItem.Size = new Size(224, 26);
+            localContrastToolStripMenuItem.Text = "Local Contrast";
+            localContrastToolStripMenuItem.Click += localContrastToolStripMenuItem_Click;
+            // 
+            // pointContrastToolStripMenuItem
+            // 
+            pointContrastToolStripMenuItem.Name = "pointContrastToolStripMenuItem";
+            pointContrastToolStripMenuItem.Size = new Size(224, 26);
+            pointContrastToolStripMenuItem.Text = "Point Contrast";
+            pointContrastToolStripMenuItem.Click += pointContrastToolStripMenuItem_Click;
             // 
             // splitContainer1
             // 
@@ -780,5 +804,8 @@
         private ToolStripMenuItem histogramEqualizationToolStripMenuItem;
         private ToolStripMenuItem linearStretchEqualizationToolStripMenuItem;
         private ToolStripMenuItem adaptiveEqualizationToolStripMenuItem;
+        private ToolStripMenuItem kontrasToolStripMenuItem;
+        private ToolStripMenuItem localContrastToolStripMenuItem;
+        private ToolStripMenuItem pointContrastToolStripMenuItem;
     }
 }
