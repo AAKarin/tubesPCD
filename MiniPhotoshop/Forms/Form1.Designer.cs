@@ -164,6 +164,7 @@
             linearStretchEqualizationToolStripMenuItem.Name = "linearStretchEqualizationToolStripMenuItem";
             linearStretchEqualizationToolStripMenuItem.Size = new Size(268, 26);
             linearStretchEqualizationToolStripMenuItem.Text = "Linear Stretch Equalization";
+            linearStretchEqualizationToolStripMenuItem.Click += linearStretchEqualizationToolStripMenuItem_Click;
             // 
             // adaptiveEqualizationToolStripMenuItem
             // 

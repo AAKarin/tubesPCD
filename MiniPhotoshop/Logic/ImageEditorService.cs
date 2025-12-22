@@ -10,18 +10,30 @@ namespace MiniPhotoshop.Logic
     {
         public Bitmap OriginalImage { get; private set; }
         private int[,,] _imageData3D;
-
+        private Bitmap _backupImage;
         public bool IsImageLoaded => OriginalImage != null;
 
         public void InitializeImage(Bitmap image)
         {
+            // 1. Simpan sebagai Backup (Arsip)
+            _backupImage = new Bitmap(image);
+
+            // 2. Simpan sebagai Gambar Kerja (Working Image)
             OriginalImage = new Bitmap(image);
             _imageData3D = ImageDataProcessor.LoadTo3DArray(OriginalImage);
         }
 
         public Bitmap GetRestoredImage()
         {
-            if (!IsImageLoaded) return null;
+            if (_backupImage == null) return null;
+
+            // 1. Reset OriginalImage kembali ke Backup
+            OriginalImage = new Bitmap(_backupImage);
+
+            // 2. Reset juga data array 3D-nya
+            _imageData3D = ImageDataProcessor.LoadTo3DArray(OriginalImage);
+
+            // 3. Kembalikan clone-nya ke layar
             return (Bitmap)OriginalImage.Clone();
         }
 
@@ -72,6 +84,24 @@ namespace MiniPhotoshop.Logic
         {
             OriginalImage = null;
             _imageData3D = null;
+            _backupImage = null; // Hapus backup
+        }
+
+        // ---------------------------------------------------------
+        // TAMBAHAN BARU: Untuk mengupdate gambar hasil editan (Equalization, dll)
+        // ---------------------------------------------------------
+        public void UpdateCurrentImage(Bitmap newImage)
+        {
+            if (newImage != null)
+            {
+                // 1. Update Gambar Utama
+                OriginalImage = new Bitmap(newImage);
+
+                // 2. PENTING: Update juga data pixel mentahnya (_imageData3D)
+                // Kalau ini tidak di-update, nanti saat Anda klik fitur lain,
+                // dia akan kembali ke gambar lama!
+                _imageData3D = ImageDataProcessor.LoadTo3DArray(OriginalImage);
+            }
         }
     }
 }

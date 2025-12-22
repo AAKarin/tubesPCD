@@ -159,26 +159,28 @@ namespace MiniPhotoshop
 
         private void adaptiveEqualizationToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // 1. Cek apakah gambar sudah ada
             if (!_editorService.IsImageLoaded)
             {
                 MessageBox.Show("Silakan load gambar terlebih dahulu!");
                 return;
             }
 
-            // 2. Siapkan Manager
             HistogramManager manager = new HistogramManager();
-
-            // 3. Ubah kursor jadi loading (WaitCursor)
             this.Cursor = Cursors.WaitCursor;
 
             try
             {
-                // 4. Proses Gambar
+                // 1. Proses Gambar
                 Bitmap result = manager.ProcessAdaptiveEqualization((Bitmap)pictureBox1.Image);
 
-                // 5. Tampilkan Hasil
+                // 2. Tampilkan Hasil di Layar
                 pictureBox1.Image = result;
+
+                // 3. (PENTING) Update "Otak" Service dengan Gambar Baru
+                _editorService.UpdateCurrentImage(result);
+
+                // 4. Baru Gambar Ulang Histogramnya
+                TampilkanHistogramChannel(3); // 3 = Grayscale
             }
             catch (Exception ex)
             {
@@ -186,7 +188,6 @@ namespace MiniPhotoshop
             }
             finally
             {
-                // 6. Kembalikan kursor normal
                 this.Cursor = Cursors.Default;
             }
         }
@@ -201,6 +202,10 @@ namespace MiniPhotoshop
             {
                 Bitmap result = manager.ProcessLinearStretch((Bitmap)pictureBox1.Image);
                 pictureBox1.Image = result;
+
+                // UPDATE SERVICE & HISTOGRAM
+                _editorService.UpdateCurrentImage(result);
+                TampilkanHistogramChannel(3);
             }
             finally { this.Cursor = Cursors.Default; }
         }
@@ -217,10 +222,13 @@ namespace MiniPhotoshop
             {
                 Bitmap result = manager.ProcessGlobalEqualization((Bitmap)pictureBox1.Image);
                 pictureBox1.Image = result;
+
+                // UPDATE SERVICE & HISTOGRAM
+                _editorService.UpdateCurrentImage(result);
+                TampilkanHistogramChannel(3);
             }
             finally { this.Cursor = Cursors.Default; }
         }
-
 
         #endregion
 
