@@ -88,6 +88,8 @@
             button3 = new Button();
             button2 = new Button();
             button1 = new Button();
+            lblTolerance = new Label();
+            trackBarTolerance = new TrackBar();
             radioButtonThum4 = new RadioButton();
             radioButtonThum3 = new RadioButton();
             radioButtonThum2 = new RadioButton();
@@ -105,6 +107,7 @@
             splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)trackBarBrightness).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trackBarBlackWhite).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)trackBarTolerance).BeginInit();
             ((System.ComponentModel.ISupportInitialize)thumbPictureBox4).BeginInit();
             ((System.ComponentModel.ISupportInitialize)thumbPictureBox3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)thumbPictureBox2).BeginInit();
@@ -436,6 +439,8 @@
             // 
             // splitContainer1.Panel2
             // 
+            splitContainer1.Panel2.Controls.Add(lblTolerance);
+            splitContainer1.Panel2.Controls.Add(trackBarTolerance);
             splitContainer1.Panel2.Controls.Add(radioButtonThum4);
             splitContainer1.Panel2.Controls.Add(radioButtonThum3);
             splitContainer1.Panel2.Controls.Add(radioButtonThum2);
@@ -610,10 +615,29 @@
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
+            // lblTolerance
+            // 
+            lblTolerance.AutoSize = true;
+            lblTolerance.Location = new Point(187, 398);
+            lblTolerance.Name = "lblTolerance";
+            lblTolerance.Size = new Size(91, 20);
+            lblTolerance.TabIndex = 14;
+            lblTolerance.Text = "Toleransi: 60";
+            // 
+            // trackBarTolerance
+            // 
+            trackBarTolerance.Location = new Point(164, 421);
+            trackBarTolerance.Maximum = 255;
+            trackBarTolerance.Name = "trackBarTolerance";
+            trackBarTolerance.Size = new Size(130, 56);
+            trackBarTolerance.TabIndex = 13;
+            trackBarTolerance.Value = 60;
+            trackBarTolerance.Scroll += trackBarTolerance_Scroll;
+            // 
             // radioButtonThum4
             // 
             radioButtonThum4.AutoSize = true;
-            radioButtonThum4.Location = new Point(761, 479);
+            radioButtonThum4.Location = new Point(761, 503);
             radioButtonThum4.Name = "radioButtonThum4";
             radioButtonThum4.Size = new Size(95, 24);
             radioButtonThum4.TabIndex = 12;
@@ -624,7 +648,7 @@
             // radioButtonThum3
             // 
             radioButtonThum3.AutoSize = true;
-            radioButtonThum3.Location = new Point(515, 479);
+            radioButtonThum3.Location = new Point(515, 503);
             radioButtonThum3.Name = "radioButtonThum3";
             radioButtonThum3.Size = new Size(95, 24);
             radioButtonThum3.TabIndex = 11;
@@ -635,7 +659,7 @@
             // radioButtonThum2
             // 
             radioButtonThum2.AutoSize = true;
-            radioButtonThum2.Location = new Point(267, 479);
+            radioButtonThum2.Location = new Point(267, 503);
             radioButtonThum2.Name = "radioButtonThum2";
             radioButtonThum2.Size = new Size(95, 24);
             radioButtonThum2.TabIndex = 10;
@@ -646,7 +670,7 @@
             // radioButtonThum1
             // 
             radioButtonThum1.AutoSize = true;
-            radioButtonThum1.Location = new Point(17, 479);
+            radioButtonThum1.Location = new Point(17, 503);
             radioButtonThum1.Name = "radioButtonThum1";
             radioButtonThum1.Size = new Size(95, 24);
             radioButtonThum1.TabIndex = 9;
@@ -658,7 +682,7 @@
             // 
             thumbPictureBox4.AllowDrop = true;
             thumbPictureBox4.BorderStyle = BorderStyle.FixedSingle;
-            thumbPictureBox4.Location = new Point(761, 509);
+            thumbPictureBox4.Location = new Point(761, 533);
             thumbPictureBox4.Name = "thumbPictureBox4";
             thumbPictureBox4.Size = new Size(226, 145);
             thumbPictureBox4.SizeMode = PictureBoxSizeMode.Zoom;
@@ -669,7 +693,7 @@
             // 
             thumbPictureBox3.AllowDrop = true;
             thumbPictureBox3.BorderStyle = BorderStyle.FixedSingle;
-            thumbPictureBox3.Location = new Point(515, 509);
+            thumbPictureBox3.Location = new Point(515, 533);
             thumbPictureBox3.Name = "thumbPictureBox3";
             thumbPictureBox3.Size = new Size(226, 145);
             thumbPictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
@@ -680,7 +704,7 @@
             // 
             thumbPictureBox2.AllowDrop = true;
             thumbPictureBox2.BorderStyle = BorderStyle.FixedSingle;
-            thumbPictureBox2.Location = new Point(267, 509);
+            thumbPictureBox2.Location = new Point(267, 533);
             thumbPictureBox2.Name = "thumbPictureBox2";
             thumbPictureBox2.Size = new Size(226, 145);
             thumbPictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
@@ -691,7 +715,7 @@
             // 
             thumbPictureBox1.AllowDrop = true;
             thumbPictureBox1.BorderStyle = BorderStyle.FixedSingle;
-            thumbPictureBox1.Location = new Point(17, 509);
+            thumbPictureBox1.Location = new Point(17, 533);
             thumbPictureBox1.Name = "thumbPictureBox1";
             thumbPictureBox1.Size = new Size(226, 145);
             thumbPictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
@@ -740,6 +764,7 @@
             splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)trackBarBrightness).EndInit();
             ((System.ComponentModel.ISupportInitialize)trackBarBlackWhite).EndInit();
+            ((System.ComponentModel.ISupportInitialize)trackBarTolerance).EndInit();
             ((System.ComponentModel.ISupportInitialize)thumbPictureBox4).EndInit();
             ((System.ComponentModel.ISupportInitialize)thumbPictureBox3).EndInit();
             ((System.ComponentModel.ISupportInitialize)thumbPictureBox2).EndInit();
@@ -822,5 +847,7 @@
         private ToolStripMenuItem localContrastToolStripMenuItem;
         private ToolStripMenuItem pointContrastToolStripMenuItem;
         private Button PseudoButton;
+        private TrackBar trackBarTolerance;
+        private Label lblTolerance;
     }
 }

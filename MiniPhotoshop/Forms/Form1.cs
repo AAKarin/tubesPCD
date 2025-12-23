@@ -25,6 +25,7 @@ namespace MiniPhotoshop
         private bool isColorSelectionMode = false;
         private bool _isIsolationMode = false;
         private Bitmap _tempOriginalImage;
+        private int _currentTolerance = 60;
 
         public Form1()
         {
@@ -754,7 +755,7 @@ namespace MiniPhotoshop
             var helper = new MiniPhotoshop.Logic.Helpers.PseudoColorHelper();
 
             // Toleransi 60
-            Bitmap result = helper.IsolateColor(_tempOriginalImage, targetColor, 60);
+            Bitmap result = helper.IsolateColor(_tempOriginalImage, targetColor, _currentTolerance);
 
             pictureBox1.Image = result;
         }
@@ -771,6 +772,15 @@ namespace MiniPhotoshop
                 // Agar klik berikutnya mengambil backup baru (berguna jika Anda merestore/mengedit gambar lain).
                 _tempOriginalImage = null;
             }
+        }
+
+        private void trackBarTolerance_Scroll(object sender, EventArgs e)
+        {
+            // Ambil nilai dari slider
+            _currentTolerance = trackBarTolerance.Value;
+
+            // Update tulisan label biar kelihatan angkanya
+            lblTolerance.Text = "Toleransi: " + _currentTolerance.ToString();
         }
         #endregion
     }
