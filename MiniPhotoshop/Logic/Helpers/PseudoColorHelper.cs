@@ -102,55 +102,126 @@ namespace MiniPhotoshop.Logic.Helpers
         public Bitmap IsolateColor(Bitmap source, Color targetColor, int threshold)
         {
             if (source == null) return null;
+
             int w = source.Width;
             int h = source.Height;
+
+            // Siapkan hasil gambar
             Bitmap dst = new Bitmap(w, h, PixelFormat.Format32bppArgb);
 
+            // Kunci memori (LockBits) agar proses secepat kilat
             BitmapData srcData = source.LockBits(new Rectangle(0, 0, w, h), ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb);
             BitmapData dstData = dst.LockBits(new Rectangle(0, 0, w, h), ImageLockMode.WriteOnly, PixelFormat.Format32bppArgb);
 
             int bytes = Math.Abs(srcData.Stride) * h;
             byte[] srcBuffer = new byte[bytes];
-            byte[] dstBuffer = new byte[bytes]; // Output
+            byte[] dstBuffer = new byte[bytes]; // Buffer hasil
 
+            // Kita butuh buffer tambahan untuk menyimpan status "Apakah pixel ini terpilih?"
+            // Agar nanti kita bisa cek tetangganya.
+            bool[] maskBuffer = new bool[w * h];
+
+            // Salin data gambar ke buffer
             Marshal.Copy(srcData.Scan0, srcBuffer, 0, bytes);
 
             int tR = targetColor.R;
             int tG = targetColor.G;
             int tB = targetColor.B;
             int thresholdSq = threshold * threshold;
+            int stride = srcData.Stride;
 
-            Parallel.For(0, bytes / 4, i =>
+            // TAHAP 1: BUAT MASKING (Tentukan mana yang dipilih, mana yang tidak)
+            // Kita tidak pakai Parallel disini biar gampang akses array bool-nya
+            for (int y = 0; y < h; y++)
             {
-                int idx = i * 4;
-                byte b = srcBuffer[idx];
-                byte g = srcBuffer[idx + 1];
-                byte r = srcBuffer[idx + 2];
-
-                // Hitung jarak warna
-                int distR = r - tR;
-                int distG = g - tG;
-                int distB = b - tB;
-                int distanceSq = (distR * distR) + (distG * distG) + (distB * distB);
-
-                if (distanceSq < thresholdSq)
+                for (int x = 0; x < w; x++)
                 {
-                    // WARNA MIRIP -> Salin warna asli
-                    dstBuffer[idx] = b;
-                    dstBuffer[idx + 1] = g;
-                    dstBuffer[idx + 2] = r;
+                    int idx = (y * stride) + (x * 4);
+
+                    byte b = srcBuffer[idx];
+                    byte g = srcBuffer[idx + 1];
+                    byte r = srcBuffer[idx + 2];
+
+                    int distR = r - tR;
+                    int distG = g - tG;
+                    int distB = b - tB;
+                    int distanceSq = (distR * distR) + (distG * distG) + (distB * distB);
+
+                    // Simpan status di array mask (True = Terpilih, False = Tidak)
+                    maskBuffer[y * w + x] = (distanceSq < thresholdSq);
                 }
-                else
+            }
+
+            // TAHAP 2: WARNAI GAMBAR & GAMBAR GARIS BATAS
+            Parallel.For(0, h, y =>
+            {
+                for (int x = 0; x < w; x++)
                 {
-                    // WARNA BEDA -> Ubah jadi Abu-abu
-                    byte gray = (byte)((r + g + b) / 3);
-                    dstBuffer[idx] = gray;
-                    dstBuffer[idx + 1] = gray;
-                    dstBuffer[idx + 2] = gray;
+                    int idx = (y * stride) + (x * 4);
+                    int maskIdx = y * w + x;
+                    bool isSelected = maskBuffer[maskIdx];
+
+                    // --- DETEKSI TEPI (BORDER CHECK) ---
+                    // Cek pixel tetangga (Atas, Bawah, Kiri, Kanan)
+                    // Jika pixel ini terpilih, tapi tetangganya TIDAK terpilih -> Berarti ini BATAS.
+                    bool isBorder = false;
+
+                    if (isSelected)
+                    {
+                        // Cek tetangga (pastikan tidak keluar batas gambar)
+                        bool top = (y > 0) ? maskBuffer[maskIdx - w] : false;
+                        bool bottom = (y < h - 1) ? maskBuffer[maskIdx + w] : false;
+                        bool left = (x > 0) ? maskBuffer[maskIdx - 1] : false;
+                        bool right = (x < w - 1) ? maskBuffer[maskIdx + 1] : false;
+
+                        // Jika salah satu tetangga bernilai 'false' (bukan area terpilih), maka ini adalah pinggir
+                        if (!top || !bottom || !left || !right)
+                        {
+                            isBorder = true;
+                        }
+                    }
+
+                    if (isBorder)
+                    {
+                        // GAMBAR GARIS PUTUS-PUTUS (Static Ants)
+                        // Pola: Tiap 8 pixel, ganti warna (Hitam/Putih)
+                        if ((x + y) % 8 < 4)
+                        {
+                            // Putih
+                            dstBuffer[idx] = 255; dstBuffer[idx + 1] = 255; dstBuffer[idx + 2] = 255;
+                        }
+                        else
+                        {
+                            // Hitam
+                            dstBuffer[idx] = 0; dstBuffer[idx + 1] = 0; dstBuffer[idx + 2] = 0;
+                        }
+                        dstBuffer[idx + 3] = 255; // Alpha
+                    }
+                    else if (isSelected)
+                    {
+                        // AREA TERPILIH -> Warna Asli
+                        dstBuffer[idx] = srcBuffer[idx];         // Blue
+                        dstBuffer[idx + 1] = srcBuffer[idx + 1]; // Green
+                        dstBuffer[idx + 2] = srcBuffer[idx + 2]; // Red
+                        dstBuffer[idx + 3] = 255;
+                    }
+                    else
+                    {
+                        // BACKGROUND -> Abu-abu
+                        byte b = srcBuffer[idx];
+                        byte g = srcBuffer[idx + 1];
+                        byte r = srcBuffer[idx + 2];
+                        byte gray = (byte)((r + g + b) / 3);
+
+                        dstBuffer[idx] = gray;
+                        dstBuffer[idx + 1] = gray;
+                        dstBuffer[idx + 2] = gray;
+                        dstBuffer[idx + 3] = 255;
+                    }
                 }
-                dstBuffer[idx + 3] = 255;
             });
 
+            // Salin balik ke Bitmap
             Marshal.Copy(dstBuffer, 0, dstData.Scan0, bytes);
             source.UnlockBits(srcData);
             dst.UnlockBits(dstData);
