@@ -71,6 +71,7 @@
             localContrastToolStripMenuItem = new ToolStripMenuItem();
             pointContrastToolStripMenuItem = new ToolStripMenuItem();
             splitContainer1 = new SplitContainer();
+            PseudoButton = new Button();
             button9 = new Button();
             txtConstantValue = new TextBox();
             labelConstant = new Label();
@@ -396,14 +397,14 @@
             // localContrastToolStripMenuItem
             // 
             localContrastToolStripMenuItem.Name = "localContrastToolStripMenuItem";
-            localContrastToolStripMenuItem.Size = new Size(224, 26);
+            localContrastToolStripMenuItem.Size = new Size(186, 26);
             localContrastToolStripMenuItem.Text = "Local Contrast";
             localContrastToolStripMenuItem.Click += localContrastToolStripMenuItem_Click;
             // 
             // pointContrastToolStripMenuItem
             // 
             pointContrastToolStripMenuItem.Name = "pointContrastToolStripMenuItem";
-            pointContrastToolStripMenuItem.Size = new Size(224, 26);
+            pointContrastToolStripMenuItem.Size = new Size(186, 26);
             pointContrastToolStripMenuItem.Text = "Point Contrast";
             pointContrastToolStripMenuItem.Click += pointContrastToolStripMenuItem_Click;
             // 
@@ -415,6 +416,7 @@
             // 
             // splitContainer1.Panel1
             // 
+            splitContainer1.Panel1.Controls.Add(PseudoButton);
             splitContainer1.Panel1.Controls.Add(button9);
             splitContainer1.Panel1.Controls.Add(txtConstantValue);
             splitContainer1.Panel1.Controls.Add(labelConstant);
@@ -448,6 +450,16 @@
             splitContainer1.SplitterDistance = 265;
             splitContainer1.SplitterWidth = 5;
             splitContainer1.TabIndex = 1;
+            // 
+            // PseudoButton
+            // 
+            PseudoButton.Location = new Point(139, 161);
+            PseudoButton.Name = "PseudoButton";
+            PseudoButton.Size = new Size(111, 29);
+            PseudoButton.TabIndex = 16;
+            PseudoButton.Text = "Pseudo-Color";
+            PseudoButton.UseVisualStyleBackColor = true;
+            PseudoButton.Click += PseudoButton_Click;
             // 
             // button9
             // 
@@ -705,6 +717,8 @@
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
+            pictureBox1.MouseDown += pictureBox1_MouseDown;
+            pictureBox1.MouseUp += pictureBox1_MouseUp;
             // 
             // Form1
             // 
@@ -807,5 +821,6 @@
         private ToolStripMenuItem kontrasToolStripMenuItem;
         private ToolStripMenuItem localContrastToolStripMenuItem;
         private ToolStripMenuItem pointContrastToolStripMenuItem;
+        private Button PseudoButton;
     }
 }

@@ -23,7 +23,8 @@ namespace MiniPhotoshop
         private readonly OperationManager _operationManager;
         private Dictionary<RadioButton, PictureBox> _thumbnailMap;
         private bool isColorSelectionMode = false;
-
+        private bool _isIsolationMode = false;
+        private Bitmap _tempOriginalImage;
 
         public Form1()
         {
@@ -684,5 +685,93 @@ namespace MiniPhotoshop
 
         #endregion
 
+        #region Pseudo Color
+        private void PseudoButton_Click(object sender, EventArgs e)
+        {
+            if (pictureBox1.Image == null)
+            {
+                MessageBox.Show("Silakan load gambar terlebih dahulu!");
+                return;
+            }
+
+            _isIsolationMode = !_isIsolationMode;
+
+            if (_isIsolationMode)
+            {
+                // JIKA AKTIF
+                // Ubah kursor PictureBox secara SPESIFIK agar tidak jadi panah saat masuk gambar
+                pictureBox1.Cursor = Cursors.Cross;
+
+                PseudoButton.Text = "Matikan Mode";
+                PseudoButton.BackColor = Color.LightGreen;
+
+                // Opsional: Pesan bantuan (bisa dihapus jika mengganggu)
+                // MessageBox.Show("Mode Isolasi Aktif! Klik & Tahan pada gambar.");
+            }
+            else
+            {
+                // JIKA MATI
+                pictureBox1.Cursor = Cursors.Default; // Kembalikan ke panah
+
+                PseudoButton.Text = "Mode Isolasi";
+                PseudoButton.BackColor = SystemColors.Control;
+
+                // Pastikan gambar kembali bersih
+                if (_tempOriginalImage != null)
+                {
+                    pictureBox1.Image = _tempOriginalImage;
+                    _tempOriginalImage = null; // Hapus backup
+                }
+            }
+        }
+
+        private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
+        {
+            // 1. Cek Validasi
+            if (!_isIsolationMode) return;
+            if (pictureBox1.Image == null) return;
+
+            // 2. Backup Gambar
+            if (_tempOriginalImage == null)
+            {
+                _tempOriginalImage = (Bitmap)pictureBox1.Image.Clone();
+            }
+
+            // 3. PANGGIL HELPER ANDA (CoordinateHelper)
+            // Parameter e.Location cocok dengan parameter Point yang diminta fungsi Anda
+            Point imgPoint = MiniPhotoshop.Logic.Helpers.CoordinateHelper.TranslateMouseClickToImagePoint(pictureBox1, e.Location);
+
+            // 4. Validasi Koordinat (Jaga-jaga agar tidak error OutOfBounds)
+            if (imgPoint.X < 0 || imgPoint.X >= _tempOriginalImage.Width ||
+                imgPoint.Y < 0 || imgPoint.Y >= _tempOriginalImage.Height)
+            {
+                return;
+            }
+
+            // 5. Eksekusi Isolasi Warna
+            Color targetColor = _tempOriginalImage.GetPixel(imgPoint.X, imgPoint.Y);
+
+            var helper = new MiniPhotoshop.Logic.Helpers.PseudoColorHelper();
+
+            // Toleransi 60
+            Bitmap result = helper.IsolateColor(_tempOriginalImage, targetColor, 60);
+
+            pictureBox1.Image = result;
+        }
+
+        private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
+        {
+            // Hanya jalan jika Mode Isolasi aktif DAN kita punya backup gambar asli
+            if (_isIsolationMode && _tempOriginalImage != null)
+            {
+                // 1. Kembalikan gambar ke kondisi semula (Original)
+                pictureBox1.Image = _tempOriginalImage;
+
+                // 2. PENTING: Lupakan backup ini. 
+                // Agar klik berikutnya mengambil backup baru (berguna jika Anda merestore/mengedit gambar lain).
+                _tempOriginalImage = null;
+            }
+        }
+        #endregion
     }
 }
