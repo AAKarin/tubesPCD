@@ -26,10 +26,20 @@ namespace MiniPhotoshop
         private bool _isIsolationMode = false;
         private Bitmap _tempOriginalImage;
         private int _currentTolerance = 60;
+        private Bitmap _imageToDrag = null;
 
         public Form1()
         {
             InitializeComponent();
+
+            pictureBoxHistogram.AllowDrop = true;
+
+            // Pasang Event Handler untuk Drag & Drop
+            pictureBoxHistogram.DragEnter += PictureBoxHistogram_DragEnter;
+            pictureBoxHistogram.DragDrop += PictureBoxHistogram_DragDrop;
+
+            // Event MouseMove untuk pictureBox1 (sumber drag)
+            pictureBox1.MouseMove += PictureBox1_MouseMove;
 
             _thumbnailMap = new Dictionary<RadioButton, PictureBox>
             {
@@ -347,9 +357,41 @@ namespace MiniPhotoshop
         }
         private void buttonRestore_Click(Object sender, EventArgs e)
         {
+            // 1. Validasi: Pastikan service punya gambar asli
             if (!_editorService.IsImageLoaded) return;
+
+            // 2. KEMBALIKAN GAMBAR KIRI (pictureBox1)
+            // Ini akan menutup "lubang-lubang" bekas potongan (Cut) 
+            // dan mengembalikan warna asli.
             pictureBox1.Image = _editorService.GetRestoredImage();
+
+            // Reset state UI (kursor, mode seleksi, dll)
             ResetUIState();
+
+            // Hapus backup lama agar klik berikutnya mengambil gambar fresh
+            if (_tempOriginalImage != null)
+            {
+                _tempOriginalImage.Dispose();
+                _tempOriginalImage = null;
+            }
+
+            // 3. BERSIHKAN GAMBAR KANAN (pictureBoxHistogram)
+            if (pictureBoxHistogram.Image != null)
+            {
+                pictureBoxHistogram.Image.Dispose(); // Buang dari memori
+                pictureBoxHistogram.Image = null;    // Kosongkan tampilan
+            }
+
+            // 4. BERSIHKAN VARIABEL DRAG (Penting!)
+            // Agar sisa potongan yang belum sempat di-drop ikut terbuang
+            if (_imageToDrag != null)
+            {
+                _imageToDrag.Dispose();
+                _imageToDrag = null;
+            }
+
+            // (Opsional) Pesan konfirmasi
+            // MessageBox.Show("Semua kanvas telah di-reset!");
         }
 
         private void button8_Click(object sender, EventArgs e)
@@ -728,36 +770,37 @@ namespace MiniPhotoshop
 
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
-            // 1. Cek Validasi
+            // 1. Validasi
             if (!_isIsolationMode) return;
             if (pictureBox1.Image == null) return;
+            if (e.Button != MouseButtons.Left) return; // Hanya respon Klik Kiri
 
-            // 2. Backup Gambar
+            // 2. Backup Gambar Asli
             if (_tempOriginalImage == null)
             {
                 _tempOriginalImage = (Bitmap)pictureBox1.Image.Clone();
             }
 
-            // 3. PANGGIL HELPER ANDA (CoordinateHelper)
-            // Parameter e.Location cocok dengan parameter Point yang diminta fungsi Anda
+            // 3. Ambil Koordinat
             Point imgPoint = MiniPhotoshop.Logic.Helpers.CoordinateHelper.TranslateMouseClickToImagePoint(pictureBox1, e.Location);
 
-            // 4. Validasi Koordinat (Jaga-jaga agar tidak error OutOfBounds)
             if (imgPoint.X < 0 || imgPoint.X >= _tempOriginalImage.Width ||
                 imgPoint.Y < 0 || imgPoint.Y >= _tempOriginalImage.Height)
             {
                 return;
             }
 
-            // 5. Eksekusi Isolasi Warna
             Color targetColor = _tempOriginalImage.GetPixel(imgPoint.X, imgPoint.Y);
-
             var helper = new MiniPhotoshop.Logic.Helpers.PseudoColorHelper();
 
-            // Toleransi 60
-            Bitmap result = helper.IsolateColor(_tempOriginalImage, targetColor, _currentTolerance);
+            // 4. PREVIEW DI KIRI (Background Abu-abu + Garis Semut)
+            Bitmap previewResult = helper.IsolateColor(_tempOriginalImage, targetColor, _currentTolerance);
+            pictureBox1.Image = previewResult;
 
-            pictureBox1.Image = result;
+            // 5. PERSIAPAN DRAG (Background Transparan) - Disimpan di variabel global
+            //    Kita siapkan ini SEKARANG, jadi pas mouse digeser, barangnya sudah siap.
+            if (_imageToDrag != null) _imageToDrag.Dispose(); // Bersihkan memori lama
+            _imageToDrag = helper.ExtractObject(_tempOriginalImage, targetColor, _currentTolerance);
         }
 
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
@@ -781,6 +824,97 @@ namespace MiniPhotoshop
 
             // Update tulisan label biar kelihatan angkanya
             lblTolerance.Text = "Toleransi: " + _currentTolerance.ToString();
+        }
+
+        private void PictureBox1_MouseMove(object sender, MouseEventArgs e)
+        {
+            // Cek apakah user sedang menahan Klik Kiri & Mode Isolasi aktif & Barang siap
+            if (e.Button == MouseButtons.Left && _isIsolationMode && _imageToDrag != null)
+            {
+                // MULAI PROSES DRAG & DROP dengan efek MOVE (Pindah)
+                DragDropEffects effect = pictureBox1.DoDragDrop(_imageToDrag, DragDropEffects.Move);
+
+                // --- LOGIKA PENGHAPUSAN ---
+                // Jika proses Drop di seberang sana sukses (mengembalikan status Move)
+                if (effect == DragDropEffects.Move)
+                {
+                    // 1. Panggil Helper untuk menghapus objek dari _tempOriginalImage
+                    var helper = new MiniPhotoshop.Logic.Helpers.PseudoColorHelper();
+                    helper.EraseObject(_tempOriginalImage, _imageToDrag);
+
+                    // 2. Update tampilan pictureBox1 agar terlihat bolong/putih
+                    // Kita clone agar aman
+                    pictureBox1.Image = (Bitmap)_tempOriginalImage.Clone();
+
+                    // (Opsional) Jika ingin langsung mematikan seleksi setelah pindah:
+                    // _imageToDrag = null;
+                }
+            }
+        }
+
+        // Saat barang masuk ke wilayah Gambar Kanan
+        private void PictureBoxHistogram_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.Bitmap))
+            {
+                // Izinkan efek MOVE
+                e.Effect = DragDropEffects.Move;
+            }
+            else
+            {
+                e.Effect = DragDropEffects.None;
+            }
+        }
+
+        // Saat barang dilepas (Drop) di Gambar Kanan
+        private void PictureBoxHistogram_DragDrop(object sender, DragEventArgs e)
+        {
+            // 1. Ambil paket gambar baru yang dikirim (misal: Hijau)
+            Bitmap receivedImage = (Bitmap)e.Data.GetData(DataFormats.Bitmap);
+
+            if (receivedImage == null) return;
+
+            Bitmap finalResult;
+
+            // 2. LOGIKA PENGECEKAN
+            if (pictureBoxHistogram.Image == null)
+            {
+                // KASUS A: Kanvas Kanan Masih KOSONG (Drop Pertama kali)
+
+                // Buat kanvas baru
+                finalResult = new Bitmap(receivedImage.Width, receivedImage.Height, System.Drawing.Imaging.PixelFormat.Format24bppRgb);
+
+                using (Graphics g = Graphics.FromImage(finalResult))
+                {
+                    g.Clear(Color.White);             // 1. Cat dasar Putih
+                    g.DrawImage(receivedImage, 0, 0); // 2. Tempel Objek Pertama (Merah)
+                }
+            }
+            else
+            {
+                // KASUS B: Kanvas Kanan SUDAH ADA ISI (Drop Kedua, Ketiga, dst)
+
+                // Ambil gambar yang sudah ada di kanan sebagai dasar (Clone biar bisa diedit)
+                // Kita pakai 'new Bitmap(Image)' untuk memastikan formatnya bisa diedit
+                finalResult = new Bitmap(pictureBoxHistogram.Image);
+
+                using (Graphics g = Graphics.FromImage(finalResult))
+                {
+                    // PENTING: JANGAN pakai g.Clear(Color.White) disini! 
+                    // Kalau di-Clear, gambar lama hilang.
+
+                    // Langsung tempel Objek Baru (Hijau) di atas Objek Lama (Merah)
+                    // Karena Objek Baru backgroundnya transparan, dia tidak akan menutupi Objek Lama (kecuali posisinya tabrakan)
+                    g.DrawImage(receivedImage, 0, 0);
+                }
+            }
+
+            // 3. Tampilkan hasil gabungan
+            pictureBoxHistogram.Image = finalResult;
+            pictureBoxHistogram.SizeMode = PictureBoxSizeMode.Zoom;
+
+            // 4. Lapor sukses ke pengirim (agar gambar di kiri dihapus/jadi putih)
+            e.Effect = DragDropEffects.Move;
         }
         #endregion
     }

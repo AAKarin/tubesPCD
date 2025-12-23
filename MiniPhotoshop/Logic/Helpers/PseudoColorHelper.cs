@@ -228,5 +228,113 @@ namespace MiniPhotoshop.Logic.Helpers
 
             return dst;
         }
+
+        // Fungsi untuk memotong objek dan membuang background jadi transparan
+        public Bitmap ExtractObject(Bitmap source, Color targetColor, int threshold)
+        {
+            if (source == null) return null;
+
+            int w = source.Width;
+            int h = source.Height;
+
+            // PENTING: Format32bppArgb agar mendukung Transparansi (Alpha)
+            Bitmap dst = new Bitmap(w, h, PixelFormat.Format32bppArgb);
+
+            BitmapData srcData = source.LockBits(new Rectangle(0, 0, w, h), ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb);
+            BitmapData dstData = dst.LockBits(new Rectangle(0, 0, w, h), ImageLockMode.WriteOnly, PixelFormat.Format32bppArgb);
+
+            int bytes = Math.Abs(srcData.Stride) * h;
+            byte[] srcBuffer = new byte[bytes];
+            byte[] dstBuffer = new byte[bytes];
+
+            Marshal.Copy(srcData.Scan0, srcBuffer, 0, bytes);
+
+            int tR = targetColor.R;
+            int tG = targetColor.G;
+            int tB = targetColor.B;
+            int thresholdSq = threshold * threshold;
+
+            Parallel.For(0, bytes / 4, i =>
+            {
+                int idx = i * 4;
+                byte b = srcBuffer[idx];
+                byte g = srcBuffer[idx + 1];
+                byte r = srcBuffer[idx + 2];
+                // Byte ke-4 (idx + 3) adalah Alpha
+
+                int distR = r - tR;
+                int distG = g - tG;
+                int distB = b - tB;
+                int distanceSq = (distR * distR) + (distG * distG) + (distB * distB);
+
+                if (distanceSq < thresholdSq)
+                {
+                    // COCOK: Salin pixel apa adanya (termasuk Alpha 255/Penuh)
+                    dstBuffer[idx] = b;
+                    dstBuffer[idx + 1] = g;
+                    dstBuffer[idx + 2] = r;
+                    dstBuffer[idx + 3] = 255;
+                }
+                else
+                {
+                    // TIDAK COCOK: Jadikan Transparan (Alpha = 0)
+                    dstBuffer[idx] = 0;
+                    dstBuffer[idx + 1] = 0;
+                    dstBuffer[idx + 2] = 0;
+                    dstBuffer[idx + 3] = 0; // Transparan total
+                }
+            });
+
+            Marshal.Copy(dstBuffer, 0, dstData.Scan0, bytes);
+            source.UnlockBits(srcData);
+            dst.UnlockBits(dstData);
+
+            return dst;
+        }
+
+        // Fungsi untuk menghapus objek dari gambar asli (Mengisi dengan warna Putih)
+        public void EraseObject(Bitmap original, Bitmap maskObject)
+        {
+            if (original == null || maskObject == null) return;
+            if (original.Width != maskObject.Width || original.Height != maskObject.Height) return;
+
+            int w = original.Width;
+            int h = original.Height;
+
+            BitmapData origData = original.LockBits(new Rectangle(0, 0, w, h), ImageLockMode.ReadWrite, PixelFormat.Format32bppArgb);
+            BitmapData maskData = maskObject.LockBits(new Rectangle(0, 0, w, h), ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb);
+
+            int bytes = Math.Abs(origData.Stride) * h;
+            byte[] origBuffer = new byte[bytes];
+            byte[] maskBuffer = new byte[bytes];
+
+            // Salin data ke array
+            Marshal.Copy(origData.Scan0, origBuffer, 0, bytes);
+            Marshal.Copy(maskData.Scan0, maskBuffer, 0, bytes);
+
+            // Parallel Loop untuk kecepatan
+            Parallel.For(0, bytes / 4, i =>
+            {
+                int idx = i * 4;
+
+                // Cek Alpha dari Mask (Object yang di-drag)
+                // Jika Alpha > 0 artinya itu adalah bagian dari objek
+                byte maskAlpha = maskBuffer[idx + 3];
+
+                if (maskAlpha > 0)
+                {
+                    // HAPUS PIXEL DI ORIGINAL (Jadikan Putih Bersih)
+                    origBuffer[idx] = 255;     // Blue
+                    origBuffer[idx + 1] = 255; // Green
+                    origBuffer[idx + 2] = 255; // Red
+                    origBuffer[idx + 3] = 255; // Alpha
+                }
+            });
+
+            // Kembalikan data ke Bitmap
+            Marshal.Copy(origBuffer, 0, origData.Scan0, bytes);
+            original.UnlockBits(origData);
+            maskObject.UnlockBits(maskData);
+        }
     }
 }
